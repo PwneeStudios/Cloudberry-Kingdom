@@ -191,7 +191,7 @@ namespace CloudberryKingdom
 
         void AddMenuItem(Localization.Words Word, string Name)
         {
-            MenuItem item = new MenuItem(new EzText(Word, ItemFont));
+            MenuItem item = new MenuItem(new Text(Word, ItemFont));
             item.Name = Name;
             item.Go = Cast.ToItem(CreateColorSelect);
             
@@ -212,7 +212,7 @@ namespace CloudberryKingdom
             AddMenuItem(Localization.Words.Cape, "Cape");
             AddMenuItem(Localization.Words.Lining, "Lining");
 
-            MenuItem back = new MenuItem(new EzText(Localization.Words.Done, ItemFont), "Done");
+            MenuItem back = new MenuItem(new Text(Localization.Words.Done, ItemFont), "Done");
             AddItem(back);
             back.Go = Go;
         }
@@ -265,7 +265,7 @@ namespace CloudberryKingdom
                 foreach (Hat hat in CharacterSelectManager.AvailableHats)
                 {
                     int hat_index = ColorSchemeManager.HatInfo.IndexOf(hat);
-                    var item = new MenuItem(new EzText(hat.Name, Resources.Font_Grobold42, false, true));
+                    var item = new MenuItem(new Text(hat.Name, Resources.Font_Grobold42, false, true));
 					item.ScaleText(item_width);
                     item.MyObject = hat_index;
 
@@ -282,7 +282,7 @@ namespace CloudberryKingdom
                 foreach (Hat beard in CharacterSelectManager.AvailableBeards)
                 {
                     int beard_index = ColorSchemeManager.BeardInfo.IndexOf(beard);
-                    var item = new MenuItem(new EzText(beard.Name, Resources.Font_Grobold42, false, true));
+                    var item = new MenuItem(new Text(beard.Name, Resources.Font_Grobold42, false, true));
 					item.ScaleText(item_width);
                     item.MyObject = beard_index;
                     
@@ -306,7 +306,7 @@ namespace CloudberryKingdom
                         if (data.Price > 0 && !PlayerManager.Bought(data)) continue;
 
                     int clr_index = list.IndexOf(item);
-                    var _item = new MenuItem(new EzText(data.Name, Resources.Font_Grobold42, false, true));
+                    var _item = new MenuItem(new Text(data.Name, Resources.Font_Grobold42, false, true));
 					_item.ScaleText(item_width);
                     _item.MyObject = clr_index;
 

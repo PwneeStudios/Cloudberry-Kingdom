@@ -25,8 +25,8 @@ namespace CoreEngine
         public float ContainedQuadAngle = 0;
         public Quad ContainedQuad = new Quad();
 
-        public EzTexture MySkinTexture;
-        public EzEffect MySkinEffect;
+        public CoreTexture MySkinTexture;
+        public CoreEffect MySkinEffect;
 
         public Quad ParentQuad;
         public List<BaseQuad> QuadList;
@@ -38,7 +38,7 @@ namespace CoreEngine
         RenderTarget2D ObjectRenderTarget, ToTextureRenderTarget;
         int DrawWidth, DrawHeight;
 
-        public List<EzEffect> MyEffects;
+        public List<CoreEffect> MyEffects;
 
         public bool DonePlaying { get { return AnimQueue.Count == 0; } }
 
@@ -139,11 +139,11 @@ namespace CoreEngine
                 box.Write(writer, this);
         }
 
-        public void ReadFile(EzReader reader)
+        public void ReadFile(CoreReader reader)
         {
             ReadFile(reader.reader, Tools.EffectWad, Tools.TextureWad);
         }
-        public void ReadFile(BinaryReader reader, EzEffectWad EffectWad, EzTextureWad TextureWad)
+        public void ReadFile(BinaryReader reader, CoreEffectWad EffectWad, CoreTextureWad TextureWad)
         {
             // Get object version number
             VersionNumber = reader.PeekChar();
@@ -226,7 +226,7 @@ namespace CoreEngine
         {
             if (QuadList == null || QuadList.Count == 0) return;
 
-            if (MyEffects == null) MyEffects = new List<EzEffect>();
+            if (MyEffects == null) MyEffects = new List<CoreEffect>();
             else MyEffects.Clear();
 
             foreach (BaseQuad quad in QuadList)
@@ -600,11 +600,11 @@ namespace CoreEngine
         {
             FinishLoading(Tools.QDrawer, Tools.Device, Tools.TextureWad, Tools.EffectWad, Tools.Device.PresentationParameters, 0, 0, true);
         }
-        public void FinishLoading(QuadDrawer Drawer, GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad, PresentationParameters pp, int Width, int Height)
+        public void FinishLoading(QuadDrawer Drawer, GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad, PresentationParameters pp, int Width, int Height)
         {
             FinishLoading(Drawer, device, TexWad, EffectWad, pp, Width, Height, true);
         }
-        public void FinishLoading(QuadDrawer Drawer, GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad, PresentationParameters pp, int Width, int Height, bool UseNames)
+        public void FinishLoading(QuadDrawer Drawer, GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad, PresentationParameters pp, int Width, int Height, bool UseNames)
         {
             QDrawer = Drawer;
             ParentQuad.FinishLoading(device, TexWad, EffectWad);
@@ -741,17 +741,17 @@ namespace CoreEngine
             UpdateEffectList();
         }
 
-        public ObjectClass(QuadDrawer Drawer, GraphicsDevice device, EzEffect BaseEffect, EzTexture BaseTexture)
+        public ObjectClass(QuadDrawer Drawer, GraphicsDevice device, CoreEffect BaseEffect, CoreTexture BaseTexture)
         {
             ObjectClassInit(Drawer, device, device.PresentationParameters, 0, 0, BaseEffect, BaseTexture);
         }
 
-        public ObjectClass(QuadDrawer Drawer, GraphicsDevice device, PresentationParameters pp, int Width, int Height, EzEffect BaseEffect, EzTexture BaseTexture)
+        public ObjectClass(QuadDrawer Drawer, GraphicsDevice device, PresentationParameters pp, int Width, int Height, CoreEffect BaseEffect, CoreTexture BaseTexture)
         {
             ObjectClassInit(Drawer, device, device.PresentationParameters, Width, Height, BaseEffect, BaseTexture);
         }
 
-        public void ObjectClassInit(QuadDrawer Drawer, GraphicsDevice device, PresentationParameters pp, int Width, int Height, EzEffect BaseEffect, EzTexture BaseTexture)
+        public void ObjectClassInit(QuadDrawer Drawer, GraphicsDevice device, PresentationParameters pp, int Width, int Height, CoreEffect BaseEffect, CoreTexture BaseTexture)
         {
             VersionNumber = ObjectClassVersionNumber;
 
@@ -985,7 +985,7 @@ namespace CoreEngine
         }
 
         public Quad ExtraQuadToDraw = null;
-        public EzTexture ExtraQuadToDrawTexture = null;
+        public CoreTexture ExtraQuadToDrawTexture = null;
         public bool DrawExtraQuad = false;
 
         public void Draw(bool UpdateFirst)
@@ -996,9 +996,9 @@ namespace CoreEngine
                 Update(null);
 
             if ((xFlip || yFlip) && !BoxesOnly && QuadList != null)
-                foreach (EzEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
+                foreach (CoreEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
             if (xFlip || yFlip)
-                foreach (EzEffect fx in MyEffects) fx.FlipCenter.SetValue(FlipCenter);
+                foreach (CoreEffect fx in MyEffects) fx.FlipCenter.SetValue(FlipCenter);
 
             if (!BoxesOnly && QuadList != null)
                 foreach (BaseQuad quad in QuadList)
@@ -1018,7 +1018,7 @@ namespace CoreEngine
             QDrawer.Flush();
 
             if ((xFlip || yFlip) && !BoxesOnly && QuadList != null)
-                foreach (EzEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(-1, -1));
+                foreach (CoreEffect fx in MyEffects) fx.FlipVector.SetValue(new Vector2(-1, -1));
         }
 
         public SpriteAnim AnimToSpriteFrames(int anim, int NumFrames, bool Loop, Vector2 Padding)
@@ -1053,14 +1053,14 @@ namespace CoreEngine
             return Sprites;
         }
 
-        public Texture2D DrawToTexture(GraphicsDevice device, EzEffectWad EffectWad, Vector2 Padding)
+        public Texture2D DrawToTexture(GraphicsDevice device, CoreEffectWad EffectWad, Vector2 Padding)
         {
             Vector4 HoldCameraPos = EffectWad.CameraPosition;
             float HoldCameraAspect = EffectWad.EffectList[0].xCameraAspect.GetValueSingle();
 
             device.SetRenderTarget(ToTextureRenderTarget);
             device.Clear(Color.Transparent);
-            foreach (EzEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.Simplest;
+            foreach (CoreEffect fx in MyEffects) fx.effect.CurrentTechnique = fx.Simplest;
             float scalex = Padding.X + (BoxList[0].TR.Pos.X - BoxList[0].BL.Pos.X) / 2;
             float scaley = Padding.Y + (BoxList[0].TR.Pos.Y - BoxList[0].BL.Pos.Y) / 2;
             float posx = (BoxList[0].TR.Pos.X + BoxList[0].BL.Pos.X) / 2;
@@ -1069,13 +1069,13 @@ namespace CoreEngine
             if (yFlip) posy = FlipCenter.Y - (posy - FlipCenter.Y);
 
             EffectWad.SetCameraPosition(new Vector4(posx, posy, 1f / scalex, 1f / scaley));
-            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
+            foreach (CoreEffect fx in MyEffects) fx.xCameraAspect.SetValue(1);
             ContainedDraw();
             device.SetRenderTarget(Tools.DestinationRenderTarget);
             Tools.Render.ResetViewport();
 
             EffectWad.SetCameraPosition(HoldCameraPos);
-            foreach (EzEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
+            foreach (CoreEffect fx in MyEffects) fx.xCameraAspect.SetValue(HoldCameraAspect);
 
             Texture2D tex = ToTextureRenderTarget;
             Color[] Array = new Color[tex.Width * tex.Height];

@@ -6,7 +6,7 @@ namespace CoreEngine
 {
     public class PackedTexture
     {
-        public EzTexture MyTexture;
+        public CoreTexture MyTexture;
 
         public struct SubTexture
         {

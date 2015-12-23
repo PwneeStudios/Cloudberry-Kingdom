@@ -10,13 +10,13 @@ namespace CloudberryKingdom.Menus
             return new string[] { "Pos", "SelectedPos", "!MyMenu", "SliderShift", "!MenuToAddTo" };
         }
 
-        public static EzFont Font;
+        public static CoreFont Font;
         public static Action<MenuItem> Process;
 
         BobPhsx.CustomData MyType;
 
         public PhsxSlider(Localization.Words word, BobPhsx.CustomData type)
-            : base(new EzText(word, Font))
+            : base(new Text(word, Font))
         {
             MyType = type;
 

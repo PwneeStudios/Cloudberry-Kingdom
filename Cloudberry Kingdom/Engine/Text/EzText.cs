@@ -12,42 +12,42 @@ namespace CloudberryKingdom
 {
     public class ButtonTexture
     {
-        public static EzTexture Go { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Back : _Go; } }
-        public static EzTexture Back { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Go : _Back; } }
+        public static CoreTexture Go { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Back : _Go; } }
+        public static CoreTexture Back { get { return CloudberryKingdomGame.AsianButtonSwitch ? _Go : _Back; } }
 
 #if PC
-        public static EzTexture _Go { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_A" : "Enter_Key" ); } }
-        public static EzTexture _Back { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_B" : "Esc_Key" ); } }
-        public static EzTexture X { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
-        public static EzTexture Y { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_Y" ) : ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey); } }
-        public static EzTexture LeftRight { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_Dir" : "LeftRight_Key"); } }
-        public static EzTexture LeftBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_LB") : ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
-        public static EzTexture RightBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_RB") : ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
+        public static CoreTexture _Go { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_A" : "Enter_Key" ); } }
+        public static CoreTexture _Back { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_B" : "Esc_Key" ); } }
+        public static CoreTexture X { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_X" ) : ButtonString.KeyToTexture(ButtonCheck.SlowMoToggle_Secondary); } }
+        public static CoreTexture Y { get { return ButtonCheck.ControllerInUse ? Tools.Texture( "Xbox_Y" ) : ButtonString.KeyToTexture(ButtonCheck.Help_KeyboardKey.KeyboardKey); } }
+        public static CoreTexture LeftRight { get { return Tools.Texture( ButtonCheck.ControllerInUse ? "Xbox_Dir" : "LeftRight_Key"); } }
+        public static CoreTexture LeftBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_LB") : ButtonString.KeyToTexture(ButtonCheck.ReplayPrev_Secondary); } }
+        public static CoreTexture RightBumper { get { return ButtonCheck.ControllerInUse ? Tools.Texture("Xbox_RB") : ButtonString.KeyToTexture(ButtonCheck.ReplayNext_Secondary); } }
 #elif PS3
-        static EzTexture _Go { get { return Tools.Texture("PS3_X"); } }
-        static EzTexture _Back { get { return Tools.Texture("PS3_Circle"); } }
-        public static EzTexture X { get { return Tools.Texture("PS3_Square"); } }
-        public static EzTexture Y { get { return Tools.Texture("PS3_Triangle"); } }
-        public static EzTexture LeftRight { get { return Tools.Texture("PS3_Dir"); } }
-        public static EzTexture LeftBumper { get { return Tools.Texture("PS3_1"); } }
-        public static EzTexture RightBumper { get { return Tools.Texture("PS3_1"); } }
+        static CoreTexture _Go { get { return Tools.Texture("PS3_X"); } }
+        static CoreTexture _Back { get { return Tools.Texture("PS3_Circle"); } }
+        public static CoreTexture X { get { return Tools.Texture("PS3_Square"); } }
+        public static CoreTexture Y { get { return Tools.Texture("PS3_Triangle"); } }
+        public static CoreTexture LeftRight { get { return Tools.Texture("PS3_Dir"); } }
+        public static CoreTexture LeftBumper { get { return Tools.Texture("PS3_1"); } }
+        public static CoreTexture RightBumper { get { return Tools.Texture("PS3_1"); } }
 #elif CAFE
         public static bool UseGamepad = true;
-        public static EzTexture _Go { get { return Tools.Texture( UseGamepad ? "WiiU_B" : "WiiU_2" ); } }
-        public static EzTexture _Back { get { return Tools.Texture( UseGamepad ? "WiiU_A" : "WiiU_1" ); } }
-        public static EzTexture X { get { return Tools.Texture( UseGamepad ? "WiiU_Y" : "WiiU_1" ); } }
-        public static EzTexture Y { get { return Tools.Texture( UseGamepad ? "WiiU_X" : "WiiU_Dash" ); } }
-        public static EzTexture LeftRight { get { return Tools.Texture( UseGamepad ? "WiiU_Dir" : "WiiU_Dir" ); } }
-        public static EzTexture LeftBumper { get { return Tools.Texture( UseGamepad ? "WiiU_R" : "WiiU_R" ); } }
-        public static EzTexture RightBumper { get { return Tools.Texture( UseGamepad ? "WiiU_L" : "WiiU_L" ); } }
+        public static CoreTexture _Go { get { return Tools.Texture( UseGamepad ? "WiiU_B" : "WiiU_2" ); } }
+        public static CoreTexture _Back { get { return Tools.Texture( UseGamepad ? "WiiU_A" : "WiiU_1" ); } }
+        public static CoreTexture X { get { return Tools.Texture( UseGamepad ? "WiiU_Y" : "WiiU_1" ); } }
+        public static CoreTexture Y { get { return Tools.Texture( UseGamepad ? "WiiU_X" : "WiiU_Dash" ); } }
+        public static CoreTexture LeftRight { get { return Tools.Texture( UseGamepad ? "WiiU_Dir" : "WiiU_Dir" ); } }
+        public static CoreTexture LeftBumper { get { return Tools.Texture( UseGamepad ? "WiiU_R" : "WiiU_R" ); } }
+        public static CoreTexture RightBumper { get { return Tools.Texture( UseGamepad ? "WiiU_L" : "WiiU_L" ); } }
 #else
-        static EzTexture _Go { get { return Tools.Texture("Xbox_A"); } }
-        static EzTexture _Back { get { return Tools.Texture("Xbox_B"); } }
-        public static EzTexture X { get { return Tools.Texture("Xbox_X"); } }
-        public static EzTexture Y { get { return Tools.Texture("Xbox_Y"); } }
-        public static EzTexture LeftRight { get { return Tools.Texture("Xbox_Dir"); } }
-        public static EzTexture LeftBumper { get { return Tools.Texture("Xbox_LB"); } }
-        public static EzTexture RightBumper { get { return Tools.Texture("Xbox_RB"); } }
+        static CoreTexture _Go { get { return Tools.Texture("Xbox_A"); } }
+        static CoreTexture _Back { get { return Tools.Texture("Xbox_B"); } }
+        public static CoreTexture X { get { return Tools.Texture("Xbox_X"); } }
+        public static CoreTexture Y { get { return Tools.Texture("Xbox_Y"); } }
+        public static CoreTexture LeftRight { get { return Tools.Texture("Xbox_Dir"); } }
+        public static CoreTexture LeftBumper { get { return Tools.Texture("Xbox_LB"); } }
+        public static CoreTexture RightBumper { get { return Tools.Texture("Xbox_RB"); } }
 #endif
     }
 
@@ -170,7 +170,7 @@ namespace CloudberryKingdom
 
     }
 
-    public class EzText : ViewReadWrite
+    public class Text : ViewReadWrite
     {
         public override string[] GetViewables()
         {
@@ -180,7 +180,7 @@ namespace CloudberryKingdom
 
         public override string GetConstructorString()
         {
-            return string.Format("new EzText(\"{0}\", ItemFont)", MyString);
+            return string.Format("new Text(\"{0}\", ItemFont)", MyString);
         }
 
         public override void ProcessMouseInput(Vector2 shift, bool ShiftDown)
@@ -255,7 +255,7 @@ namespace CloudberryKingdom
             return true;
         }
 
-        class EzTextBit
+        class TextBit
         {
             public int LineNumber;
             public String str;
@@ -263,16 +263,16 @@ namespace CloudberryKingdom
             public Vector2 loc, size;
             public Color clr;
         }
-        class EzTextPic
+        class TextPic
         {
             public int LineNumber;
-            public EzTexture tex;
+            public CoreTexture tex;
             public Rectangle rect;
             public Vector2 size;
             public bool AsPaint;
         }
-        List<EzTextBit> Bits;
-        List<EzTextPic> Pics;
+        List<TextBit> Bits;
+        List<TextPic> Pics;
 
         Vector2 MeasureString(string text)
         {
@@ -347,7 +347,7 @@ namespace CloudberryKingdom
         public bool ColorizePics;
         Color PicColor;
 
-        public EzFont MyFont;
+        public CoreFont MyFont;
         Color MyColor;
         public Vector4 MyFloatColor;
 
@@ -450,17 +450,17 @@ namespace CloudberryKingdom
             if (FancyPos != null) FancyPos.Release(); FancyPos = null;
         }
 
-        public virtual EzText Clone()
+        public virtual Text Clone()
         {
-            EzText clone = new EzText(MyString, MyFont,TextBoxWidth, Centered, YCentered, LineHeightMod);
+            Text clone = new Text(MyString, MyFont,TextBoxWidth, Centered, YCentered, LineHeightMod);
             clone.MyFloatColor = MyFloatColor;
             clone.OutlineColor = OutlineColor;
             return clone;
         }
 
-		public virtual EzText Clone(string Text)
+		public virtual Text Clone(string Text)
 		{
-			EzText clone = new EzText(Text, MyFont, TextBoxWidth, Centered, YCentered, LineHeightMod);
+			Text clone = new Text(Text, MyFont, TextBoxWidth, Centered, YCentered, LineHeightMod);
 			clone.MyFloatColor = MyFloatColor;
 			clone.OutlineColor = OutlineColor;
 			return clone;
@@ -470,21 +470,21 @@ namespace CloudberryKingdom
         public bool RightJustify = false;
         public bool Centered, YCentered;
 
-        public EzText(Localization.Words word) { MyFont = Resources.Font_Grobold42; Init(Localization.WordString(word)); }
-        public EzText(Localization.Words word, EzFont font) { MyFont = font; Init(Localization.WordString(word)); }
-        public EzText(Localization.Words word, EzFont font, string Name) { this.Name = Name; MyFont = font; Init(Localization.WordString(word)); }
-        public EzText(Localization.Words word, EzFont font, bool Centered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, false, 1); }
-        public EzText(Localization.Words word, EzFont font, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, YCentered, 1); }
-        public EzText(Localization.Words word, EzFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, 1); }
-        public EzText(Localization.Words word, EzFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, LineHeightMod); }
+        public Text(Localization.Words word) { MyFont = Resources.Font_Grobold42; Init(Localization.WordString(word)); }
+        public Text(Localization.Words word, CoreFont font) { MyFont = font; Init(Localization.WordString(word)); }
+        public Text(Localization.Words word, CoreFont font, string Name) { this.Name = Name; MyFont = font; Init(Localization.WordString(word)); }
+        public Text(Localization.Words word, CoreFont font, bool Centered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, false, 1); }
+        public Text(Localization.Words word, CoreFont font, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), 10000, Centered, YCentered, 1); }
+        public Text(Localization.Words word, CoreFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, 1); }
+        public Text(Localization.Words word, CoreFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(Localization.WordString(word), Width, Centered, YCentered, LineHeightMod); }
 
-        public EzText(String str) { MyFont = Resources.Font_Grobold42; Init(str); }
-        public EzText(String str, EzFont font) { MyFont = font; Init(str); }
-        public EzText(String str, EzFont font, string Name) { this.Name = Name; MyFont = font; Init(str); }
-        public EzText(String str, EzFont font, bool Centered) { MyFont = font; Init(str, 10000, Centered, false, 1); }
-        public EzText(String str, EzFont font, bool Centered, bool YCentered) { MyFont = font; Init(str, 10000, Centered, YCentered, 1); }
-        public EzText(String str, EzFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(str, Width, Centered, YCentered, 1); }
-        public EzText(String str, EzFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(str, Width, Centered, YCentered, LineHeightMod); }
+        public Text(String str) { MyFont = Resources.Font_Grobold42; Init(str); }
+        public Text(String str, CoreFont font) { MyFont = font; Init(str); }
+        public Text(String str, CoreFont font, string Name) { this.Name = Name; MyFont = font; Init(str); }
+        public Text(String str, CoreFont font, bool Centered) { MyFont = font; Init(str, 10000, Centered, false, 1); }
+        public Text(String str, CoreFont font, bool Centered, bool YCentered) { MyFont = font; Init(str, 10000, Centered, YCentered, 1); }
+        public Text(String str, CoreFont font, float Width, bool Centered, bool YCentered) { MyFont = font; Init(str, Width, Centered, YCentered, 1); }
+        public Text(String str, CoreFont font, float Width, bool Centered, bool YCentered, float LineHeightMod) { MyFont = font; Init(str, Width, Centered, YCentered, LineHeightMod); }
 
         Vector2 loc;
         float LineHeight;
@@ -546,7 +546,7 @@ namespace CloudberryKingdom
                         Parse_PicShift = Vector2.Zero;
 
                     Vector2 size;
-                    EzTexture texture = Tools.Texture(Parse_PicName);
+                    CoreTexture texture = Tools.Texture(Parse_PicName);
                     float ratio = (float)texture.Width / (float)texture.Height;
 
                     // 's' scale the texture
@@ -685,7 +685,7 @@ namespace CloudberryKingdom
                     // Parse picture info
                     if (Parse_Type == ParseData.Pic)
                     {
-                        EzTextPic pic = new EzTextPic();
+                        TextPic pic = new TextPic();
                         pic.LineNumber = LineNumber;
 
                         if (!FirstElement) Parse_PicShift.X -= .25f * Parse_PicSize.X;
@@ -716,7 +716,7 @@ namespace CloudberryKingdom
                     int i;
                     if (BeginBracketIndex < 0) i = str.Length; else i = BeginBracketIndex;
 
-                    EzTextBit bit = new EzTextBit();
+                    TextBit bit = new TextBit();
                     bit.LineNumber = LineNumber;
                     bit.clr = CurColor;
                     bit.str = str.Substring(0, i);
@@ -769,7 +769,7 @@ namespace CloudberryKingdom
 
         Vector2 _MyCameraZoom = new Vector2(.001f, .001f);
         /// <summary>
-        /// The value of the camera zoom the last time this EzText was drawn
+        /// The value of the camera zoom the last time this Text was drawn
         /// </summary>
         public Vector2 MyCameraZoom { get { return _MyCameraZoom; } set { _MyCameraZoom = value; } }
 
@@ -827,8 +827,8 @@ namespace CloudberryKingdom
             MyColor = Color.White;
             MyFloatColor = new Vector4(1, 1, 1, 1);
 
-            Bits = new List<EzTextBit>();
-            Pics = new List<EzTextPic>();
+            Bits = new List<TextBit>();
+            Pics = new List<TextPic>();
 
             loc = Vector2.Zero;
             LineHeight = 0;
@@ -863,18 +863,18 @@ namespace CloudberryKingdom
             
             if (YCentered)
             {
-                foreach (EzTextBit bit in Bits) bit.loc.Y -= Height / 2;
-                foreach (EzTextPic pic in Pics) pic.rect.Y -= (int)(Height / 2);
+                foreach (TextBit bit in Bits) bit.loc.Y -= Height / 2;
+                foreach (TextPic pic in Pics) pic.rect.Y -= (int)(Height / 2);
             }
 
             if (!Centered)
             {
-                foreach (EzTextBit bit in Bits) bit.loc.X += LineSizes[bit.LineNumber].X / 2 * Tools.TheGame.Resolution.LineHeightMod;
-                foreach (EzTextPic pic in Pics) pic.rect.X += (int)(LineSizes[pic.LineNumber].X / 2);// * Tools.TheGame.Resolution.LineHeightMod);
+                foreach (TextBit bit in Bits) bit.loc.X += LineSizes[bit.LineNumber].X / 2 * Tools.TheGame.Resolution.LineHeightMod;
+                foreach (TextPic pic in Pics) pic.rect.X += (int)(LineSizes[pic.LineNumber].X / 2);// * Tools.TheGame.Resolution.LineHeightMod);
             }
             else
             {
-                foreach (EzTextPic pic in Pics) pic.rect.X = (int)((Scale * pic.rect.X - Pos.X + pic.rect.Width / 2f) * Tools.TheGame.Resolution.LineHeightMod + Pos.X - pic.rect.Width / 2f);
+                foreach (TextPic pic in Pics) pic.rect.X = (int)((Scale * pic.rect.X - Pos.X + pic.rect.Width / 2f) * Tools.TheGame.Resolution.LineHeightMod + Pos.X - pic.rect.Width / 2f);
             }
         }
 
@@ -979,7 +979,7 @@ namespace CloudberryKingdom
             if (FixedToCamera) Position += new Vector2(Tools.EffectWad.CameraPosition.X, Tools.EffectWad.CameraPosition.Y);
             Vector2 Loc = Tools.ToScreenCoordinates(Position, cam, Tools.EffectWad.ModZoom);
 
-            foreach (EzTextBit bit in Bits)
+            foreach (TextBit bit in Bits)
             {
                 Color textcolor = ColorHelper.PremultiplyAlpha(new Color(MyColor.ToVector4() * bit.clr.ToVector4()));
 
@@ -992,7 +992,7 @@ namespace CloudberryKingdom
                     Tools.QDrawer.DrawString(font, bit.str, _pos, textcolor.ToVector4(), new Vector2(Tools.TheGame.Resolution.LineHeightMod) * Scale * ZoomMod * (1000f / 360f));
             }
             if (DrawPics)
-                foreach (EzTextPic pic in Pics)
+                foreach (TextPic pic in Pics)
                 {
                     Color piccolor = PicColor;
                     piccolor.A = Tools.FloatToByte(Alpha * piccolor.A / 255f);
@@ -1022,7 +1022,7 @@ namespace CloudberryKingdom
 
             Vector2 Loc = _Pos;
 
-            foreach (EzTextBit bit in Bits)
+            foreach (TextBit bit in Bits)
             {
                 Vector2 loc, size;
 
@@ -1036,7 +1036,7 @@ namespace CloudberryKingdom
                 BL = Vector2.Min(BL, bit_BL);
             }
 
-            foreach (EzTextPic pic in Pics)
+            foreach (TextPic pic in Pics)
             {
                 Vector2 loc = GetWorldVector(new Vector2(pic.rect.X, pic.rect.Y));
                 Vector2 size = new Vector2(pic.rect.Width, pic.rect.Height);

@@ -90,7 +90,7 @@ namespace CloudberryKingdom.Viewer
 
 		public static List<MenuItem> SelectedMenuItems = new List<MenuItem>();
 		public static List<QuadClass> SelectedQuads = new List<QuadClass>();
-		public static List<EzText> SelectedTexts = new List<EzText>();
+		public static List<Text> SelectedTexts = new List<Text>();
 
         bool PositionSet = false;
         public void Input()
@@ -118,7 +118,7 @@ namespace CloudberryKingdom.Viewer
 			SelectedTexts.Clear();
 			foreach (var item in MultiSelected)
 			{
-				EzText titem = item.MyItem as EzText;
+				Text titem = item.MyItem as Text;
 				if (null != titem)
 					SelectedTexts.Add(titem);
 			}

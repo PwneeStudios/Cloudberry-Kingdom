@@ -79,17 +79,17 @@ namespace CoreEngine
         Vector2 PreCalc0, PreCalc1, PreCalc2, PreCalc3;
 
         public SimpleVector v0, v1, v2, v3;
-        public EzEffect MyEffect;
+        public CoreEffect MyEffect;
 
         /// <summary>
         /// Extra textures used as input more advanced pixel shaders.
         /// </summary>
-        public EzTexture ExtraTexture1, ExtraTexture2;
+        public CoreTexture ExtraTexture1, ExtraTexture2;
 
         /// <summary>
         /// Texture to be drawn on this quad.
         /// </summary>
-        public EzTexture MyTexture
+        public CoreTexture MyTexture
         {
             get { return _MyTexture; }
             set
@@ -106,7 +106,7 @@ namespace CoreEngine
                 }
             }
         }
-        public EzTexture _MyTexture;
+        public CoreTexture _MyTexture;
 
         public void CalcTexture(int anim, float frame)
         {

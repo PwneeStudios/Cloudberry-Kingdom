@@ -115,7 +115,7 @@ namespace CloudberryKingdom
             SetItemProperties_Red(item);
         }
 
-        public static void SetText_Green(EzText text, bool outline)
+        public static void SetText_Green(Text text, bool outline)
         {
             if (text == null) return;
 
@@ -123,7 +123,7 @@ namespace CloudberryKingdom
             text.MyFloatColor = new Color(34, 214, 47).ToVector4();
         }
 
-        public static void SetSelectedText_Green(EzText text, bool outline)
+        public static void SetSelectedText_Green(Text text, bool outline)
         {
             if (text == null) return;
 
@@ -143,7 +143,7 @@ namespace CloudberryKingdom
             SetSelectedText_ArcadeText(item.MySelectedText);
         }
 
-        public static void SetText_ArcadeText(EzText text)
+        public static void SetText_ArcadeText(Text text)
         {
             if (text == null) return;
 
@@ -151,7 +151,7 @@ namespace CloudberryKingdom
             text.MyFloatColor = new Color(34, 214, 47).ToVector4();
         }
 
-        public static void SetSelectedText_ArcadeText(EzText text)
+        public static void SetSelectedText_ArcadeText(Text text)
         {
             if (text == null) return;
 
@@ -167,7 +167,7 @@ namespace CloudberryKingdom
 			SetTextSelected_Red(item.MySelectedText);
         }
 
-		public static void SetTextSelected_Red(EzText text)
+		public static void SetTextSelected_Red(Text text)
 		{
 			text.OutlineColor = new Color(205, 205, 205).ToVector4() * .95f;
 			text.OutlineColor.W = 1.0f;
@@ -175,7 +175,7 @@ namespace CloudberryKingdom
 			text.MyFloatColor.W = 1.0f;
 		}
 
-		public static void SetTextUnselected_Red(EzText text)
+		public static void SetTextUnselected_Red(Text text)
 		{
 			text.OutlineColor = new Color(191, 191, 191).ToVector4() * .97f;
 			text.OutlineColor.W = 1.0f;
@@ -190,7 +190,7 @@ namespace CloudberryKingdom
             SetTextSelected_White(item.MySelectedText);
         }
 
-        public static void SetTextSelected_White(EzText text)
+        public static void SetTextSelected_White(Text text)
         {
             text.OutlineColor = ColorHelper.Gray(0);
             text.OutlineColor.W = 1.0f;
@@ -198,7 +198,7 @@ namespace CloudberryKingdom
             text.MyFloatColor.W = 1.0f;
         }
 
-        public static void SetTextUnselected_White(EzText text)
+        public static void SetTextUnselected_White(Text text)
         {
             text.OutlineColor = ColorHelper.Gray(0);
             text.OutlineColor.W = 1.0f;

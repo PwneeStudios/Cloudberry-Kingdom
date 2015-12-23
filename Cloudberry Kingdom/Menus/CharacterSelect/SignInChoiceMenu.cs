@@ -59,10 +59,10 @@ namespace CloudberryKingdom
             float YSpacing = 200;
 
             MenuItem item;
-            EzFont font = Resources.Font_Grobold42;
+            CoreFont font = Resources.Font_Grobold42;
             float FontScale = .775f;
 
-            item = new MenuItem(new EzText(Localization.Words.SignIn, font));
+            item = new MenuItem(new Text(Localization.Words.SignIn, font));
             item.Name = "Header";
             item.MyText.Scale = .89f;
 
@@ -73,7 +73,7 @@ namespace CloudberryKingdom
             string[] ItemString = { Localization.WordString(Localization.Words.Yes), Localization.WordString(Localization.Words.No) };
             for (int i = 0; i < 2; i++)
             {
-                item = new MenuItem(new EzText(ItemString[i], font));
+                item = new MenuItem(new Text(ItemString[i], font));
                 item.MyText.Scale = item.MySelectedText.Scale = FontScale;
                 item.SelectionOscillate = false;
 

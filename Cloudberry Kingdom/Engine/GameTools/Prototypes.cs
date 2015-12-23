@@ -177,7 +177,7 @@ namespace CloudberryKingdom
                             int frame = end_frame > start_frame ? start_frame + i : start_frame - i;
 
                             // Get the texture for this frame.
-                            EzTexture texture = Tools.Texture(string.Format("{0}_{1}", root, frame));
+                            CoreTexture texture = Tools.Texture(string.Format("{0}_{1}", root, frame));
                             if (texture == Tools.TextureWad.DefaultTexture)
                                 texture = Tools.Texture(string.Format("{0}_0000{1}", root, frame));
                             if (texture == Tools.TextureWad.DefaultTexture)
@@ -311,7 +311,7 @@ namespace CloudberryKingdom
             // Save object
 #if DEBUG
             Tools.UseInvariantCulture();
-            FileStream fstream = File.Open("C:\\Users\\Ezra\\Desktop\\TigarBob.smo", FileMode.Create, FileAccess.Write, FileShare.None);
+            FileStream fstream = File.Open("C:\\Users\\Kick Ass\\Desktop\\TigarBob.smo", FileMode.Create, FileAccess.Write, FileShare.None);
             BinaryWriter writer = new BinaryWriter(fstream, Encoding.UTF8);
             p.Write(writer);
             writer.Close();

@@ -5,32 +5,32 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public class EzSoundWad
+    public class CoreSoundWad
     {
         /// <summary>
         /// When true all new sounds to be played are suppressed.
         /// </summary>
         public static bool SuppressSounds = false;
 
-        public List<EzSound> SoundList;
+        public List<CoreSound> SoundList;
         public int MaxInstancesPerSound;
 
-        public EzSoundWad(int MaxInstancesPerSound)
+        public CoreSoundWad(int MaxInstancesPerSound)
         {
             this.MaxInstancesPerSound = MaxInstancesPerSound;
 
-            SoundList = new List<EzSound>();
+            SoundList = new List<CoreSound>();
         }
 
         public void Update()
         {
-            //   foreach (EzSound sound in SoundList)
+            //   foreach (CoreSound sound in SoundList)
             //     sound.Update();
         }
 
-        public EzSound FindByName(string name)
+        public CoreSound FindByName(string name)
         {
-            foreach (EzSound Snd in SoundList)
+            foreach (CoreSound Snd in SoundList)
                 if (String.Compare(Snd.Name, name, StringComparison.OrdinalIgnoreCase) == 0)
                     return Snd;
 
@@ -43,7 +43,7 @@ namespace CoreEngine
 
         public void AddSound(SoundEffect sound, string Name)
         {
-            EzSound NewSound = new EzSound();
+            CoreSound NewSound = new CoreSound();
             NewSound.Name = Name;
             NewSound.sound = sound;
             NewSound.MaxInstances = MaxInstancesPerSound;

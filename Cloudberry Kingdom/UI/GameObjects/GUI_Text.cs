@@ -8,7 +8,7 @@ namespace CloudberryKingdom
         public enum Style { Bubble, Fade, None };
         public Style MyStyle = Style.Bubble;
 
-        public EzText MyText;
+        public Text MyText;
 
         public static GUI_Text SimpleTitle(Localization.Words word)
         {
@@ -52,12 +52,12 @@ namespace CloudberryKingdom
             Init(text, pos, centered, Style.Bubble, Resources.Font_Grobold42);
         }
 
-        public GUI_Text(string text, Vector2 pos, bool centered, EzFont font)
+        public GUI_Text(string text, Vector2 pos, bool centered, CoreFont font)
         {
             Init(text, pos, centered, Style.Bubble, font);
         }
 
-        public void Init(Localization.Words word, Vector2 pos, bool centered, Style style, EzFont font)
+        public void Init(Localization.Words word, Vector2 pos, bool centered, Style style, CoreFont font)
         {
             MyStyle = style;
             FixedToCamera = false;
@@ -76,7 +76,7 @@ namespace CloudberryKingdom
             Hid = false;
         }
 
-        public void Init(string text, Vector2 pos, bool centered, Style style, EzFont font)
+        public void Init(string text, Vector2 pos, bool centered, Style style, CoreFont font)
         {
 			if (text.Length == 0) text = "_";
 
@@ -97,14 +97,14 @@ namespace CloudberryKingdom
             Hid = false;
         }
 
-        protected virtual EzText MakeText(Localization.Words word, bool centered, EzFont font)
+        protected virtual Text MakeText(Localization.Words word, bool centered, CoreFont font)
         {
-            return new EzText(word, font, 1900, true, true, .575f);
+            return new Text(word, font, 1900, true, true, .575f);
         }
 
-        protected virtual EzText MakeText(string text, bool centered, EzFont font)
+        protected virtual Text MakeText(string text, bool centered, CoreFont font)
         {
-            return new EzText(text, font, 1900, true, true, .575f);
+            return new Text(text, font, 1900, true, true, .575f);
         }
 
         public void Kill() { Kill(true); }

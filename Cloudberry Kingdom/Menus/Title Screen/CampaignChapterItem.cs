@@ -5,7 +5,7 @@ namespace CloudberryKingdom
         public int Chapter = 0;
         public bool Locked = false;
 
-        public CampaignChapterItem(EzText Text, int Chapter)
+        public CampaignChapterItem(Text Text, int Chapter)
             : base(Text)
         {
             this.Chapter = Chapter;

@@ -14,10 +14,10 @@ namespace CloudberryKingdom
 		
 #if PC
 		QuadClass Overlay;
-		EzText MouseClickText;
+		Text MouseClickText;
 #endif
 		
-		EzText Text;
+		Text Text;
 
         public JoinText(int Control, CharacterSelect MyCharacterSelect)
             : base(false)
@@ -80,19 +80,19 @@ namespace CloudberryKingdom
 
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
-				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				MouseClickText = new Text(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 				MouseClickText.Pos = new Vector2(11.11133f, 63.88889f);
 				MouseClickText.Scale = 0.9542501f;
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 			{
-				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				MouseClickText = new Text(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 				MouseClickText.Pos = new Vector2(11.11133f, 63.88889f);
 				MouseClickText.Scale = 0.9542501f;
 			}
 			else
 			{
-				MouseClickText = new EzText(pressa, Resources.Font_Grobold42, true, true);
+				MouseClickText = new Text(pressa, Resources.Font_Grobold42, true, true);
 				MouseClickText.Scale = .7765f;
 			}
 
@@ -129,7 +129,7 @@ namespace CloudberryKingdom
 
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
-				Text = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				Text = new Text(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 
 #if CAFE
 				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.8230838f;
@@ -139,7 +139,7 @@ namespace CloudberryKingdom
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 			{
-				Text = new EzText(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
+				Text = new Text(pressa, Resources.Font_Grobold42, 1000, true, true, .5f);
 
 #if CAFE
 				Text.Pos = new Vector2(11.11133f, 63.88889f); Text.Scale = 0.8842503f;
@@ -149,7 +149,7 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-				Text = new EzText(pressa, Resources.Font_Grobold42, true, true);
+				Text = new Text(pressa, Resources.Font_Grobold42, true, true);
 				Text.Scale = .7765f;
 			}
 
@@ -190,7 +190,7 @@ namespace CloudberryKingdom
 #endif
 		}
 
-        public static void ScaleGamerTag(EzText GamerTag)
+        public static void ScaleGamerTag(Text GamerTag)
         {
             GamerTag.Scale *= 850f / GamerTag.GetWorldWidth();
 
@@ -206,12 +206,12 @@ namespace CloudberryKingdom
             if (MyCharacterSelect.Player.Exists)
             {
                 string name = MyCharacterSelect.Player.GetName();
-                Text = new EzText(name, Resources.Font_Grobold42, true, true);
+                Text = new Text(name, Resources.Font_Grobold42, true, true);
                 ScaleGamerTag(Text);
             }
             else
             {
-                Text = new EzText("ERROR", Resources.LilFont, true, true);
+                Text = new Text("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;
@@ -321,11 +321,11 @@ namespace CloudberryKingdom
                 }
                 else
                 {
-                    if (EzStorage.Device[MyCharacterSelect.PlayerIndex] != null &&
-                        !EzStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection)
+                    if (CoreStorage.Device[MyCharacterSelect.PlayerIndex] != null &&
+                        !CoreStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection)
                     {
                         // Once the gamer presses a button they should be prompted to select a storage device.
-                        EzStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection = true;
+                        CoreStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection = true;
                         return;
                     }
                     else

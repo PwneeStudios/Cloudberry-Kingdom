@@ -510,7 +510,7 @@ namespace CloudberryKingdom
         {
             Tools.QDrawer.Flush();
 
-            EzEffect Effect = MyQuad.Quad.MyEffect;
+            CoreEffect Effect = MyQuad.Quad.MyEffect;
 
             if (!Effect.IsUpToDate)
                 Effect.SetCameraParameters();

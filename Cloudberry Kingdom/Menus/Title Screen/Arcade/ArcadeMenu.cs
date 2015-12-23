@@ -21,7 +21,7 @@ namespace CloudberryKingdom
                 && (UnlockLevel != 0 && PlayerManager.MaxPlayerTotalLevel() < UnlockLevel);
         }
 
-        public ArcadeItem(EzText Text, Challenge MyChallenge, Awardment MyPrereq, int UnlockLevel) : base(Text)
+        public ArcadeItem(Text Text, Challenge MyChallenge, Awardment MyPrereq, int UnlockLevel) : base(Text)
         {
             this.MyChallenge = MyChallenge;
             this.MyPrereq = MyPrereq;
@@ -316,7 +316,7 @@ namespace CloudberryKingdom
         }
 #endif
 
-        EzText RequiredText, RequiredText2;
+        Text RequiredText, RequiredText2;
         QuadClass TextBack;
         public override void  Init()
         {
@@ -341,26 +341,26 @@ namespace CloudberryKingdom
             MyMenu.OnB = MenuReturnToCaller;
 
             // Level
-            var LevelText = new EzText(Localization.Words.PlayerLevel, Resources.Font_Grobold42);
+            var LevelText = new Text(Localization.Words.PlayerLevel, Resources.Font_Grobold42);
             LevelText.Scale *= .72f;
             StartMenu.SetText_Green(LevelText, true);
             MyPile.Add(LevelText, "Level");
             LevelText.Show = false;
 
-            var LevelNum = new EzText("Garbage", Resources.Font_Grobold42);
+            var LevelNum = new Text("Garbage", Resources.Font_Grobold42);
             LevelNum.Scale *= 1.1f;
             StartMenu.SetText_Green(LevelNum, true);
             MyPile.Add(LevelNum, "LevelNum");
             LevelNum.Show = false;
 
             // Requirement
-            RequiredText = new EzText(Localization.Words.Required, Resources.Font_Grobold42);
+            RequiredText = new Text(Localization.Words.Required, Resources.Font_Grobold42);
             RequiredText.Scale *= 1f;
             StartMenu.SetText_Green(RequiredText, true);
             MyPile.Add(RequiredText, "Requirement");
             RequiredText.Alpha = 0;
 
-            RequiredText2 = new EzText("Garbage", Resources.Font_Grobold42);
+            RequiredText2 = new Text("Garbage", Resources.Font_Grobold42);
             RequiredText2.Scale *= 1f;
             StartMenu.SetText_Green(RequiredText2, true);
             MyPile.Add(RequiredText2, "Requirement2");
@@ -373,7 +373,7 @@ namespace CloudberryKingdom
 
 
             // Header
-            MenuItem Header = new MenuItem(new EzText(Localization.Words.TheArcade, Resources.Font_Grobold42_2));
+            MenuItem Header = new MenuItem(new Text(Localization.Words.TheArcade, Resources.Font_Grobold42_2));
             Header.Name = "Header";
             MyMenu.Add(Header);
             SetItemProperties(Header);
@@ -405,7 +405,7 @@ namespace CloudberryKingdom
 #if PC
             // Leaderboards
             MyPile.Add(new QuadClass(ButtonTexture.X, 100, "Button_X"));
-            item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, false, true));
+            item = new MenuItem(new Text(Localization.Words.Leaderboards, ItemFont, false, true));
 
             item.Name = "Leaderboard";
             item.Go = Cast.ToItem(BringLeaderboard);
@@ -459,7 +459,7 @@ namespace CloudberryKingdom
             ArcadeItem item;
             Localization.Words word = challenge.MenuName;
             
-            item = new ArcadeItem(new EzText(word, ItemFont), challenge, prereq, UnlockLevel);
+            item = new ArcadeItem(new Text(word, ItemFont), challenge, prereq, UnlockLevel);
 
             item.AdditionalOnSelect += OnSelect;
 
@@ -474,7 +474,7 @@ namespace CloudberryKingdom
         protected virtual void SetPos()
         {
 #if PC
-            EzText _t = MyPile.FindEzText("LevelNum");
+            Text _t = MyPile.FindText("LevelNum");
 
             float max_width = _t.GetWorldWidth("1000");
             float width = _t.GetWorldWidth(_t.FirstString());
@@ -482,7 +482,7 @@ namespace CloudberryKingdom
             float shift = max_width - width - 50;
             _t.Pos += new Vector2(shift, 0);
 
-            _t = MyPile.FindEzText("Level");
+            _t = MyPile.FindText("Level");
             _t.Pos += new Vector2(shift, 0);
 #endif
         }
@@ -495,9 +495,9 @@ namespace CloudberryKingdom
 
             if (ShowLevel)
             {
-                MyPile.FindEzText("Level").Show = true;
+                MyPile.FindText("Level").Show = true;
                 
-                EzText _t = MyPile.FindEzText("LevelNum");
+                Text _t = MyPile.FindText("LevelNum");
                 _t.Show = true;
 
 #if PC
@@ -509,8 +509,8 @@ namespace CloudberryKingdom
             }
             else
             {
-                MyPile.FindEzText("Level").Show = false;
-                MyPile.FindEzText("LevelNum").Show = false;
+                MyPile.FindText("Level").Show = false;
+                MyPile.FindText("LevelNum").Show = false;
             }
 
             foreach (MenuItem _item in MyMenu.Items)
@@ -547,8 +547,8 @@ namespace CloudberryKingdom
 
             if (Lock && item.MyPrereq != null)
             {
-                EzText _t;
-                _t = MyPile.FindEzText("Requirement2");
+                Text _t;
+                _t = MyPile.FindText("Requirement2");
                 _t.SubstituteText(Localization.WordString(Localization.Words.PlayerLevel) + " " + item.MyPrereq.MyInt.ToString());
             }
         }

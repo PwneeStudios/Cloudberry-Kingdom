@@ -31,8 +31,8 @@ namespace CloudberryKingdom
         /// </summary>
         public static WrappedFloat ResourceLoadedCountRef;
 
-        public static EzFont Font_Grobold42, Font_Grobold42_2;
-        public static EzFont LilFont;
+        public static CoreFont Font_Grobold42, Font_Grobold42_2;
+        public static CoreFont LilFont;
 
         public static HackFont hf;
         /// <summary>
@@ -42,15 +42,15 @@ namespace CloudberryKingdom
         {
             //hf = new HackFont("Grobold_" + Localization.CurrentLanguage.FontSuffix);
 
-            Resources.Font_Grobold42 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
+            Resources.Font_Grobold42 = new CoreFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline", -50, 40);
             Resources.Font_Grobold42.HFont = new HackSpriteFont(hf, 0);
             Resources.Font_Grobold42.HOutlineFont = new HackSpriteFont(hf, 1);
 
-            Resources.Font_Grobold42_2 = new EzFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
+            Resources.Font_Grobold42_2 = new CoreFont("Fonts/Grobold_42", "Fonts/Grobold_42_Outline2", -50, 40);
             Resources.Font_Grobold42_2.HFont = new HackSpriteFont(hf, 0);
             Resources.Font_Grobold42_2.HOutlineFont = new HackSpriteFont(hf, 2);
 
-            //Resources.LilFont = new EzFont("Fonts/LilFont");
+            //Resources.LilFont = new CoreFont("Fonts/LilFont");
             Resources.LilFont = Resources.Font_Grobold42;
 
             Tools.Write("Fonts done...");
@@ -104,7 +104,7 @@ namespace CloudberryKingdom
 
         static void LoadMusic()
         {
-            Tools.SongWad = new EzSongWad();
+            Tools.SongWad = new CoreSongWad();
 
             Tools.SongWad.PlayerControl = Tools.SongWad.DisplayInfo = true;
 
@@ -192,8 +192,8 @@ namespace CloudberryKingdom
         {
             ContentManager manager = new ContentManager(Tools.GameClass.Content.ServiceProvider, Tools.GameClass.Content.RootDirectory);
 
-            Tools.SoundWad = new EzSoundWad(4);
-            Tools.PrivateSoundWad = new EzSoundWad(4);
+            Tools.SoundWad = new CoreSoundWad(4);
+            Tools.PrivateSoundWad = new CoreSoundWad(4);
 
             string path = Path.Combine(Globals.ContentDirectory, "Sound");
             string[] files = Directory.GetFiles(path);
@@ -383,7 +383,7 @@ namespace CloudberryKingdom
             Texture2D transparent = Tools.Transparent.Tex;
 
             int count = 0;
-            foreach (EzTexture Tex in Tools.TextureWad.TextureList)
+            foreach (CoreTexture Tex in Tools.TextureWad.TextureList)
             {
                 // If texture hasn't been loaded yet, load it
                 if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)

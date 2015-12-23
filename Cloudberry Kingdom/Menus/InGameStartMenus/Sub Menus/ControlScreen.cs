@@ -57,34 +57,34 @@ namespace CloudberryKingdom
 
             ReturnToCallerDelay = 7;
 
-            EzText text;
+            Text text;
 
 if (ButtonCheck.ControllerInUse)
 {
-			text = new EzText("+", Resources.Font_Grobold42, true);
+			text = new Text("+", Resources.Font_Grobold42, true);
 			MyPile.Add(text, "plus");
 			text.MyFloatColor = ColorHelper.Gray(.955f);
 
 			bool center = false;
-			text = new EzText(Localization.Words.QuickSpawn, Resources.Font_Grobold42, center);
+			text = new Text(Localization.Words.QuickSpawn, Resources.Font_Grobold42, center);
 			MyPile.Add(text, "quickspawn");
 			text.MyFloatColor = ColorHelper.Gray(.955f);
 
-			text = new EzText(Localization.Words.Jump, Resources.Font_Grobold42, center);
+			text = new Text(Localization.Words.Jump, Resources.Font_Grobold42, center);
 			MyPile.Add(text, "jump");
 			text.MyFloatColor = ColorHelper.Gray(.955f);
 
-			text = new EzText(Localization.Words.PowerUpMenu, Resources.Font_Grobold42, center);
+			text = new Text(Localization.Words.PowerUpMenu, Resources.Font_Grobold42, center);
 			MyPile.Add(text, "powerups");
 			text.MyFloatColor = ColorHelper.Gray(.955f);
 
-			text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42, center);
+			text = new Text(Localization.Words.Accept, Resources.Font_Grobold42, center);
 			MyPile.Add(text, "accept");
 
 			text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
 			text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
-			text = new EzText(Localization.Words.Back, Resources.Font_Grobold42, center);
+			text = new Text(Localization.Words.Back, Resources.Font_Grobold42, center);
 			MyPile.Add(text, "back");
 
 			text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
@@ -130,29 +130,29 @@ if (ButtonCheck.ControllerInUse)
 }
 else
 {
-            text = new EzText(Localization.Words.QuickSpawn, Resources.Font_Grobold42);
+            text = new Text(Localization.Words.QuickSpawn, Resources.Font_Grobold42);
             MyPile.Add(text, "quickspawn");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.PowerUpMenu, Resources.Font_Grobold42);
+            text = new Text(Localization.Words.PowerUpMenu, Resources.Font_Grobold42);
             MyPile.Add(text, "powerups");
             text.MyFloatColor = ColorHelper.Gray(.955f);
 
-            text = new EzText(Localization.Words.Menu, Resources.Font_Grobold42);
+            text = new Text(Localization.Words.Menu, Resources.Font_Grobold42);
             MyPile.Add(text, "menu");
             text.MyFloatColor = CampaignHelper.DifficultyColor[1].ToVector4();
 
-            text = new EzText(Localization.Words.Accept, Resources.Font_Grobold42);
+            text = new Text(Localization.Words.Accept, Resources.Font_Grobold42);
             MyPile.Add(text, "accept");
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedNextColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
 
-            text = new EzText(Localization.Words.Back, Resources.Font_Grobold42);
+            text = new Text(Localization.Words.Back, Resources.Font_Grobold42);
             MyPile.Add(text, "back");
             text.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
             text.MyFloatColor = Menu.DefaultMenuInfo.UnselectedBackColor;
 
-            text = new EzText("b", Resources.Font_Grobold42);
+            text = new Text("b", Resources.Font_Grobold42);
             text.SubstituteText("<");
             MyPile.Add(text, "split");
 
@@ -188,13 +188,13 @@ else
         {
 if (ButtonCheck.ControllerInUse)
 {
-			EzText _t;
-			_t = MyPile.FindEzText("plus"); if (_t != null) { _t.Pos = new Vector2(-911.1111f, 500f); _t.Scale = 0.5140832f; }
-			_t = MyPile.FindEzText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 571.4288f); _t.Scale = 0.7971667f; }
-			_t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 824.9998f); _t.Scale = 0.7969999f; }
-			_t = MyPile.FindEzText("powerups"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 317.8578f); _t.Scale = 0.7926666f; }
-			_t = MyPile.FindEzText("accept"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 64.28687f); _t.Scale = 0.7982503f; }
-			_t = MyPile.FindEzText("back"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, -189.2841f); _t.Scale = 0.7832497f; }
+			Text _t;
+			_t = MyPile.FindText("plus"); if (_t != null) { _t.Pos = new Vector2(-911.1111f, 500f); _t.Scale = 0.5140832f; }
+			_t = MyPile.FindText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 571.4288f); _t.Scale = 0.7971667f; }
+			_t = MyPile.FindText("jump"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 824.9998f); _t.Scale = 0.7969999f; }
+			_t = MyPile.FindText("powerups"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 317.8578f); _t.Scale = 0.7926666f; }
+			_t = MyPile.FindText("accept"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, 64.28687f); _t.Scale = 0.7982503f; }
+			_t = MyPile.FindText("back"); if (_t != null) { _t.Pos = new Vector2(-438.8888f, -189.2841f); _t.Scale = 0.7832497f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }
@@ -214,13 +214,13 @@ if (ButtonCheck.ControllerInUse)
 }
 else
 {
-            EzText _t;
-            _t = MyPile.FindEzText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-288.0965f, 435.3178f); _t.Scale = 1.06f; }
-            _t = MyPile.FindEzText("powerups"); if (_t != null) { _t.Pos = new Vector2(-267.0644f, 133.7302f); _t.Scale = 1.06f; }
-            _t = MyPile.FindEzText("menu"); if (_t != null) { _t.Pos = new Vector2(-280.1582f, 731.7462f); _t.Scale = 1.06f; }
-            _t = MyPile.FindEzText("accept"); if (_t != null) { _t.Pos = new Vector2(-286.109f, -156.3493f); _t.Scale = 1.06f; }
-            _t = MyPile.FindEzText("back"); if (_t != null) { _t.Pos = new Vector2(-264.2847f, -432.5391f); _t.Scale = 1.06f; }
-            _t = MyPile.FindEzText("split"); if (_t != null) { _t.Pos = new Vector2(-536.5085f, 14.28584f); _t.Scale = 1.46f; }
+            Text _t;
+            _t = MyPile.FindText("quickspawn"); if (_t != null) { _t.Pos = new Vector2(-288.0965f, 435.3178f); _t.Scale = 1.06f; }
+            _t = MyPile.FindText("powerups"); if (_t != null) { _t.Pos = new Vector2(-267.0644f, 133.7302f); _t.Scale = 1.06f; }
+            _t = MyPile.FindText("menu"); if (_t != null) { _t.Pos = new Vector2(-280.1582f, 731.7462f); _t.Scale = 1.06f; }
+            _t = MyPile.FindText("accept"); if (_t != null) { _t.Pos = new Vector2(-286.109f, -156.3493f); _t.Scale = 1.06f; }
+            _t = MyPile.FindText("back"); if (_t != null) { _t.Pos = new Vector2(-264.2847f, -432.5391f); _t.Scale = 1.06f; }
+            _t = MyPile.FindText("split"); if (_t != null) { _t.Pos = new Vector2(-536.5085f, 14.28584f); _t.Scale = 1.46f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.2556f); }

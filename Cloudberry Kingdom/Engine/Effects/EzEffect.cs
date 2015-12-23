@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CoreEngine
 {
-    public class EzEffect
+    public class CoreEffect
     {
-        public EzEffectWad MyWad;
+        public CoreEffectWad MyWad;
 
         public Effect effect;
         public string Name;
@@ -33,8 +33,8 @@ namespace CoreEngine
             IsUpToDate = true;
         }
 
-        public EzTexture ExtraTexture1;
-        public void SetExtraTexture1(EzTexture texture)
+        public CoreTexture ExtraTexture1;
+        public void SetExtraTexture1(CoreTexture texture)
         {
             if (ExtraTexture1 == texture) return;
 
@@ -43,8 +43,8 @@ namespace CoreEngine
             if (texture != null) ExtraTexture1_Param.SetValue(texture.Tex);
         }
 
-        public EzTexture ExtraTexture2;
-        public void SetExtraTexture2(EzTexture texture)
+        public CoreTexture ExtraTexture2;
+        public void SetExtraTexture2(CoreTexture texture)
         {
             if (ExtraTexture2 == texture) return;
 

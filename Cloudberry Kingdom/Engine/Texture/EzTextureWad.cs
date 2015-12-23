@@ -8,7 +8,7 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public partial class EzTextureWad
+    public partial class CoreTextureWad
     {
         public TextureOrAnim FindTextureOrAnim(string name)
         {
@@ -22,10 +22,10 @@ namespace CoreEngine
         /// <summary>
         /// The texture returned when a texture isn't found in the wad.
         /// </summary>
-        public EzTexture DefaultTexture;
+        public CoreTexture DefaultTexture;
 
-        public List<EzTexture> TextureList;
-        public Dictionary<string, List<EzTexture>> TextureListByFolder;
+        public List<CoreTexture> TextureList;
+        public Dictionary<string, List<CoreTexture>> TextureListByFolder;
 
         public Dictionary<string, AnimationData_Texture> AnimationDict;
         public void Add(AnimationData_Texture anim, string name)
@@ -34,12 +34,12 @@ namespace CoreEngine
         }
 
 
-        public Dictionary<string, EzTexture> NameDict;
+        public Dictionary<string, CoreTexture> NameDict;
         public void Add(PackedTexture packed)
         {
             foreach (PackedTexture.SubTexture sub in packed.SubTextures)
             {
-                EzTexture texture = FindByName(sub.name);
+                CoreTexture texture = FindByName(sub.name);
                 texture.FromPacked = true;
                 texture.TR = sub.TR;
                 texture.BL = sub.BL;
@@ -50,21 +50,21 @@ namespace CoreEngine
 
         public Dictionary<string, PackedTexture> PackedDict = new Dictionary<string, PackedTexture>();
 
-        public EzTextureWad()
+        public CoreTextureWad()
         {
             const int Size = 2000;
 
-            TextureList = new List<EzTexture>(Size);
-            TextureListByFolder = new Dictionary<string, List<EzTexture>>(Size);
+            TextureList = new List<CoreTexture>(Size);
+            TextureListByFolder = new Dictionary<string, List<CoreTexture>>(Size);
 
             AnimationDict = new Dictionary<string, AnimationData_Texture>(Size, StringComparer.CurrentCultureIgnoreCase);
 
-            NameDict = new Dictionary<string, EzTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
+            NameDict = new Dictionary<string, CoreTexture>(Size, StringComparer.CurrentCultureIgnoreCase);
         }
 
 //        public void LoadFolder(ContentManager Content, string Folder)
 //        {
-//            foreach (EzTexture Tex in TextureListByFolder[Folder])
+//            foreach (CoreTexture Tex in TextureListByFolder[Folder])
 //            {
 //                // If texture hasn't been loaded yet, load it
 //                if (Tex.Tex == null && !Tex.FromCode)
@@ -88,7 +88,7 @@ namespace CoreEngine
 		//{
 		//    Texture2D transparent = Tools.Transparent.Tex;
 
-		//    foreach (EzTexture Tex in TextureListByFolder[Folder])
+		//    foreach (CoreTexture Tex in TextureListByFolder[Folder])
 		//    {
 		//        // If texture hasn't been loaded yet, load it
 		//        if ((Tex.Tex == null || Tex.Tex == transparent) && !Tex.FromCode)
@@ -100,9 +100,9 @@ namespace CoreEngine
 		//    }
 		//}
 
-        public EzTexture FindOrLoad(ContentManager Content, string name, string path)
+        public CoreTexture FindOrLoad(ContentManager Content, string name, string path)
         {
-            EzTexture texture = FindByName(name);
+            CoreTexture texture = FindByName(name);
 
             if (texture != Tools.TextureWad.DefaultTexture) return texture;
 
@@ -112,7 +112,7 @@ namespace CoreEngine
         /// <summary>
         /// Accepts a path. If the path does not exist, the name is used instead.
         /// </summary>
-        public EzTexture FindByPathOrName(string path)
+        public CoreTexture FindByPathOrName(string path)
         {
             // Look for the texture with the full path
             var PathTexture = FindByName(path);
@@ -134,9 +134,9 @@ namespace CoreEngine
                 return PathTexture;
         }
 
-        public EzTexture FindByName(string name)
+        public CoreTexture FindByName(string name)
         {
-            EzTexture texture = _FindByName(name);
+            CoreTexture texture = _FindByName(name);
 
             if (texture == null) return null;
 
@@ -147,7 +147,7 @@ namespace CoreEngine
 
             return texture;
         }
-        public EzTexture _FindByName(string name)
+        public CoreTexture _FindByName(string name)
         {
             if (name == null)
                 return DefaultTexture;
@@ -155,7 +155,7 @@ namespace CoreEngine
             return Find(name);
         }
 
-        public EzTexture Find(string name)
+        public CoreTexture Find(string name)
         {
 			//if (name.Contains("\\") && BigNameDict.ContainsKey(name))
 			//    return BigNameDict[name];
@@ -168,7 +168,7 @@ namespace CoreEngine
             return DefaultTexture;
         }
 
-        public void AddEzTexture(EzTexture NewTex)
+        public void AddCoreTexture(CoreTexture NewTex)
         {
             TextureList.Add(NewTex);
 
@@ -177,16 +177,16 @@ namespace CoreEngine
                 NameDict.AddOrOverwrite(name, NewTex);
         }
 
-        public EzTexture AddTexture(Texture2D Tex, string Name)
+        public CoreTexture AddTexture(Texture2D Tex, string Name)
         {
             if (Tex == null)
                 return AddTexture(Tex, Name, 0, 0);
             else
                 return AddTexture(Tex, Name, Tex.Width, Tex.Height);
         }
-        public EzTexture AddTexture(Texture2D Tex, string Name, int Width, int Height)
+        public CoreTexture AddTexture(Texture2D Tex, string Name, int Width, int Height)
         {
-            EzTexture NewTex = null;
+            CoreTexture NewTex = null;
 
 			if (TextureList.Exists(match => string.Compare(match.Path, Name, StringComparison.OrdinalIgnoreCase) == 0))
 			{
@@ -204,7 +204,7 @@ namespace CoreEngine
 			}
 			else
             {
-                NewTex = new EzTexture();
+                NewTex = new CoreTexture();
                 NewTex.Path = Name;
                 NewTex.Tex = Tex;
 
@@ -219,7 +219,7 @@ namespace CoreEngine
                 // Add to folder
                 string folder = Tools.FirstFolder(Name, "Art\\");
                 if (!TextureListByFolder.ContainsKey(folder))
-                    TextureListByFolder.Add(folder, new List<EzTexture>());
+                    TextureListByFolder.Add(folder, new List<CoreTexture>());
                 TextureListByFolder[folder].Add(NewTex);
             }
 
@@ -229,17 +229,17 @@ namespace CoreEngine
             return NewTex;
         }
 
-        public EzTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height)
+        public CoreTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height)
         {
             return null;
         }
 
-        public EzTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height,
+        public CoreTexture AddTexture_Fast(Texture2D Tex, string Name, int Width, int Height,
                                          string StrippedName, string LowerName, string Folder)
         {
-            EzTexture NewTex = null;
+            CoreTexture NewTex = null;
 
-            NewTex = new EzTexture();
+            NewTex = new CoreTexture();
             NewTex.Path = Name;
             NewTex.Tex = Tex;
 
@@ -251,7 +251,7 @@ namespace CoreEngine
 
             // Add to folder
             if (!TextureListByFolder.ContainsKey(Folder))
-                TextureListByFolder.Add(Folder, new List<EzTexture>());
+                TextureListByFolder.Add(Folder, new List<CoreTexture>());
             TextureListByFolder[Folder].Add(NewTex);
 
             NewTex.Width = Width;

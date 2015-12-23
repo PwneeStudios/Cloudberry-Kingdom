@@ -73,7 +73,7 @@ namespace CoreEngine
             if (length == -1) anim.Data = null;
             else
             {
-                anim.Data = new EzTexture[length];
+                anim.Data = new CoreTexture[length];
                 for (int i = 0; i < length; i++)
                 {
                     string s = reader.ReadString();

@@ -28,7 +28,7 @@ namespace CloudberryKingdom
                 this.SlideIn(0);
         }
 
-        public EzText text;
+        public Text text;
         public LevelTitle(string str) { Init(str, Vector2.Zero, 1f, false); }
         public LevelTitle(string str, Vector2 shift, float scale, bool perma) { Init(str, shift, scale, perma); }
 
@@ -55,7 +55,7 @@ namespace CloudberryKingdom
             MyPile.Pos += shift;
 
             Tools.Warning(); // May be text, rather than Localization.Words
-            text = new EzText(str, Resources.Font_Grobold42, true, true);
+            text = new Text(str, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 
             text.MyFloatColor = new Color(26, 188, 241).ToVector4();

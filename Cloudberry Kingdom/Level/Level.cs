@@ -184,7 +184,7 @@ namespace CloudberryKingdom.Levels
 
         public Vector2 ModZoom = Vector2.One;
 
-        EzTexture LightTexture;
+        CoreTexture LightTexture;
         RenderTarget2D LightRenderTarget;
         public ClosingCircle Circle;
         QuadClass LightQuad;
@@ -1210,7 +1210,7 @@ namespace CloudberryKingdom.Levels
         {
             return;
 
-            LightTexture = new EzTexture(); LightTexture.Name = "LightTexture";
+            LightTexture = new CoreTexture(); LightTexture.Name = "LightTexture";
 
             PresentationParameters pp = Tools.Device.PresentationParameters;
             LightRenderTarget = new RenderTarget2D(Tools.Device,

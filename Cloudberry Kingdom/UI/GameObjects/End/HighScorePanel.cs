@@ -119,7 +119,7 @@ namespace CloudberryKingdom
             Backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'High Score' text
-            EzText Text = new EzText(MyScoreList.GetHeader(), Resources.Font_Grobold42_2, 1450, false, true, .6f);
+            Text Text = new Text(MyScoreList.GetHeader(), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = .8f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
@@ -135,7 +135,7 @@ namespace CloudberryKingdom
             Vector2 pos = new Vector2(-973, 322);
             foreach (ScoreEntry score in MyScoreList.Scores)
             {
-                Text = new EzText(MyScoreList.ScoreString(score, DesiredLength), Resources.Font_Grobold42);
+                Text = new Text(MyScoreList.ScoreString(score, DesiredLength), Resources.Font_Grobold42);
                 SetHeaderProperties(Text);
                 Text.Scale *= .55f;
 
@@ -154,8 +154,8 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 585f); _t.Scale = 0.8f; }
+            Text _t;
+            _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 585f); _t.Scale = 0.8f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(-102.7767f, -253.3332f); _q.Size = new Vector2(1930.665f, 1206.665f); }
@@ -164,14 +164,14 @@ namespace CloudberryKingdom
 
         }
 
-        EzText SwapText;
+        Text SwapText;
         void MakeSwapText()
         {
 #if PC
-            //SwapText = new EzText(ButtonString.Enter(200), Resources.Font_Grobold42_2, 1450, false, true, .6f);
+            //SwapText = new Text(ButtonString.Enter(200), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             //SwapText.Pos = new Vector2(-1169.281f, 602.9366f);
 #else
-            SwapText = new EzText(ButtonString.Go(130), Resources.Font_Grobold42_2, 1450, false, true, .6f);
+            SwapText = new Text(ButtonString.Go(130), Resources.Font_Grobold42_2, 1450, false, true, .6f);
             SwapText.Pos = new Vector2(-1014.837f, 597.3811f);
 #endif
 
@@ -187,7 +187,7 @@ namespace CloudberryKingdom
             }
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -211,15 +211,15 @@ namespace CloudberryKingdom
             MenuItem item;
             FontScale *= .89f * 1.16f;
 
-            item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.PlayAgain, ItemFont));
             item.Go = _item => Action_PlayAgain();
             AddItem(item);
 
-            item = new MenuItem(new EzText(Localization.Words.HighScores, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.HighScores, ItemFont));
             item.Go = null;
             AddItem(item);
 
-            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Done, ItemFont));
             item.Go = _item => Action_Done();
             AddItem(item);
         }

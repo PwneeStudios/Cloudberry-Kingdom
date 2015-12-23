@@ -36,7 +36,7 @@ namespace CloudberryKingdom.Levels
             BobQuad.Base.e1 *= 100;
             BobQuad.Base.e2 *= 100;
             BobQuad.Quad.MyEffect = Tools.BasicEffect;
-            BobQuad.Quad.MyTexture = new EzTexture(); BobQuad.Quad.MyTexture.Name = "BobQuad";
+            BobQuad.Quad.MyTexture = new CoreTexture(); BobQuad.Quad.MyTexture.Name = "BobQuad";
         }
 
         public void Draw(int Step, Level level, SpriteAnimGroup[] AnimGroup, List<BobLink> BobLinks)

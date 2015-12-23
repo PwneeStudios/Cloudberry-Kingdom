@@ -12,7 +12,7 @@ namespace CloudberryKingdom
 			//EnableBounce();
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -240,7 +240,7 @@ namespace CloudberryKingdom
 			}
 
             // Header
-            MenuItem item = new MenuItem(new EzText(Localization.Words.SavedSeeds, ItemFont));
+            MenuItem item = new MenuItem(new Text(Localization.Words.SavedSeeds, ItemFont));
             item.Name = "Header";
             item.Selectable = false;
             SetHeaderProperties(item.MySelectedText);
@@ -284,7 +284,7 @@ else
 			{
 				int n = NumSeedsToDelete();
 				//MyPile.FindQuad("Confirm").Show = n > 0;
-				//MyPile.FindEzText("Confirm").Show = n > 0;
+				//MyPile.FindText("Confirm").Show = n > 0;
 
 				string GoString;
 				if (n == 0)      GoString = Localization.WordString(Localization.Words.LoadSeed);
@@ -443,7 +443,7 @@ else
             public string Seed;
             public bool MarkedForDeletion = false;
 
-            public SeedItem(string name, string seed, EzFont font) : base(new EzText(name, font))
+            public SeedItem(string name, string seed, CoreFont font) : base(new Text(name, font))
             {
                 this.Name = name;
                 this.Seed = seed;
@@ -523,7 +523,7 @@ else
 if (ButtonCheck.ControllerInUse)
 {
 			// Load
-			item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
+			item = new MenuItem(new Text(Localization.Words.LoadSeed, ItemFont));
 			item.Name = "Load";
 			AddItem(item);
 			item.SelectSound = null;
@@ -539,7 +539,7 @@ if (ButtonCheck.ControllerInUse)
 if (ButtonCheck.ControllerInUse)
 {
 			// Delete
-			item = new MenuItem(new EzText(Localization.Words.Delete, ItemFont));
+			item = new MenuItem(new Text(Localization.Words.Delete, ItemFont));
 			item.Name = "Delete";
 			AddItem(item);
 			item.SelectSound = null;
@@ -554,7 +554,7 @@ if (ButtonCheck.ControllerInUse)
 }
 
 			// Back
-			item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+			item = new MenuItem(new Text(Localization.Words.Back, ItemFont));
 			item.Name = "Back";
 			AddItem(item);
 			item.SelectSound = null;

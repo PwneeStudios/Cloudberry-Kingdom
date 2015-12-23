@@ -21,9 +21,9 @@ namespace CloudberryKingdom
 
             if (MyTextList != null)
             {
-                if (MyTextList.Count > 0) s += "EzText _t;\n";
-                foreach (EzText text in MyTextList)
-                    s += string.Format("_t = {0}FindEzText(\"{1}\"); if (_t != null) {{ _t.Pos = {2}; _t.Scale = {3}f; }}\n", suffix, text.Name, Tools.ToCode(text.Pos), text.Scale);
+                if (MyTextList.Count > 0) s += "Text _t;\n";
+                foreach (Text text in MyTextList)
+                    s += string.Format("_t = {0}FindText(\"{1}\"); if (_t != null) {{ _t.Pos = {2}; _t.Scale = {3}f; }}\n", suffix, text.Name, Tools.ToCode(text.Pos), text.Scale);
             }
 
             if (MyQuadList != null && MyQuadList.Count > 0)
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
 						}
 					}
 
-					List<EzText> titems = Viewer.GameObjViewer.SelectedTexts;
+					List<Text> titems = Viewer.GameObjViewer.SelectedTexts;
 					if (titems.Count > 1)
 					{
 						float Distance = titems[1].Pos.Y - titems[0].Pos.Y;
@@ -104,7 +104,7 @@ namespace CloudberryKingdom
 						}
 					}
 
-					List<EzText> titems = Viewer.GameObjViewer.SelectedTexts;
+					List<Text> titems = Viewer.GameObjViewer.SelectedTexts;
 					if (titems.Count > 1)
 					{
 						float Distance = titems[1].Pos.Y - titems[0].Pos.Y;
@@ -140,7 +140,7 @@ namespace CloudberryKingdom
                 }
 
             if (MyTextList != null)
-                foreach (EzText text in MyTextList)
+                foreach (Text text in MyTextList)
                 {
                     string name = text.MyString;
                     ViewableChildren.Add(new InstancePlusName(text, name));
@@ -168,14 +168,14 @@ namespace CloudberryKingdom
             set { FancyPos.RelVal = value; }
         }
 
-        public List<EzText> MyTextList = new List<EzText>();
+        public List<Text> MyTextList = new List<Text>();
         public List<QuadClass> MyQuadList = new List<QuadClass>();
 
 		public void Release()
 		{
 			if (MyTextList != null)
 			{
-				foreach (EzText t in MyTextList)
+				foreach (Text t in MyTextList)
 					t.Release();
 			}
 			MyTextList = null;
@@ -244,14 +244,14 @@ namespace CloudberryKingdom
             MyQuadList.Insert(index, quad);
         }
 
-        public void Add(EzText text)
+        public void Add(Text text)
         {
             text.MakeFancyPos();
             text.FancyPos.SetCenter(FancyPos, true);
             MyTextList.Add(text);
         }
 
-        public void Add(EzText text, string name)
+        public void Add(Text text, string name)
         {
             text.Name = name;
             text.MakeFancyPos();
@@ -259,7 +259,7 @@ namespace CloudberryKingdom
             MyTextList.Add(text);
         }
 
-        public void Remove(EzText text)
+        public void Remove(Text text)
         {
             MyTextList.Remove(text);
         }
@@ -269,7 +269,7 @@ namespace CloudberryKingdom
             return QuadClass.FindQuad(MyQuadList, Name);
         }
 
-        public EzText FindEzText(string Name)
+        public Text FindText(string Name)
         {
             return MyTextList.Find(text => string.Compare(text.Name, Name, System.StringComparison.InvariantCultureIgnoreCase) == 0);
         }
@@ -300,7 +300,7 @@ namespace CloudberryKingdom
                 quad.ShadowOffset.X = .5f * (quad.ShadowOffset.X + Hold.X - PosShift.X);
             }
 
-            foreach (EzText text in MyTextList)
+            foreach (Text text in MyTextList)
             {
                 text.Pos *= scale;
                 text.Scale *= scale;
@@ -379,7 +379,7 @@ namespace CloudberryKingdom
 
         public void DrawText(int Layer)
         {
-            foreach (EzText text in MyTextList)
+            foreach (Text text in MyTextList)
             {
                 if (text.Layer == Layer)
                 {

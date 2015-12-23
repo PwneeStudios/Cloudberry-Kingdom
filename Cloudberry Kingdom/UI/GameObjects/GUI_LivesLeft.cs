@@ -32,7 +32,7 @@ namespace CloudberryKingdom
             return "x " + NumLives.ToString();
         }
 
-        EzText LivesLeftText;
+        Text LivesLeftText;
         void UpdateLivesLeftText()
         {
             LivesLeftText.SubstituteText(ToString());
@@ -52,7 +52,7 @@ namespace CloudberryKingdom
 
             MyPile.Add(new QuadClass("Bob_Stand_0001", 130, true), "Bob");
 
-            LivesLeftText = new EzText(ToString(), Resources.Font_Grobold42, 450, false, true);
+            LivesLeftText = new Text(ToString(), Resources.Font_Grobold42, 450, false, true);
             LivesLeftText.Name = "Text";
             LivesLeftText.Scale = .53f;
             LivesLeftText.Pos = new Vector2(187, -16);
@@ -72,8 +72,8 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(195.3334f, -43.77777f); }
+            Text _t;
+            _t = MyPile.FindText("Text"); if (_t != null) { _t.Pos = new Vector2(195.3334f, -43.77777f); }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Bob"); if (_q != null) { _q.Pos = new Vector2(133.3333f, -27.77774f); _q.ScaleYToMatchRatio(82.5f); }

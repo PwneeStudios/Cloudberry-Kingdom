@@ -28,12 +28,12 @@ namespace CloudberryKingdom
 
 				if (InCampaign)
 				{
-					go = item = new MenuItem(new EzText(Localization.Words.Continue, ItemFont));
+					go = item = new MenuItem(new Text(Localization.Words.Continue, ItemFont));
 					item.Go = MenuGo_Continue;
 				}
 				else
 				{
-					go = item = new MenuItem(new EzText(Localization.Words.KeepSettings, ItemFont));
+					go = item = new MenuItem(new Text(Localization.Words.KeepSettings, ItemFont));
 					item.Go = MenuGo_NewLevel;
 				}
                 item.Name = "Continue";
@@ -45,7 +45,7 @@ namespace CloudberryKingdom
 
                 if (_Add_Watch)
                 {
-                    item = new MenuItem(new EzText(Localization.Words.WatchReplay, ItemFont));
+                    item = new MenuItem(new Text(Localization.Words.WatchReplay, ItemFont));
                     item.Name = "Replay";
                     item.Go = MenuGo_WatchReplay;
                     AddItem(item);
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
 
                 if (_Add_Save)
                 {
-                    item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
+                    item = new MenuItem(new Text(Localization.Words.SaveSeed, ItemFont));
                     item.Name = "Save";
                     item.Go = MenuGo_Save;
 					item.Selectable = CloudberryKingdomGame.CanSave();
@@ -80,16 +80,16 @@ namespace CloudberryKingdom
 				MenuItem back;
 				if (InCampaign)
 				{
-					back = new MenuItem(new EzText(Localization.WordString(Localization.Words.Exit), ItemFont));
+					back = new MenuItem(new Text(Localization.WordString(Localization.Words.Exit), ItemFont));
 					AddItem(back);
 					back.Go = MenuGo_ExitCampaign;
 				}
 				else
 				{
 					if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
-						back = new MenuItem(new EzText(Localization.WordString(Localization.Words.Back), ItemFont));
+						back = new MenuItem(new Text(Localization.WordString(Localization.Words.Back), ItemFont));
 					else
-						back = new MenuItem(new EzText(Localization.WordString(Localization.Words.BackToFreeplay), ItemFont));
+						back = new MenuItem(new Text(Localization.WordString(Localization.Words.BackToFreeplay), ItemFont));
 					AddItem(back);
 					back.Go = MenuGo_ExitFreeplay;
 				}
@@ -108,7 +108,7 @@ namespace CloudberryKingdom
                 MyPile.Add(ContinueButton);
                 ContinueButton.Pos = new Vector2(180f, -477.7778f) + ShiftAll;
 
-                EzText ContinueText = new EzText(Localization.Words.Continue, ItemFont);
+                Text ContinueText = new Text(Localization.Words.Continue, ItemFont);
                 ContinueText.Name = "Continue";
                 SetHeaderProperties(ContinueText);
                 ContinueText.MyFloatColor = Menu.DefaultMenuInfo.SelectedNextColor;
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
                     MyPile.Add(XButton);
                     XButton.Pos = new Vector2(180f, -325.3333f) + ShiftAll;
 
-                    EzText ReplayText = new EzText(Localization.Words.WatchReplay, ItemFont);
+                    Text ReplayText = new Text(Localization.Words.WatchReplay, ItemFont);
                     SetHeaderProperties(ReplayText);
                     ReplayText.MyFloatColor = Menu.DefaultMenuInfo.SelectedBackColor;
                     ReplayText.MyFloatColor = new Color(184, 231, 231).ToVector4();
@@ -132,7 +132,7 @@ namespace CloudberryKingdom
             }
         }
 
-        EzSound ScoreSound, BonusSound;
+        CoreSound ScoreSound, BonusSound;
 
         public int DelayPhsx = 5;
 
@@ -158,7 +158,7 @@ namespace CloudberryKingdom
             //CkColorHelper.GreenItem(item);
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -209,7 +209,7 @@ namespace CloudberryKingdom
 			//LevelCleared.Scale(.9f);
 			//MyPile.Add(LevelCleared);
 			//LevelCleared.Pos = new Vector2(10, 655) + ShiftAll;
-			var lc = new EzText(Localization.Words.LevelCleared, Resources.Font_Grobold42_2, "LevelCleared");
+			var lc = new Text(Localization.Words.LevelCleared, Resources.Font_Grobold42_2, "LevelCleared");
 			SetHeaderProperties(lc);
 			lc.Shadow = true;
 			lc.ShadowOffset = new Vector2(20, 20);
@@ -243,11 +243,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1119.443f, 791.6667f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1119.443f, 791.6667f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -268,11 +268,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -293,11 +293,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1136.11f, 816.6666f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1136.11f, 816.6666f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -318,11 +318,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -343,11 +343,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -368,11 +368,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1161.11f, 791.6667f); _t.Scale = 1.057333f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1161.11f, 791.6667f); _t.Scale = 1.057333f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -393,11 +393,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -418,11 +418,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -443,11 +443,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-719.4434f, 824.9999f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-719.4434f, 824.9999f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -468,11 +468,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -496,11 +496,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -521,11 +521,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-655.5558f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-649.9994f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-655.5558f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-649.9994f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -546,11 +546,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(885.7141f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -571,11 +571,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -596,11 +596,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-688.8889f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-677.7777f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-691.6666f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -621,11 +621,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1138.888f, 788.8889f); _t.Scale = 1.1235f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8879f, -133.3333f); _t.Scale = 0.7865838f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5541f, -391.6666f); _t.Scale = 0.7871667f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-652.777f, 127.7778f); _t.Scale = 0.84325f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-1138.888f, 788.8889f); _t.Scale = 1.1235f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8879f, -133.3333f); _t.Scale = 0.7865838f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5541f, -391.6666f); _t.Scale = 0.7871667f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-652.777f, 127.7778f); _t.Scale = 0.84325f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -646,11 +646,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -671,11 +671,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-719.4445f, 22.22227f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-661.1107f, -402.7777f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-655.5553f, 411.1111f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -696,11 +696,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -721,11 +721,11 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(902.3811f, -136.1111f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
-					_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
-					_t = MyPile.FindEzText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
+					Text _t;
+					_t = MyPile.FindText("LevelCleared"); if (_t != null) { _t.Pos = new Vector2(-930.5547f, 797.2222f); _t.Scale = 1.195833f; }
+					_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-638.8889f, -2.777716f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Blobs"); if (_t != null) { _t.Pos = new Vector2(-630.5551f, -386.1111f); _t.Scale = 1f; }
+					_t = MyPile.FindText("Deaths"); if (_t != null) { _t.Pos = new Vector2(-636.111f, 388.8889f); _t.Scale = 1f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.887f, 5000f); }
@@ -762,17 +762,17 @@ namespace CloudberryKingdom
             int BlobTotal = PlayerManager.PlayerMax(p => p.GetStats(MyStatGroup).TotalBlobs);
 
 			
-			EzText text;
+			Text text;
 			
-			text = new EzText(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins");
+			text = new Text(Tools.ScoreString(Coins, CoinTotal), ItemFont, "Coins");
 			SetHeaderProperties(text);
             MyPile.Add(text);
 
-            text = new EzText(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs");
+            text = new Text(CoreMath.ShortTime(PlayerManager.Score_Time), ItemFont, "Blobs");
 			SetHeaderProperties(text);
 			MyPile.Add(text);
 
-            text = new EzText(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths");
+            text = new Text(Tools.ScoreString(PlayerManager.Score_Attempts), ItemFont, "Deaths");
 			SetHeaderProperties(text);
 			MyPile.Add(text);
 
@@ -798,7 +798,7 @@ namespace CloudberryKingdom
             {
                 MyGame.Cam.Zoom = .001f * zoom.Update();
                 MyGame.Cam.SetVertexCamera();
-                EzText.ZoomWithCamera_Override = true;
+                Text.ZoomWithCamera_Override = true;
             }
 
             Pos.SetCenter(Core.MyLevel.MainCamera, true);
@@ -813,7 +813,7 @@ namespace CloudberryKingdom
                 MyGame.Cam.Zoom = SaveZoom;
                 MyGame.Cam.HoldZoom = SaveHoldZoom;
                 MyGame.Cam.SetVertexCamera();
-                EzText.ZoomWithCamera_Override = false;
+                Text.ZoomWithCamera_Override = false;
                 Tools.QDrawer.Flush();
             }
         }

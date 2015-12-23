@@ -13,7 +13,7 @@ namespace CloudberryKingdom.Stats
             item.MyText.Shadow = item.MySelectedText.Shadow = false;
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             text.MyFloatColor = new Vector4(.6f, .6f, .6f, 1f);
             text.OutlineColor = new Vector4(0f, 0f, 0f, 1f);
@@ -56,14 +56,14 @@ namespace CloudberryKingdom.Stats
             Item.MySelectedText.Scale = .5f;
 
             int index = 0;
-            EzText Text;
+            Text Text;
             for (int j = 0; j < 4; j++)
             {
                 if (PlayerManager.Get(j).Exists)
                 {
                     string val = f(j).ToString();
 
-                    Text = new EzText(val, ItemFont, false, true);
+                    Text = new Text(val, ItemFont, false, true);
                     Text.Layer = 1;
                     MyPile.Add(Text);
                     Text.FancyPos.SetCenter(Item.FancyPos);
@@ -158,14 +158,14 @@ namespace CloudberryKingdom.Stats
 
             // Header
             if (group == StatGroup.Lifetime)
-                Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
+                Header = new MenuItem(new Text(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             else if (group == StatGroup.Campaign)
             {
-                Header = new MenuItem(new EzText(Localization.Words.StoryMode, Resources.Font_Grobold42_2));
+                Header = new MenuItem(new Text(Localization.Words.StoryMode, Resources.Font_Grobold42_2));
                 Header.MyText.Scale *= .725f;
             }
             else
-                Header = new MenuItem(new EzText(Localization.Words.Statistics, Resources.Font_Grobold42_2));
+                Header = new MenuItem(new Text(Localization.Words.Statistics, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
             SetHeaderProperties(Header.MyText);
@@ -174,8 +174,8 @@ namespace CloudberryKingdom.Stats
             ItemPos += HeaderPosAdd;
 
 #if NOT_PC
-            EzText Text;
-            Header = new MenuItem(new EzText("", ItemFont));
+            Text Text;
+            Header = new MenuItem(new Text("", ItemFont));
             MyMenu.Add(Header);
             Header.Pos = new Vector2(-1138.889f, 988.0952f);
             Header.Selectable = false;
@@ -192,16 +192,16 @@ namespace CloudberryKingdom.Stats
                 }
             }
 #endif
-            AddRow(new MenuItem(new EzText(Localization.Words.LevelsBeat, ItemFont)), j => Stats[j].Levels);
-            AddRow(new MenuItem(new EzText(Localization.Words.Jumps, ItemFont)), j => Stats[j].Jumps);
-            AddRow(new MenuItem(new EzText(Localization.Words.Score, ItemFont)), j => Stats[j].Score);
+            AddRow(new MenuItem(new Text(Localization.Words.LevelsBeat, ItemFont)), j => Stats[j].Levels);
+            AddRow(new MenuItem(new Text(Localization.Words.Jumps, ItemFont)), j => Stats[j].Jumps);
+            AddRow(new MenuItem(new Text(Localization.Words.Score, ItemFont)), j => Stats[j].Score);
 
-            AddRow(new MenuItem(new EzText(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
-            AddRow(new MenuItem(new EzText(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
-            AddRow(new MenuItem(new EzText(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
+            AddRow(new MenuItem(new Text(Localization.Words.FlyingBlobs, ItemFont)), j => Stats[j].Blobs);
+            AddRow(new MenuItem(new Text(Localization.Words.Checkpoints, ItemFont)), j => Stats[j].Checkpoints);
+            AddRow(new MenuItem(new Text(Localization.Words.AverageLife, ItemFont)), j => Stats[j].LifeExpectancy);
 
             // Coins
-            Header = new MenuItem(new EzText(Localization.Words.Coins, Resources.Font_Grobold42_2));
+            Header = new MenuItem(new Text(Localization.Words.Coins, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
             SetHeaderProperties(Header.MyText);
@@ -209,18 +209,18 @@ namespace CloudberryKingdom.Stats
             Header.Selectable = false;
             ItemPos += HeaderPosAdd;
 
-            //var coinitem = new MenuItem(new EzText(Localization.Words.Coins, ItemFont));
+            //var coinitem = new MenuItem(new Text(Localization.Words.Coins, ItemFont));
             //coinitem.Selectable = false;
             //AddItem(coinitem);
 
-            AddRow(new MenuItem(new EzText(Localization.Words.Grabbed, ItemFont)), j => Stats[j].Coins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText(Localization.Words.CoinsOutOf, ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
-            AddRow(new MenuItem(new EzText(Localization.Words.Percent, ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
+            AddRow(new MenuItem(new Text(Localization.Words.Grabbed, ItemFont)), j => Stats[j].Coins);//.Selectable = false;
+            AddRow(new MenuItem(new Text(Localization.Words.CoinsOutOf, ItemFont)), j => Stats[j].TotalCoins);//.Selectable = false;
+            AddRow(new MenuItem(new Text(Localization.Words.Percent, ItemFont)), j => Stats[j].CoinPercentGotten.ToString() + '%');
 
 
 
             // Deaths
-            Header = new MenuItem(new EzText(Localization.Words.Deaths, Resources.Font_Grobold42_2));
+            Header = new MenuItem(new Text(Localization.Words.Deaths, Resources.Font_Grobold42_2));
             MyMenu.Add(Header);
             Header.Pos = new Vector2(HeaderPos, ItemPos.Y - 40);
             SetHeaderProperties(Header.MyText);
@@ -237,7 +237,7 @@ namespace CloudberryKingdom.Stats
                 {
                     Localization.Words word = Bob.BobDeathNames[type];
 
-                    AddRow(new MenuItem(new EzText(word, ItemFont)), j => Stats[j].DeathsBy[i]);
+                    AddRow(new MenuItem(new Text(word, ItemFont)), j => Stats[j].DeathsBy[i]);
                 }
             }
 
@@ -275,10 +275,10 @@ namespace CloudberryKingdom.Stats
             SetPos();
         }
 
-        private EzText MakeGamerTag(MenuItem Header, int index, string val)
+        private Text MakeGamerTag(MenuItem Header, int index, string val)
         {
-            EzText Text;
-            Text = new EzText(val, ItemFont, true, true);
+            Text Text;
+            Text = new Text(val, ItemFont, true, true);
             Text.Layer = 1;
             MyPile.Add(Text);
             Text.FancyPos.SetCenter(Header.FancyPos);

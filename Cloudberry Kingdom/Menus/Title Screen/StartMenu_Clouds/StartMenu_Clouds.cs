@@ -24,9 +24,9 @@ namespace CloudberryKingdom
         {
 #if XBOX
             // Player needs a storage device
-            if (MenuItem.ActivatingPlayer >= 0 && EzStorage.Device[MenuItem.ActivatingPlayer] != null)
+            if (MenuItem.ActivatingPlayer >= 0 && CoreStorage.Device[MenuItem.ActivatingPlayer] != null)
             {
-                EzStorage.Device[MenuItem.ActivatingPlayer].NeedsConnection = true;
+                CoreStorage.Device[MenuItem.ActivatingPlayer].NeedsConnection = true;
             }
 #endif
 			Title.BackPanel.SetState(TitleBackgroundState.Scene_Blur_Dark);
@@ -171,25 +171,25 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Arcade
-            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.TheArcade, ItemFont, true));
             item.Name = "Arcade";
             item.Go = MenuGo_Arcade;
             AddItem(item);
 
             // Campaign
-            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.StoryMode, ItemFont, true));
             item.Name = "Campaign";
             AddItem(item);
             item.Go = MenuGo_Campaign;
 
             // Free Play
-            item = new MenuItem(new EzText(Localization.Words.FreePlay, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.FreePlay, ItemFont, true));
             item.Name = "Freeplay";
             item.Go = MenuGo_Freeplay;
             AddItem(item);
 
             // Options
-            item = new MenuItem(new EzText(
+            item = new MenuItem(new Text(
 #if XBOX
 				Localization.Words.Options_Xbox
 #else		
@@ -201,7 +201,7 @@ namespace CloudberryKingdom
             AddItem(item);
 
 			// Exit
-            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Back, ItemFont, true));
             item.Name = "Exit";
             item.Go = ItemReturnToCaller;
             AddItem(item);

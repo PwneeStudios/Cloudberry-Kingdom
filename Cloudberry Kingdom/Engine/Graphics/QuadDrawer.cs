@@ -46,7 +46,7 @@ namespace CoreEngine
         /// Spacing offset between characters.
         int charSpacing_;
 
-        public EzTexture MyTexture;
+        public CoreTexture MyTexture;
 
 		public GlyphData GetData(char c, bool MakeMonospaced)
         {
@@ -86,7 +86,7 @@ namespace CoreEngine
 
         public HackFont(string name)
         {
-            MyTexture = new EzTexture();
+            MyTexture = new CoreTexture();
             MyTexture.Tex = Localization.FontTexture;
 
             var file = new StreamReader(File.OpenRead("Content/Fonts/" + name + ".fnt"));
@@ -132,11 +132,11 @@ namespace CoreEngine
     {
         GraphicsDevice Device;
 
-        public EzEffect DefaultEffect;
-        public EzTexture DefaultTexture;
+        public CoreEffect DefaultEffect;
+        public CoreTexture DefaultTexture;
 
-        private EzEffect CurrentEffect;
-        private EzTexture CurrentTexture;
+        private CoreEffect CurrentEffect;
+        private CoreTexture CurrentTexture;
 
         /// <summary>
         /// Color rotation matrix.
@@ -429,18 +429,18 @@ namespace CoreEngine
         {
             DrawLine(x1, x2, color, width, null, null, 1, 0, 0f, 0, false);
         }
-        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex, EzEffect fx, float RepeatWidth, int Dir, bool Illumination)
+        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, CoreTexture Tex, CoreEffect fx, float RepeatWidth, int Dir, bool Illumination)
         {
             bool Hold = LineQuad.UseGlobalIllumination;
             LineQuad.UseGlobalIllumination = Illumination;
             DrawLine(x1, x2, color, width, Tex, fx, RepeatWidth, Dir, 0f, 0, false);
             LineQuad.UseGlobalIllumination = Hold;
         }
-        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex, EzEffect fx, float RepeatWidth, int Dir, float BlendAddRatio)
+        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, CoreTexture Tex, CoreEffect fx, float RepeatWidth, int Dir, float BlendAddRatio)
         {
             DrawLine(x1, x2, color, width, Tex, fx, RepeatWidth, Dir, BlendAddRatio, 0, false);
         }
-        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex, EzEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift, bool Wrap)
+        public void DrawLine(Vector2 x1, Vector2 x2, Color color, float width, CoreTexture Tex, CoreEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift, bool Wrap)
         {
             color = ColorHelper.PremultiplyAlpha(color);
 
@@ -494,7 +494,7 @@ namespace CoreEngine
             LineQuad.BlendAddRatio = 0;
         }
 
-        public void DrawLineAndEndPoints(Vector2 x1, Vector2 x2, Color color, float width, EzTexture Tex1, EzTexture Tex2, EzTexture Tex3, EzEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift)
+        public void DrawLineAndEndPoints(Vector2 x1, Vector2 x2, Color color, float width, CoreTexture Tex1, CoreTexture Tex2, CoreTexture Tex3, CoreEffect fx, float RepeatWidth, int Dir, float BlendAddRatio, float v_shift)
         {
             color = ColorHelper.PremultiplyAlpha(color);
 
@@ -591,7 +591,7 @@ namespace CoreEngine
         {
             DrawSquareDot(x, color, width, null, null);
         }
-        public void DrawSquareDot(Vector2 x, Color color, float width, EzTexture Tex, EzEffect fx)
+        public void DrawSquareDot(Vector2 x, Color color, float width, CoreTexture Tex, CoreEffect fx)
         {
             color = ColorHelper.PremultiplyAlpha(color);
 
@@ -625,7 +625,7 @@ namespace CoreEngine
             DrawQuad(ref LineQuad);
         }
 
-		public void DrawQuad(Vector2 BL, Vector2 TR, Color color, EzTexture Tex, EzEffect fx)
+		public void DrawQuad(Vector2 BL, Vector2 TR, Color color, CoreTexture Tex, CoreEffect fx)
 		{
 			color = ColorHelper.PremultiplyAlpha(color);
 
@@ -663,7 +663,7 @@ namespace CoreEngine
         {
             DrawToScaleQuad(x, color, width, null, null);
         }
-        public void DrawToScaleQuad(Vector2 x, Color color, float width, EzTexture Tex, EzEffect fx)
+        public void DrawToScaleQuad(Vector2 x, Color color, float width, CoreTexture Tex, CoreEffect fx)
         {
             color = ColorHelper.PremultiplyAlpha(color);
 
@@ -755,7 +755,7 @@ namespace CoreEngine
             i = 0;
         }
 
-        public void DrawPic(Vector2 pos, Vector2 pos2, EzTexture texture, Color color)
+        public void DrawPic(Vector2 pos, Vector2 pos2, CoreTexture texture, Color color)
         {
             if (CurrentTexture != texture || CurrentEffect != Tools.BasicEffect)
                 Flush();
@@ -794,7 +794,7 @@ namespace CoreEngine
 
             scale *= 1.12f;
 
-            EzEffect fx = null;
+            CoreEffect fx = null;
             switch (spritefont.thickness)
             {
                 case 0: fx = Tools.Text_NoOutline; break;
@@ -875,7 +875,7 @@ namespace CoreEngine
 
             scale *= 1.12f;
 
-            EzEffect fx = null;
+            CoreEffect fx = null;
             switch (spritefont.thickness)
             {
                 case 0: fx = Tools.Text_NoOutline; break;

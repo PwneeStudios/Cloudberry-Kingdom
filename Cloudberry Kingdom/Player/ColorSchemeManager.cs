@@ -49,7 +49,7 @@ namespace CloudberryKingdom
                 );
         }
 
-        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, EzEffect Effect, Localization.Words Name)
+        static MenuListItem _i(int Guid, int Price, Color Clr, Matrix M, CoreEffect Effect, Localization.Words Name)
         {
             var ctf = new ClrTextFx(Guid, Price, Clr, M, Name);
             ctf.Effect = Effect;

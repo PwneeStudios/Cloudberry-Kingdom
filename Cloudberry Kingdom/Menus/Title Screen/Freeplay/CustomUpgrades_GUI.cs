@@ -72,7 +72,7 @@ namespace CloudberryKingdom
         protected PieceSeedData PieceSeed;
         protected CustomLevel_GUI CustomLevel;
 
-        EzText TopText;
+        Text TopText;
 
         public CustomUpgrades_GUI(PieceSeedData PieceSeed, CustomLevel_GUI CustomLevel)
         {
@@ -87,7 +87,7 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -103,7 +103,7 @@ namespace CloudberryKingdom
         public ObjectIcon BigIcon;
         void AddUpgrade(Upgrade upgrade)
         {
-            MenuSlider slider = new MenuSlider(new EzText("", ItemFont));
+            MenuSlider slider = new MenuSlider(new Text("", ItemFont));
             slider.SliderBackSize *= new Vector2(1.15f, .72f) * .975f * ScaleList;
             slider.SetIcon(ObjectIcon.CreateIcon(upgrade));
             slider.Icon.SetScale(.6f * ScaleList);
@@ -252,7 +252,7 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             // Header
-            EzText LocationText = new EzText(HeaderText(), ItemFont);
+            Text LocationText = new Text(HeaderText(), ItemFont);
             LocationText.Name = "Header";
             SetHeaderProperties(LocationText);
             MyPile.Add(LocationText);
@@ -278,9 +278,9 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(569.6667f, 0f); _t.Scale = 0.5f; }
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
+				Text _t;
+				_t = MyPile.FindText("TopText"); if (_t != null) { _t.Pos = new Vector2(569.6667f, 0f); _t.Scale = 0.5f; }
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
@@ -301,9 +301,9 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-202.7773f, -122.2222f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8778f, 725f); _t.Scale = 0.664f; }
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
+				Text _t;
+				_t = MyPile.FindText("TopText"); if (_t != null) { _t.Pos = new Vector2(508.8778f, 725f); _t.Scale = 0.664f; }
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-872.222f, 936.1112f); _t.Scale = 0.72f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(307.143f, -23.41241f); _q.Size = new Vector2(1741.167f, 1044.7f); }
@@ -337,7 +337,7 @@ namespace CloudberryKingdom
 
             // Start
             MenuItem item;
-            MenuItem Start = item = new MenuItem(new EzText(Localization.Words.Start, ItemFont));
+            MenuItem Start = item = new MenuItem(new Text(Localization.Words.Start, ItemFont));
             item.Name = "Start";
             item.Go = Cast.ToItem(Go);
             item.JiggleOnGo = false;
@@ -358,7 +358,7 @@ if (ButtonCheck.ControllerInUse)
             MyMenu.OnA = Cast.ToMenu(Go);
 
             // Random
-            item = new MenuItem(new EzText(Localization.Words.Random, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Random, ItemFont));
             item.Name = "Random";
             item.Go = Cast.ToItem(Randomize);
             AddItem(item);
@@ -375,7 +375,7 @@ if (ButtonCheck.ControllerInUse)
 #endif
 
             // Zero
-            item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
             item.Go = Cast.ToItem(Zero);
             AddItem(item);
@@ -394,7 +394,7 @@ if (ButtonCheck.ControllerInUse)
 #endif
 
             // Back
-            item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Back, ItemFont));
             item.Name = "Back";
             item.Go = null;
             AddItem(item);
@@ -414,7 +414,7 @@ if (ButtonCheck.ControllerInUse)
 
         private void MakeTopText()
         {
-            TopText = new EzText("   ", ItemFont, true, true);
+            TopText = new Text("   ", ItemFont, true, true);
             SetTextProperties(TopText);
             TopText.Shadow = false;
             MyPile.Add(TopText, "TopText");

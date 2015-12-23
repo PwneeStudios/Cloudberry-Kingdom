@@ -94,8 +94,8 @@ namespace CoreEngine
         RenderTarget2D ObjectRenderTarget;
         Texture2D blob, WhiteTexture, backgroundTexture;
 
-        EzEffectWad EffectWad;
-        EzTextureWad TextureWad;
+        CoreEffectWad EffectWad;
+        CoreTextureWad TextureWad;
 
         //Spline TestSpline;
         //BendableQuad TestQuad;
@@ -177,7 +177,7 @@ namespace CoreEngine
 
         protected override void LoadContent()
         {
-            EzTexture.game = this;
+            CoreTexture.game = this;
 
             //Globals.ContentDirectory = Path.Combine(StorageContainer.TitleLocation, Content.RootDirectory);
             Globals.ContentDirectory = Content.RootDirectory;

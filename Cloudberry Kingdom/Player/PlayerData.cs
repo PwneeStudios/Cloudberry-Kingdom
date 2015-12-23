@@ -437,7 +437,7 @@ namespace CloudberryKingdom
         /// <summary>
         /// Sets the color of text to match the color of the player.
         /// </summary>
-        public void SetNameText(EzText text)
+        public void SetNameText(Text text)
         {
             //text.ShadowOffset = new Vector2(9, 9);
             //text.ShadowColor = Generic.PlayerColorSchemes[PlayerIndex].OutlineColor.Clr;

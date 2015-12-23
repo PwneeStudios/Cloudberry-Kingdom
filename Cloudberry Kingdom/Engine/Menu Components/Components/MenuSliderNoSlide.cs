@@ -4,13 +4,13 @@ namespace CloudberryKingdom
 {
     public class MenuSliderNoSlide : MenuSliderBase
     {
-        public MenuSliderNoSlide(EzText Text)
+        public MenuSliderNoSlide(Text Text)
         {
             Init(Text, Text.Clone());
             InitializeSlider();
         }
         
-        public MenuSliderNoSlide(EzText Text, EzText SelectedText)
+        public MenuSliderNoSlide(Text Text, Text SelectedText)
         {
             Init(Text, SelectedText);
             InitializeSlider();

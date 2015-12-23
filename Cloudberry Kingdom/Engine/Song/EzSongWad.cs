@@ -130,7 +130,7 @@ namespace CoreEngine
 		}
 	}
 
-    public class EzSongWad
+    public class CoreSongWad
     {
         public bool PlayNext = false, PlayerControl, DisplayInfo;
         public bool Fading;
@@ -143,11 +143,11 @@ namespace CoreEngine
 
         public bool StartingSong;
 
-        public EzText SongInfoText;
+        public Text SongInfoText;
         public bool DisplayingInfo;
         public Camera DefaultCam;
 
-        public EzSongWad()
+        public CoreSongWad()
         {
             SongList = new List<BaseSong>();
 
@@ -214,8 +214,8 @@ namespace CoreEngine
             songname = songname.Replace('_', ' ');
             string artistname = song.ArtistName;
             artistname = song.ArtistName.Replace('_', ' ');
-            //SongInfoText = new EzText(songname + "\n" + artistname, Resources.LilFont, true, true);
-            SongInfoText = new EzText(songname + "\n" + artistname, Resources.Font_Grobold42_2, 1000.0f, true, true, .85f);
+            //SongInfoText = new Text(songname + "\n" + artistname, Resources.LilFont, true, true);
+            SongInfoText = new Text(songname + "\n" + artistname, Resources.Font_Grobold42_2, 1000.0f, true, true, .85f);
             SongInfoText._Pos = new Vector2(-850, -790);
             SongInfoText.MyFloatColor = new Vector4(.9f, .9f, .9f, 4.5f);
             SongInfoText.Scale = .3f;

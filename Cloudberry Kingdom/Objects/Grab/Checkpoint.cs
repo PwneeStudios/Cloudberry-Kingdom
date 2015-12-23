@@ -15,7 +15,7 @@ namespace CloudberryKingdom.InGameObjects
             public Vector2 Size = new Vector2(115, 115);
             public Vector2 TextureSize = new Vector2(170, 170);
 
-            public EzSound MySound = Tools.NewSound("Checkpoint", .6f);
+            public CoreSound MySound = Tools.NewSound("Checkpoint", .6f);
 
             public Particle DieTemplate;
             public CheckpointTileInfo()
@@ -45,7 +45,7 @@ namespace CloudberryKingdom.InGameObjects
 
         float Taken_Scale, Taken_Alpha;
 
-        static EzSound MySound;
+        static CoreSound MySound;
 
         public bool SkipPhsx;
 

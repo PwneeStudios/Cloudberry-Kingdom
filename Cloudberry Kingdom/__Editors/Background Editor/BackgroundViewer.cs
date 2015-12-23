@@ -1500,7 +1500,7 @@ namespace CloudberryKingdom.Viewer
             MoveQuadsCheckbox.Checked = true;
         }
 
-        void SetFloaterTexture(BackgroundFloater floater, EzTexture texture)
+        void SetFloaterTexture(BackgroundFloater floater, CoreTexture texture)
         {
             floater.MyQuad.Quad.MyTexture = texture;
 
@@ -1514,7 +1514,7 @@ namespace CloudberryKingdom.Viewer
             }
         }
 
-        void AddTextureToCombobox(EzTexture texture)
+        void AddTextureToCombobox(CoreTexture texture)
         {
             if (TextureCombobox.Items.Contains(texture)) return;
 

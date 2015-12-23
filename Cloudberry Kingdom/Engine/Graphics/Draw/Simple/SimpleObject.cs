@@ -23,7 +23,7 @@ namespace CoreEngine
         public int anim, OldAnim;
         public float t, OldT, StartT;
 
-        public List<EzEffect> MyEffects;
+        public List<CoreEffect> MyEffects;
 
         public bool Released;
 
@@ -57,7 +57,7 @@ namespace CoreEngine
         {
             if (Quads == null || Quads.Length == 0) return;
 
-            if (MyEffects == null) MyEffects = new List<EzEffect>();
+            if (MyEffects == null) MyEffects = new List<CoreEffect>();
             else MyEffects.Clear();
 
             for (int i = 0; i < Quads.Length; i++)
@@ -252,17 +252,17 @@ namespace CoreEngine
 
         public void Draw() { Draw(Tools.QDrawer, Tools.EffectWad); }
 
-        public void Draw(QuadDrawer QDrawer, EzEffectWad EffectWad)
+        public void Draw(QuadDrawer QDrawer, CoreEffectWad EffectWad)
         {
             int n = 0;
             if (Quads != null) n = Quads.Length;
 
             Draw(QDrawer, EffectWad, 0, n - 1);
         }
-        public void Draw(QuadDrawer QDrawer, EzEffectWad EffectWad, int StartIndex, int EndIndex)
+        public void Draw(QuadDrawer QDrawer, CoreEffectWad EffectWad, int StartIndex, int EndIndex)
         {
             if (xFlip || yFlip)
-                foreach (EzEffect fx in MyEffects)
+                foreach (CoreEffect fx in MyEffects)
                 {
                     fx.FlipCenter.SetValue(FlipCenter);
                     fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
@@ -275,7 +275,7 @@ namespace CoreEngine
             if (xFlip || yFlip)
             {
                 QDrawer.Flush();
-                foreach (EzEffect fx in MyEffects)
+                foreach (CoreEffect fx in MyEffects)
                     fx.FlipVector.SetValue(new Vector2(-1, -1));
             }
         }
@@ -283,7 +283,7 @@ namespace CoreEngine
         public void DrawQuad(ref SimpleQuad Quad)
         {
             if (xFlip || yFlip)
-                foreach (EzEffect fx in MyEffects)
+                foreach (CoreEffect fx in MyEffects)
                 {
                     fx.FlipCenter.SetValue(FlipCenter);
                     fx.FlipVector.SetValue(new Vector2(xFlip ? 1 : -1, yFlip ? 1 : -1));
@@ -294,7 +294,7 @@ namespace CoreEngine
             if (xFlip || yFlip)
             {
                 Tools.QDrawer.Flush();
-                foreach (EzEffect fx in MyEffects)
+                foreach (CoreEffect fx in MyEffects)
                     fx.FlipVector.SetValue(new Vector2(-1, -1));
             }
         }

@@ -32,7 +32,7 @@ namespace CloudberryKingdom
             item.MyText.Shadow = item.MySelectedText.Shadow = false;
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -53,7 +53,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            EzText HeaderText = new EzText(Localization.Words.ExitGame, ItemFont);
+            Text HeaderText = new Text(Localization.Words.ExitGame, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
             if (Version == 0)
@@ -62,14 +62,14 @@ namespace CloudberryKingdom
                 HeaderText.Pos = new Vector2(-701.1883f, 816.7295f);
 
             // Yes
-            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Yes, ItemFont));
             item.Name = "Yes";
             item.Go = Cast.ToItem(Tools.TheGame.Exit);
             item.AdditionalOnSelect = () => Berry.TextureName = "cb_crying";
             AddItem(item);
 
             // No
-            item = new MenuItem(new EzText(Localization.Words.No, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.No, ItemFont));
             item.Name = "No";
             item.Go = ItemReturnToCaller;
             item.AdditionalOnSelect = () => Berry.TextureName = "cb_enthusiastic";
@@ -96,8 +96,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-463.4936f, -274.2063f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-101.1874f, 450.0627f); _t.Scale = 0.8553333f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-101.1874f, 450.0627f); _t.Scale = 0.8553333f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -113,8 +113,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-140.0763f, 383.3961f); _t.Scale = 0.6214168f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-140.0763f, 383.3961f); _t.Scale = 0.6214168f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -130,8 +130,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-452.3822f, -257.5397f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-137.2986f, 441.7294f); _t.Scale = 0.6013337f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-137.2986f, 441.7294f); _t.Scale = 0.6013337f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -147,8 +147,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-419.049f, -268.6508f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-151.1877f, 383.3961f); _t.Scale = 0.6100834f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-151.1877f, 383.3961f); _t.Scale = 0.6100834f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -164,8 +164,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-538.4935f, -157.5397f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-670.6317f, 663.9516f); _t.Scale = 0.7720002f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-670.6317f, 663.9516f); _t.Scale = 0.7720002f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -181,8 +181,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-396.8268f, -268.6508f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-715.0768f, 666.7294f); _t.Scale = 0.7095835f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-715.0768f, 666.7294f); _t.Scale = 0.7095835f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -198,8 +198,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-369.049f, -290.873f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-123.41f, 380.6181f); _t.Scale = 0.6072503f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-123.41f, 380.6181f); _t.Scale = 0.6072503f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -215,8 +215,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-538.4935f, -171.4286f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-776.1881f, 711.1738f); _t.Scale = 0.9946669f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-776.1881f, 711.1738f); _t.Scale = 0.9946669f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -232,8 +232,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-538.4934f, -276.9841f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-756.743f, 680.6182f); _t.Scale = 0.8351667f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-756.743f, 680.6182f); _t.Scale = 0.8351667f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }
@@ -249,8 +249,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-396.8268f, -265.873f);
 
-				EzText _t;
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
+				Text _t;
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(978.2115f, 727.7092f); }

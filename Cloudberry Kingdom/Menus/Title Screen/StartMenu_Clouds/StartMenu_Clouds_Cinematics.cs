@@ -23,7 +23,7 @@ namespace CloudberryKingdom
             base.SlideOut(Preset, 0);
         }
 
-        protected void SetText(EzText text)
+        protected void SetText(Text text)
         {
             text.MyFloatColor = new Color(34, 214, 47).ToVector4();
             text.OutlineColor = new Color(0, 0, 0, 0).ToVector4();
@@ -71,7 +71,7 @@ namespace CloudberryKingdom
 
 			for (int i = 0; i < 4; i++)
 			{
-				item = new CinematicsLevelItem(new EzText(Localization.WordString(Localization.Words.Level) + " " + (1 + 10 * i).ToString(), ItemFont), "Cutscene_1");
+				item = new CinematicsLevelItem(new Text(Localization.WordString(Localization.Words.Level) + " " + (1 + 10 * i).ToString(), ItemFont), "Cutscene_1");
 				item.Name = "Subsection" + i.ToString();
 				item.Go = Go;
 				AddItem(item);
@@ -84,7 +84,7 @@ namespace CloudberryKingdom
 
         protected void MakeHeader()
         {
-            var Header = new EzText(Localization.Words.StoryMode, ItemFont);
+            var Header = new Text(Localization.Words.StoryMode, ItemFont);
             Header.Name = "Header";
             Header.Scale *= 1.3f;
             SetText(Header);

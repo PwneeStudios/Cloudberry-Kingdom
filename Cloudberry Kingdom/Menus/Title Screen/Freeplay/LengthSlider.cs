@@ -6,12 +6,12 @@ namespace CloudberryKingdom
     public class LengthSlider : MenuSliderBase
     {
         public LengthSlider() { }
-        public LengthSlider(EzText Text)
+        public LengthSlider(Text Text)
         {
             Init(Text, Text.Clone());
             InitializeSlider();
         }
-        public LengthSlider(EzText Text, EzText SelectedText)
+        public LengthSlider(Text Text, Text SelectedText)
         {
             Init(Text, SelectedText);
             InitializeSlider();

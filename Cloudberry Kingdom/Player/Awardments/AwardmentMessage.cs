@@ -9,9 +9,9 @@ namespace CloudberryKingdom.Awards
             MakeText("", Localization.WordString(Localization.Words.NewHeroUnlocked));
 
 
-            EzText _t;
-            _t = MyPile.FindEzText("Title"); if (_t != null) { _t.Pos = new Vector2(-1726.192f, 300f); _t.Scale = 0.6f; }
-            _t = MyPile.FindEzText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
+            Text _t;
+            _t = MyPile.FindText("Title"); if (_t != null) { _t.Pos = new Vector2(-1726.192f, 300f); _t.Scale = 0.6f; }
+            _t = MyPile.FindText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("ArcadeBox"); if (_q != null) { _q.Pos = new Vector2(4.763306f, 0f); _q.Size = new Vector2(919.4252f, 163.4914f); }
@@ -45,14 +45,14 @@ namespace CloudberryKingdom.Awards
 
         protected void MakeText(string TitleWord, string DescriptionWord)
         {
-            EzText Title, Description;
+            Text Title, Description;
 
-            Title = new EzText(TitleWord, Resources.Font_Grobold42_2, 1800, false, false, .575f);
+            Title = new Text(TitleWord, Resources.Font_Grobold42_2, 1800, false, false, .575f);
             Title.Pos = new Vector2(-1726.192f, 300);
             Title.Scale *= .6f;
             MyPile.Add(Title, "Title");
 
-            Description = new EzText(DescriptionWord, Resources.Font_Grobold42_2, 1800, true, true, .575f);
+            Description = new Text(DescriptionWord, Resources.Font_Grobold42_2, 1800, true, true, .575f);
             Description.Pos = new Vector2(0, 100);
             Description.Scale *= .6f;
             MyPile.Add(Description, "Description");

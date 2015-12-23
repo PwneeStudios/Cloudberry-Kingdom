@@ -6,9 +6,9 @@ namespace CloudberryKingdom
 {
     public class MenuScrollBar : MenuSlider
     {
-        public MenuScrollBar() : base(new EzText("", Resources.Font_Grobold42)) { }
+        public MenuScrollBar() : base(new Text("", Resources.Font_Grobold42)) { }
 
-        public EzTexture Normal, Held;
+        public CoreTexture Normal, Held;
         protected override void InitializeSlider()
         {
             base.InitializeSlider();

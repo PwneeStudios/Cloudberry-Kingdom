@@ -29,7 +29,7 @@ namespace CloudberryKingdom
         new public static BobPhsxWheel Instance { get { return instance; } }
 
         // Instancable class
-        new EzSound LandSound;
+        new CoreSound LandSound;
 
         float AngleSpeed = 0;
 

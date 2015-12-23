@@ -41,7 +41,7 @@ namespace CloudberryKingdom
 
         public AlertBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -85,7 +85,7 @@ namespace CloudberryKingdom
             // Make the backdrop
             MakeBackdrop();
 
-            var message = new EzText(Message, ItemFont, 700, true, true, .75f);
+            var message = new Text(Message, ItemFont, 700, true, true, .75f);
             message.Name = "Message";
 
 			if (Message != Localization.Words.None)
@@ -97,7 +97,7 @@ namespace CloudberryKingdom
             MyMenu = new Menu(false);
             MyMenu.Control = Control;
 
-            var OkItem = new MenuItem(new EzText(OkText, ItemFont, true, true), "Message");
+            var OkItem = new MenuItem(new Text(OkText, ItemFont, true, true), "Message");
             OkItem.Go = Cast.ToItem(Ok);
             AddItem(OkItem);
             OkItem.SelectSound = null;
@@ -127,8 +127,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(0f, 40f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Message"); if (_t != null) { _t.Pos = new Vector2(-13.88892f, 375f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Message"); if (_t != null) { _t.Pos = new Vector2(-13.88892f, 375f); _t.Scale = 1f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 902.439f); }

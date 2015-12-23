@@ -117,7 +117,7 @@ namespace CloudberryKingdom
 #if PC
         public static void SaveRezAndKeys()
         {
-			EzStorage.SaveWithMetaData(PlayerIndex.One, "Settings", "Options", _SaveRezAndKeys, null);
+			CoreStorage.SaveWithMetaData(PlayerIndex.One, "Settings", "Options", _SaveRezAndKeys, null);
         }
 
         static void _SaveRezAndKeys(BinaryWriter writer)
@@ -166,7 +166,7 @@ namespace CloudberryKingdom
         static RezData d;
         public static RezData LoadRezAndKeys()
         {
-			EzStorage.Load(PlayerIndex.One, "Settings", "Options", null, _LoadRezAndKeys, _Fail);
+			CoreStorage.Load(PlayerIndex.One, "Settings", "Options", null, _LoadRezAndKeys, _Fail);
 
             return d;
         }
@@ -444,7 +444,7 @@ namespace CloudberryKingdom
                 StringBuilder str = names[i];
                 PlayerData player = players[i];
 
-                //string clr = EzText.ColorToCode(new Color(player.GetTextColor()));
+                //string clr = Text.ColorToCode(new Color(player.GetTextColor()));
 
                 // Add '/' between player names
                 if (GroupTag.Length > 0)

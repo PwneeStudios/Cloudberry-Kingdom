@@ -9,12 +9,12 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public partial class EzTextureWad
+    public partial class CoreTextureWad
     {
 #if WINDOWS
         public void KillDynamic()
         {
-            foreach (EzTexture texture in TextureList)
+            foreach (CoreTexture texture in TextureList)
                 if (texture.Dynamic)
                     texture.Tex.Dispose();
 

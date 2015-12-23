@@ -120,7 +120,7 @@ namespace CloudberryKingdom
             get { return TimerText.FancyPos.AbsVal + TimerText.GetWorldSize() / 2; }
         }
 
-        EzText TimerText;
+        Text TimerText;
         void UpdateTimerText()
         {
             TimerText.SubstituteText(BuildString());
@@ -141,7 +141,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            EzFont font;
+            CoreFont font;
             float scale;
             Color c, o;
 
@@ -160,7 +160,7 @@ namespace CloudberryKingdom
                 o = Color.White;
             }
 
-            TimerText = new EzText(BuildString().ToString(), font, 450, true, true);
+            TimerText = new Text(BuildString().ToString(), font, 450, true, true);
             TimerText.Scale = scale;
             TimerText.MyFloatColor = c.ToVector4();
             TimerText.OutlineColor = o.ToVector4();

@@ -33,8 +33,8 @@ namespace CloudberryKingdom
 
             MyMenu.Pos = new Vector2(-510.7157f, -268.6508f);
 
-            EzText _t;
-            _t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
+            Text _t;
+            _t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-26.18762f, 394.5072f); _t.Scale = 0.7095835f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(44.44434f, 30.5556f); _q.Size = new Vector2(1687.076f, 848.1268f); }

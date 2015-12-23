@@ -28,7 +28,7 @@ namespace CloudberryKingdom.Obstacles
         public enum PrescribedMoveType { Line, Circle, Star };
 
         static Particle BlobGooTemplate;
-        static EzSound SquishSound;
+        static CoreSound SquishSound;
 
         public int Period, Offset;
         public Vector2 Displacement;
@@ -107,7 +107,7 @@ namespace CloudberryKingdom.Obstacles
             }
         }
 
-        static EzTexture GetGooTexture(BlobColor color)
+        static CoreTexture GetGooTexture(BlobColor color)
         {
             switch (color)
             {
@@ -229,7 +229,7 @@ namespace CloudberryKingdom.Obstacles
             MyObject.Update();
         }
 
-        public FlyingBlob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
+        public FlyingBlob(string file, CoreEffectWad EffectWad, CoreTextureWad TextureWad)
         {
             CoreData = new ObjectData();
             Core.Active = true;

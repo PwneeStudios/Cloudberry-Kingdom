@@ -152,7 +152,7 @@ namespace CloudberryKingdom.Obstacles
         }
 
 
-        public Spike(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
+        public Spike(string file, CoreEffectWad EffectWad, CoreTextureWad TextureWad)
         {
             ObjectClass SourceObject;
             Tools.UseInvariantCulture();

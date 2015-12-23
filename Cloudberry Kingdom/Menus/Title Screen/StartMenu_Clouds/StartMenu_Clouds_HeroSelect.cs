@@ -71,27 +71,27 @@ namespace CloudberryKingdom
                 string name = Localization.WordString(item.RequiredHero.Name);
                 string m = Localization.WordString(Localization.Words.Level) + " " + level.ToString();
 
-                EzText _t;
-                MyPile.FindEzText("LockedHeader").Show = true;
-                _t = MyPile.FindEzText("RequiredHero"); _t.Show = true; _t.SubstituteText(name);
-                _t = MyPile.FindEzText("RequiredLevel"); _t.Show = true; _t.SubstituteText(m);
+                Text _t;
+                MyPile.FindText("LockedHeader").Show = true;
+                _t = MyPile.FindText("RequiredHero"); _t.Show = true; _t.SubstituteText(name);
+                _t = MyPile.FindText("RequiredLevel"); _t.Show = true; _t.SubstituteText(m);
                 
 
-                MyPile.FindEzText("ScoreHeader").Show = false;
-                MyPile.FindEzText("Score").Show = false;
-                MyPile.FindEzText("LevelHeader").Show = false;
-                MyPile.FindEzText("Level").Show = false;
+                MyPile.FindText("ScoreHeader").Show = false;
+                MyPile.FindText("Score").Show = false;
+                MyPile.FindText("LevelHeader").Show = false;
+                MyPile.FindText("Level").Show = false;
             }
             else
             {
-                MyPile.FindEzText("LockedHeader").Show = false;
-                MyPile.FindEzText("RequiredHero").Show = false;
-                MyPile.FindEzText("RequiredLevel").Show = false;
+                MyPile.FindText("LockedHeader").Show = false;
+                MyPile.FindText("RequiredHero").Show = false;
+                MyPile.FindText("RequiredLevel").Show = false;
 
-                MyPile.FindEzText("ScoreHeader").Show = true;
-                MyPile.FindEzText("Score").Show = true;
-                MyPile.FindEzText("LevelHeader").Show = true;
-                MyPile.FindEzText("Level").Show = true;
+                MyPile.FindText("ScoreHeader").Show = true;
+                MyPile.FindText("Score").Show = true;
+                MyPile.FindText("LevelHeader").Show = true;
+                MyPile.FindText("Level").Show = true;
             }
 
             Challenge.ChosenHero = item.Hero;
@@ -166,8 +166,8 @@ namespace CloudberryKingdom
 
             CallDelay = ReturnToCallerDelay = 0;
 
-            Score = new EzText("0", Resources.Font_Grobold42_2);
-            Level = new EzText("0", Resources.Font_Grobold42_2);
+            Score = new Text("0", Resources.Font_Grobold42_2);
+            Level = new Text("0", Resources.Font_Grobold42_2);
           
 #if PS3
             float Brightness = .945f;
@@ -219,32 +219,32 @@ namespace CloudberryKingdom
             MyPile.Add(BackBox, "BoxRight");
 
             // Score, level
-            var ScoreHeader = new EzText(Localization.Words.HighScore, Resources.Font_Grobold42_2);
+            var ScoreHeader = new Text(Localization.Words.HighScore, Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(ScoreHeader, true);
             MyPile.Add(ScoreHeader, "ScoreHeader");
 
             MyPile.Add(Score, "Score");
 
-            var LevelHeader = new EzText(Localization.Words.BestLevel, Resources.Font_Grobold42_2);
+            var LevelHeader = new Text(Localization.Words.BestLevel, Resources.Font_Grobold42_2);
             StartMenu.SetText_Green(LevelHeader, true);
             MyPile.Add(LevelHeader, "LevelHeader");
             
             MyPile.Add(Level, "Level");
 
             // Locked
-            var LockedHeader = new EzText(Localization.Words.Required, Resources.Font_Grobold42);
+            var LockedHeader = new Text(Localization.Words.Required, Resources.Font_Grobold42);
             LockedHeader.Scale *= .9f;
             StartMenu.SetText_Green(LockedHeader, true);
             MyPile.Add(LockedHeader, "LockedHeader");
             LockedHeader.Show = false;
 
-            var RequiredHero = new EzText("Garbage", Resources.Font_Grobold42);
+            var RequiredHero = new Text("Garbage", Resources.Font_Grobold42);
             RequiredHero.Scale *= .72f;
             StartMenu.SetText_Green(RequiredHero, true);
             MyPile.Add(RequiredHero, "RequiredHero");
             RequiredHero.Show = false;
 
-            var RequiredLevel = new EzText("Garbage", Resources.Font_Grobold42);
+            var RequiredLevel = new Text("Garbage", Resources.Font_Grobold42);
             RequiredLevel.Scale *= .72f;
             StartMenu.SetText_Green(RequiredLevel, true);
             MyPile.Add(RequiredLevel, "RequiredLevel");
@@ -262,7 +262,7 @@ namespace CloudberryKingdom
             Back.SetPos_BR(MyPile);
         }
 
-        EzText Score, Level;
+        Text Score, Level;
 
         protected override void MyPhsxStep()
         {
@@ -342,14 +342,14 @@ namespace CloudberryKingdom
         {
             MyMenu.Pos = new Vector2(932.0002f, -789.9999f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-1650f, -252.7783f); _t.Scale = 0.5989171f; }
-            _t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-727.7772f, -256.3338f); _t.Scale = 0.6110842f; }
-            _t = MyPile.FindEzText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-1650.002f, -88.88913f); _t.Scale = 0.6094177f; }
-            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-730.7778f, -88.88908f); _t.Scale = 0.6110842f; }
-            _t = MyPile.FindEzText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(-1494.445f, 52.77753f); _t.Scale = 0.9f; }
-            _t = MyPile.FindEzText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(-1352.778f, -241.6666f); _t.Scale = 0.72f; }
-            _t = MyPile.FindEzText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(-1352.778f, -438.8889f); _t.Scale = 0.72f; }
+            Text _t;
+            _t = MyPile.FindText("ScoreHeader"); if (_t != null) { _t.Pos = new Vector2(-1650f, -252.7783f); _t.Scale = 0.5989171f; }
+            _t = MyPile.FindText("Score"); if (_t != null) { _t.Pos = new Vector2(-727.7772f, -256.3338f); _t.Scale = 0.6110842f; }
+            _t = MyPile.FindText("LevelHeader"); if (_t != null) { _t.Pos = new Vector2(-1650.002f, -88.88913f); _t.Scale = 0.6094177f; }
+            _t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(-730.7778f, -88.88908f); _t.Scale = 0.6110842f; }
+            _t = MyPile.FindText("LockedHeader"); if (_t != null) { _t.Pos = new Vector2(-1494.445f, 52.77753f); _t.Scale = 0.9f; }
+            _t = MyPile.FindText("RequiredHero"); if (_t != null) { _t.Pos = new Vector2(-1352.778f, -241.6666f); _t.Scale = 0.72f; }
+            _t = MyPile.FindText("RequiredLevel"); if (_t != null) { _t.Pos = new Vector2(-1352.778f, -438.8889f); _t.Scale = 0.72f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-555.5569f, -77.77783f); _q.Size = new Vector2(2236.158f, 1222.99f); }

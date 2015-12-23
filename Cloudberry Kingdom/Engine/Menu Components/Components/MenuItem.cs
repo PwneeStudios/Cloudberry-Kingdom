@@ -76,7 +76,7 @@ namespace CloudberryKingdom
 
         public Vector2 PosOffset, SelectIconOffset;
 
-        public EzSound SelectSound, SlideSound, ListScrollSound;
+        public CoreSound SelectSound, SlideSound, ListScrollSound;
 
         public Menu MyMenu;
 
@@ -133,7 +133,7 @@ namespace CloudberryKingdom
         }
 
         public int TextWidth;
-        public EzText MyText, MySelectedText;
+        public Text MyText, MySelectedText;
 
         public MenuItemGo OnClick;
 
@@ -174,7 +174,7 @@ namespace CloudberryKingdom
         }
 
         public Vector4 MySelectedColor, MyColor;
-        public EzFont MySelectedFont, MyFont;
+        public CoreFont MySelectedFont, MyFont;
 
         public string MyString
         {
@@ -276,16 +276,16 @@ namespace CloudberryKingdom
         /// <summary>
         /// Initialize a new MenuItem.
         /// </summary>
-        public MenuItem(EzText Text)
+        public MenuItem(Text Text)
         {
             Init(Text, Text.Clone());
         }
-        public MenuItem(EzText Text, string Name)
+        public MenuItem(Text Text, string Name)
         {
             Init(Text, Text.Clone());
             this.Name = Name;
         }        
-        public MenuItem(EzText Text, EzText SelectedText)
+        public MenuItem(Text Text, Text SelectedText)
         {
             Init(Text, SelectedText);
         }
@@ -297,9 +297,9 @@ namespace CloudberryKingdom
         }
 
         /// <summary>
-        /// The new style initialization function. User provides the EzText for both selected and unselected.
+        /// The new style initialization function. User provides the Text for both selected and unselected.
         /// </summary>
-        protected virtual void Init(EzText Text, EzText SelectedText)
+        protected virtual void Init(Text Text, Text SelectedText)
         {
             MyOscillateParams.Set(2.05f, 1.0295f, .045f);
 
@@ -487,7 +487,7 @@ namespace CloudberryKingdom
 
         Vector2 _MyCameraZoom = Vector2.One;
         /// <summary>
-        /// The value of the camera zoom the last time this EzText was drawn
+        /// The value of the camera zoom the last time this Text was drawn
         /// </summary>
         public Vector2 MyCameraZoom { get { return _MyCameraZoom; } set { _MyCameraZoom = value; } }
 

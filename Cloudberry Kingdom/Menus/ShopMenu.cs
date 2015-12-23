@@ -46,15 +46,15 @@ namespace CloudberryKingdom
 			base.Init();
 
 			// Make the message
-			var Description = new EzText(Word, Resources.Font_Grobold42_2, 1800, true, true, .575f);
+			var Description = new Text(Word, Resources.Font_Grobold42_2, 1800, true, true, .575f);
 			Description.Pos = new Vector2(0, 100);
 			Description.Scale *= .6f;
 			MyPile.Add(Description, "Description");
 
 			SetPos();
 
-			EzText _t;
-			_t = MyPile.FindEzText("Description");
+			Text _t;
+			_t = MyPile.FindText("Description");
 			if (_t != null)
 			{
 				float w = _t.GetWorldWidth();
@@ -79,8 +79,8 @@ namespace CloudberryKingdom
 		{
 			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
+			Text _t;
+			_t = MyPile.FindText("Description"); if (_t != null) { _t.Pos = new Vector2(19.44458f, 36.11111f); _t.Scale = 0.6f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("ArcadeBox"); if (_q != null) { _q.Pos = new Vector2(10.31873f, -11.11108f); _q.Size = new Vector2(1123.342f, 176.4081f); }
@@ -150,7 +150,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            EzText HeaderText = new EzText(Word, ItemFont, 1500, true, false, .7f);
+            Text HeaderText = new Text(Word, ItemFont, 1500, true, false, .7f);
             HeaderText.Scale *= .85f;
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText, "Header");
@@ -162,7 +162,7 @@ namespace CloudberryKingdom
 			MyPile.Add(Berry, "Berry");
 
             // Yes
-            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Yes, ItemFont, true));
             item.Go = Yes;
 			item.Name = "Yes";
             AddItem(item);
@@ -170,7 +170,7 @@ namespace CloudberryKingdom
             item.SelectSound = null;
 
             // No
-            item = new MenuItem(new EzText(Localization.Words.No, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.No, ItemFont, true));
             item.Go = No;
 			item.Name = "No";
             AddItem(item);
@@ -225,8 +225,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-1319.446f, -333.3333f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1169.444f, 1119.111f); _t.Scale = 0.6118331f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(1169.444f, 1119.111f); _t.Scale = 0.6118331f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }
@@ -243,8 +243,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-1319.446f, -333.3333f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1194.444f, 991.3332f); _t.Scale = 0.6118331f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(1194.444f, 991.3332f); _t.Scale = 0.6118331f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }
@@ -263,8 +263,8 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(-1319.446f, -333.3333f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1213.889f, 1146.889f); _t.Scale = 0.5116666f; }
+					Text _t;
+					_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(1213.889f, 1146.889f); _t.Scale = 0.5116666f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }
@@ -281,8 +281,8 @@ namespace CloudberryKingdom
 
 					MyMenu.Pos = new Vector2(-1319.446f, -333.3333f);
 
-					EzText _t;
-					_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1186.111f, 885.7778f); _t.Scale = 0.6118331f; }
+					Text _t;
+					_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(1186.111f, 885.7778f); _t.Scale = 0.6118331f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Black"); if (_q != null) { _q.Pos = new Vector2(1127.779f, 319.4446f); _q.Size = new Vector2(1886.415f, 1886.415f); }

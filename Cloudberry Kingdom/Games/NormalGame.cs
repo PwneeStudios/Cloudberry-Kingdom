@@ -154,7 +154,7 @@ namespace CloudberryKingdom
             {
                 Tools.AutoLoopDelay++;
                 if (Tools.AutoLoopDelay == 20 || Tools.AutoLoopDelay == 40)
-                    foreach (EzSound snd in Tools.SoundWad.SoundList)
+                    foreach (CoreSound snd in Tools.SoundWad.SoundList)
                         snd.Play();
                 if (Tools.AutoLoopDelay > 60)
                 {

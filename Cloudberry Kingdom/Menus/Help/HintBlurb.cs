@@ -63,14 +63,14 @@ namespace CloudberryKingdom
             Active = false;
         }
 
-        protected EzText Text;
+        protected Text Text;
         public void SetText(string text)
         {
             // Erase previous text
             MyPile.MyTextList.Clear();
 
             // Add the new text
-            Text = new EzText(text, ItemFont, 1800, false, false, .575f);
+            Text = new Text(text, ItemFont, 1800, false, false, .575f);
             Text.Scale *= .74f;
             
             MyPile.Add(Text);

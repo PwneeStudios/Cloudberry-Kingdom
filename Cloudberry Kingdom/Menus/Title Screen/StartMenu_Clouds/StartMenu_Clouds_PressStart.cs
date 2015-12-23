@@ -35,7 +35,7 @@ namespace CloudberryKingdom
             base.OnAdd();
         }
 
-        EzText Text;
+        Text Text;
         int DelayToAllowInput;
         public override void Init()
         {
@@ -52,14 +52,14 @@ namespace CloudberryKingdom
 #if PC
 			if (ButtonCheck.ControllerInUse)
 			{
-				Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
+				Text = new Text(Localization.Words.PressStart, Resources.Font_Grobold42, true);
 			}
 			else
 			{
-				Text = new EzText(Localization.Words.PressAnyKey, Resources.Font_Grobold42, true);
+				Text = new Text(Localization.Words.PressAnyKey, Resources.Font_Grobold42, true);
 			}
 #else
-			Text = new EzText(Localization.Words.PressStart, Resources.Font_Grobold42, true);
+			Text = new Text(Localization.Words.PressStart, Resources.Font_Grobold42, true);
 #endif
             Text.OutlineColor = Color.Black.ToVector4();
             MyPile.Add(Text);
@@ -69,8 +69,8 @@ namespace CloudberryKingdom
         
         void SetPos()
         {
-            EzText _t;
-            _t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-11.11157f, -461.111f); _t.Scale = 0.66054f; }
+            Text _t;
+            _t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-11.11157f, -461.111f); _t.Scale = 0.66054f; }
             MyPile.Pos = new Vector2(38.88843f, -252.7777f);
         }
 
@@ -103,16 +103,16 @@ namespace CloudberryKingdom
                     {
                         int index = (int)gamer.PlayerIndex;
 
-                        if (EzStorage.Device[index] == null ||
-                            !EzStorage.Device[index].IsReady)
+                        if (CoreStorage.Device[index] == null ||
+                            !CoreStorage.Device[index].IsReady)
                         {
 #if XDK || XBOX
                             if (!CloudberryKingdomGame.IsDemo)
                             {
-                                if (EzStorage.Device[index] != null)
+                                if (CoreStorage.Device[index] != null)
                                 {
-                                    Tools.GameClass.Components.Remove(EzStorage.Device[index]);
-                                    EzStorage.Device[index] = null;
+                                    Tools.GameClass.Components.Remove(CoreStorage.Device[index]);
+                                    CoreStorage.Device[index] = null;
                                 }
 
                                 LoadNeeded = true;
@@ -124,17 +124,17 @@ namespace CloudberryKingdom
                     if (LoadNeeded)
                     {
                         // Player needs a storage device
-                        if (ButtonCheck.AnyKeyPlayer >= 0 && EzStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
+                        if (ButtonCheck.AnyKeyPlayer >= 0 && CoreStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
                         {
-                            EzStorage.Device[ButtonCheck.AnyKeyPlayer].ChoseNotToSelectDevice = false;
+                            CoreStorage.Device[ButtonCheck.AnyKeyPlayer].ChoseNotToSelectDevice = false;
                         }
 
                         SaveGroup.LoadGamers();
 
                         // Player needs a storage device
-                        if (ButtonCheck.AnyKeyPlayer >= 0 && EzStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
+                        if (ButtonCheck.AnyKeyPlayer >= 0 && CoreStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
                         {
-                            EzStorage.Device[ButtonCheck.AnyKeyPlayer].NeedsConnection = true;
+                            CoreStorage.Device[ButtonCheck.AnyKeyPlayer].NeedsConnection = true;
                         }
 
                         Hide();

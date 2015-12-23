@@ -84,7 +84,7 @@ namespace CloudberryKingdom
             Coins++;
         }
 
-        EzText CoinsText;
+        Text CoinsText;
         void UpdateCoinsText()
         {
             CoinsText.SubstituteText(ToString());
@@ -101,7 +101,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            EzFont font;
+            CoreFont font;
             string coin;
             float scale;
             Color c, o;
@@ -123,7 +123,7 @@ namespace CloudberryKingdom
                 o = Color.White;
             }
 
-            CoinsText = new EzText(ToString(), font, 450, false, true);
+            CoinsText = new Text(ToString(), font, 450, false, true);
             CoinsText.Name = "coin";
             CoinsText.Scale = scale;
             CoinsText.MyFloatColor = c.ToVector4();
@@ -147,8 +147,8 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-			EzText _t;
-			_t = MyPile.FindEzText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); _t.Scale = 0.55f; }
+			Text _t;
+			_t = MyPile.FindText("coin"); if (_t != null) { _t.Pos = new Vector2(189.7776f, 111.7778f); _t.Scale = 0.55f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("coin"); if (_q != null) { _q.Pos = new Vector2(140.7331f, 117.8001f); _q.Size = new Vector2(100f, 100f); }

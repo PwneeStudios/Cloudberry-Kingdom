@@ -28,7 +28,7 @@ namespace CloudberryKingdom
                 this.SlideIn(0);
         }
 
-        EzText text;
+        Text text;
         public MultiplierUp() { Init(Vector2.Zero, 1f, false); }
         public MultiplierUp(Vector2 shift, float scale, bool perma) { Init(shift, scale, perma); }
 
@@ -46,7 +46,7 @@ namespace CloudberryKingdom
             EnsureFancy();
             MyPile.Pos += shift;
 
-            text = new EzText(Localization.Words.MultiplierIncreased, Resources.Font_Grobold42, true, true);
+            text = new Text(Localization.Words.MultiplierIncreased, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 
             //// Happy Blue

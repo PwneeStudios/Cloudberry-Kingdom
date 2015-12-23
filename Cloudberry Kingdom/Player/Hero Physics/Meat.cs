@@ -453,7 +453,7 @@ namespace CloudberryKingdom
             piece.ElevatorBoxStyle = BlockEmitter_Parameters.BoxStyle.Meatboy;
         }
 
-		static EzTexture standing, jumping, falling;
+		static CoreTexture standing, jumping, falling;
 		protected override void DrawObject()
 		{
             base.DrawObject();

@@ -277,7 +277,7 @@ namespace CloudberryKingdom
             ReturnToCallerDelay = 30;
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -286,7 +286,7 @@ namespace CloudberryKingdom
 
         MenuItem Item_ShowPath, Item_WatchComputer, Item_SlowMo;
 
-        EzText CoinsText;
+        Text CoinsText;
 
         HelpBlurb Blurb;
 
@@ -320,7 +320,7 @@ namespace CloudberryKingdom
             Coin.Pos = new Vector2(-873.1558f, 770.5778f);
             MyPile.Add(Coin, "Coin");
 
-            CoinsText = new EzText("x", Resources.Font_Grobold42, 450, false, true);
+            CoinsText = new Text("x", Resources.Font_Grobold42, 450, false, true);
             CoinsText.Name = "Coins";
             CoinsText.Scale = .8f;
             CoinsText.Pos = new Vector2(-910.2224f, 717.3333f);
@@ -345,7 +345,7 @@ namespace CloudberryKingdom
             MenuToggle toggle;
 
             // Header
-            EzText HeaderText = new EzText(Localization.Words.Coins, ItemFont);
+            Text HeaderText = new Text(Localization.Words.Coins, ItemFont);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText, "Header");
             HeaderText.Pos = new Vector2(-1663.889f, 971.8889f);
@@ -356,7 +356,7 @@ namespace CloudberryKingdom
             string CoinPrefix = "{pCoin_Blue,100,?}";
 
             // Watch the computer
-			MenuItem WatchItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Watch).ToString(), ItemFont));
+			MenuItem WatchItem = item = new MenuItem(new Text(CoinPrefix + "x" + (CurrentCostTo_Watch).ToString(), ItemFont));
             item.Name = "WatchComputer";
             Item_WatchComputer = item;
             item.SetIcon(ObjectIcon.RobotIcon.Clone());
@@ -377,7 +377,7 @@ namespace CloudberryKingdom
             }
             else
             {
-				PathItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Path).ToString(), ItemFont));
+				PathItem = item = new MenuItem(new Text(CoinPrefix + "x" + (CurrentCostTo_Path).ToString(), ItemFont));
 				if (Bank() >= CurrentCostTo_Path)
                     item.Go = Cast.ToItem(ShowPath);
                 else
@@ -400,7 +400,7 @@ namespace CloudberryKingdom
             }
             else
             {
-				SlowItem = item = new MenuItem(new EzText(CoinPrefix + "x" + (CurrentCostTo_Slow).ToString(), ItemFont));
+				SlowItem = item = new MenuItem(new Text(CoinPrefix + "x" + (CurrentCostTo_Slow).ToString(), ItemFont));
 				if (Bank() >= (CurrentCostTo_Slow))
                     item.Go = Cast.ToItem(SlowMo);
                 else
@@ -455,9 +455,9 @@ namespace CloudberryKingdom
 
             MyMenu.Pos = new Vector2(0f, 0f);
 
-            EzText _t;
-			_t = MyPile.FindEzText("Coins"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 615.889f); _t.Scale = 0.6593335f; }
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 816.3335f); _t.Scale = 0.9640832f; }
+            Text _t;
+			_t = MyPile.FindText("Coins"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 615.889f); _t.Scale = 0.6593335f; }
+            _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1497.222f, 816.3335f); _t.Scale = 0.9640832f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(22.22229f, -33.33333f); _q.Size = new Vector2(1740.553f, 1044.332f); }
@@ -468,7 +468,7 @@ namespace CloudberryKingdom
 
 			// Position coins
 			float x = 0;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.CalcBounds(); x = CoinsText.Pos.X + _t.GetWorldWidth(); }
+			_t = MyPile.FindText("Header"); if (_t != null) { _t.CalcBounds(); x = CoinsText.Pos.X + _t.GetWorldWidth(); }
 			CoinsText.Pos = new Vector2(x, CoinsText.Pos.Y);
 			_q = MyPile.FindQuad("Coin"); if (_q != null) { _q.Pos = new Vector2(x + 10, _q.Pos.Y); }
         }

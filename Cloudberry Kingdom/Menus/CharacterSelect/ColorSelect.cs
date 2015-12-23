@@ -121,7 +121,7 @@ namespace CloudberryKingdom
             MyMenu.OnA = Cast.ToMenu(Select);
 
 #if LONG_LIST
-			var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
+			var BackButton = new MenuItem(new Text(Localization.Words.Cancel, ItemFont));
 			BackButton.Name = "Cancel";
 			BackButton.Go = Cast.ToItem(Back);
 			AddItem(BackButton);
@@ -135,17 +135,17 @@ namespace CloudberryKingdom
 			MyList.OnClick = Cast.ToItem(MyList.IncrementIndex);
             MyMenu.Add(MyList);
 
-            var Done = new MenuItem(new EzText(Localization.Words.Use, ItemFont));
+            var Done = new MenuItem(new Text(Localization.Words.Use, ItemFont));
             Done.Name = "Done";
             Done.Go = Cast.ToItem(Select);
             AddItem(Done);
 
-            var BackButton = new MenuItem(new EzText(Localization.Words.Cancel, ItemFont));
+            var BackButton = new MenuItem(new Text(Localization.Words.Cancel, ItemFont));
             BackButton.Name = "Cancel";
             BackButton.Go = Cast.ToItem(Back);
             AddItem(BackButton);
 
-            var header = new EzText(Header, Resources.Font_Grobold42, true);
+            var header = new Text(Header, Resources.Font_Grobold42, true);
             MyPile.Add(header, "Header");
 #endif
 
@@ -165,8 +165,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
@@ -178,8 +178,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(7.142685f, 531.3489f); _t.Scale = 0.7875f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(7.142685f, 531.3489f); _t.Scale = 0.7875f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
@@ -191,8 +191,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(7.142685f, 531.3489f); _t.Scale = 0.7875f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(7.142685f, 531.3489f); _t.Scale = 0.7875f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
@@ -204,8 +204,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = .785f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = .785f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
@@ -217,8 +217,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
@@ -230,8 +230,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
@@ -243,8 +243,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = .785f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = .785f; }
 				MyPile.Pos = new Vector2(MyPile.Pos.X, -492.0635f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
@@ -256,8 +256,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
 				MyPile.Pos = new Vector2(MyMenu.Pos.X, -492.0635f);
 			}
 			else
@@ -269,13 +269,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(MyMenu.Pos.X, -484.127f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(9.920441f, 536.9045f); _t.Scale = 1f; }
 				MyPile.Pos = new Vector2(MyPile.Pos.X, -492.0635f);
 			}
 
-			EzText __t;
-			__t = MyPile.FindEzText("Header"); if (__t != null) { __t.Scale *= .875f; }
+			Text __t;
+			__t = MyPile.FindText("Header"); if (__t != null) { __t.Scale *= .875f; }
 		}
 
         void Back()

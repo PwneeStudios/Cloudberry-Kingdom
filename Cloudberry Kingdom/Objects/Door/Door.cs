@@ -25,8 +25,8 @@ namespace CloudberryKingdom.InGameObjects
             public Vector2 ShiftStart = Vector2.Zero;
             public Vector2 CollisionSize = new Vector2(100, 200);
 
-            public EzSound DoorOpen = Tools.NewSound("Door_Opening", 1);
-            public EzSound DoorClose = Tools.NewSound("Door_Slamming", 1);
+            public CoreSound DoorOpen = Tools.NewSound("Door_Opening", 1);
+            public CoreSound DoorClose = Tools.NewSound("Door_Slamming", 1);
 
             public SpriteInfo Sign = new SpriteInfo("Sign_Off", new Vector2(275, -1));
             public bool ShowSign = false;

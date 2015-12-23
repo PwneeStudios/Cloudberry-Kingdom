@@ -25,7 +25,7 @@ namespace CloudberryKingdom
             MyCharacterSelect = null;
         }
 
-        EzText Text;
+        Text Text;
         public override void Init()
         {
             base.Init();
@@ -53,11 +53,11 @@ namespace CloudberryKingdom
             {
                 //string name = MyCharacterSelect.Player.GetName();
                 string name = "Level 56";
-                Text = new EzText(name, Resources.Font_Grobold42, true, true);
+                Text = new Text(name, Resources.Font_Grobold42, true, true);
             }
             else
             {
-                Text = new EzText("ERROR", Resources.LilFont, true, true);
+                Text = new Text("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;

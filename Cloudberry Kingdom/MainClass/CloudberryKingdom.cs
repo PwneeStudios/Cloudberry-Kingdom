@@ -167,7 +167,7 @@ namespace CloudberryKingdom
 
 
         public static int SuppressSavingTextDuration = 0;
-        public static EzText SavingText = null;
+        public static Text SavingText = null;
         public static int ShowSavingDuration = 0;
         const int ShowSavingLength = 80;
 
@@ -196,7 +196,7 @@ namespace CloudberryKingdom
                 else
                     ShowSavingDuration = ShowSavingLength;
 
-                SavingText = new EzText(Localization.Words.Saving, Resources.Font_Grobold42, false);
+                SavingText = new Text(Localization.Words.Saving, Resources.Font_Grobold42, false);
                 SavingText.FixedToCamera = true;
                 SavingText.Pos = new Vector2(1110, -750);
                 SavingText.Scale = .37f;
@@ -275,8 +275,8 @@ namespace CloudberryKingdom
             if (!CanSave()) return false;
 
 #if XBOX
-            if (EzStorage.Device[(int)index] == null) return false;
-            if (EzStorage.Device[(int)index].IsReady) return true;
+            if (CoreStorage.Device[(int)index] == null) return false;
+            if (CoreStorage.Device[(int)index].IsReady) return true;
 #else
             return true;
 #endif
@@ -831,7 +831,7 @@ namespace CloudberryKingdom
             //// Fill the pools
             //ComputerRecording.InitPool();
 
-            //EzStorage.StartAsyncUpdate();
+            //CoreStorage.StartAsyncUpdate();
         }
 
         public void InitialResolution()
@@ -935,10 +935,10 @@ namespace CloudberryKingdom
 
             int index = (int)e.Gamer.PlayerIndex;
 
-            if (EzStorage.Device[index] != null)
+            if (CoreStorage.Device[index] != null)
             {
-                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
-                EzStorage.Device[index] = null;
+                Tools.GameClass.Components.Remove(CoreStorage.Device[index]);
+                CoreStorage.Device[index] = null;
             }
 
             if (Tools.CurGameData != null && !CharacterSelectManager.IsShowing)
@@ -977,8 +977,8 @@ namespace CloudberryKingdom
                 }
             }
 
-            if (EzStorage.Device[(int)e.Gamer.PlayerIndex] != null)
-                Tools.GameClass.Components.Remove(EzStorage.Device[(int)e.Gamer.PlayerIndex]);
+            if (CoreStorage.Device[(int)e.Gamer.PlayerIndex] != null)
+                Tools.GameClass.Components.Remove(CoreStorage.Device[(int)e.Gamer.PlayerIndex]);
 
             int Index = (int)e.Gamer.PlayerIndex;
             string Name = e.Gamer.Gamertag;
@@ -993,8 +993,8 @@ namespace CloudberryKingdom
             SaveGroup.LoadGamer(data);
             
             // Gamers that signin after the game launches should always be immediately prompted to select a storage device.
-            if (EzStorage.Device[Index] != null)
-                EzStorage.Device[Index].NeedsConnection = true;
+            if (CoreStorage.Device[Index] != null)
+                CoreStorage.Device[Index].NeedsConnection = true;
 
             // Used to go back to main menu on signin, but not needed anymore now that Quick Join is disabled.
             //if (CurrentPresence == Presence.TitleScreen)
@@ -1062,10 +1062,10 @@ namespace CloudberryKingdom
 
             if (Tools.CurGameData == null) return;
 
-            if (EzStorage.Device[index] != null)
+            if (CoreStorage.Device[index] != null)
             {
-                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
-                EzStorage.Device[index] = null;
+                Tools.GameClass.Components.Remove(CoreStorage.Device[index]);
+                CoreStorage.Device[index] = null;
             }
 
             if (Tools.CurGameData != null && !CharacterSelectManager.IsShowing)
@@ -1098,8 +1098,8 @@ namespace CloudberryKingdom
 
             if (Tools.CurGameData == null) return;
 
-            if (EzStorage.Device[index] != null)
-                Tools.GameClass.Components.Remove(EzStorage.Device[index]);
+            if (CoreStorage.Device[index] != null)
+                Tools.GameClass.Components.Remove(CoreStorage.Device[index]);
 
             PlayerData data = new PlayerData();
             data.Init(index);
@@ -1110,10 +1110,10 @@ namespace CloudberryKingdom
             SaveGroup.LoadGamer(data);
 
             // Gamers that signin after the game launches should always be immediately prompted to select a storage device.
-            if (EzStorage.Device[index] != null)
+            if (CoreStorage.Device[index] != null)
             {
-                EzStorage.Device[index].NeedsConnection = true;
-                EzStorage.Device[index].EnsureConnectionUnlessCanceled = false;
+                CoreStorage.Device[index].NeedsConnection = true;
+                CoreStorage.Device[index].EnsureConnectionUnlessCanceled = false;
             }
         }
 #endif
@@ -1394,7 +1394,7 @@ namespace CloudberryKingdom
             {
                 for (int i = 0; i < Game.PhsxStepsToDo; i++)
                 {
-                    EzSoundWad.SuppressSounds = (Game.SuppressSoundForExtraSteps && i < Game.PhsxStepsToDo - 1);
+                    CoreSoundWad.SuppressSounds = (Game.SuppressSoundForExtraSteps && i < Game.PhsxStepsToDo - 1);
                     Game.PhsxStep();
                 }
                 Game.PhsxStepsToDo = 1;
@@ -1958,9 +1958,9 @@ namespace CloudberryKingdom
             {
                 int index = (int)gamer.PlayerIndex;
                 if (PlayerManager.Players[index] != null && PlayerManager.Players[index].Exists &&
-                    EzStorage.Device[index] != null && !EzStorage.Device[index].IsReady)
+                    CoreStorage.Device[index] != null && !CoreStorage.Device[index].IsReady)
                 {
-                    EzStorage.Device[index].PromptForDevice();
+                    CoreStorage.Device[index].PromptForDevice();
                 }
             }
 #endif

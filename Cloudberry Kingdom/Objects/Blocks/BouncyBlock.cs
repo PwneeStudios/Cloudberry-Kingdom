@@ -13,7 +13,7 @@ namespace CloudberryKingdom.Blocks
         public class BouncyBlockTileInfo : TileInfoBase
         {
             public BlockGroup Group = PieceQuad.BouncyGroup;
-            public EzSound BounceSound = Tools.SoundWad.FindByName("BouncyBlock_Bounce");
+            public CoreSound BounceSound = Tools.SoundWad.FindByName("BouncyBlock_Bounce");
         }
 
         BouncyBlockState State;

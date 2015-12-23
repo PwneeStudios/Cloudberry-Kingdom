@@ -50,14 +50,14 @@ namespace CloudberryKingdom
             Vector2 padding = new Vector2(0, 80);
 
             // Left arrow
-            item = new MenuItem(new EzText("{pcharmenu_larrow_1,70,?}", ItemFont));
+            item = new MenuItem(new Text("{pcharmenu_larrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
             item.Go = Cast.ToItem(MySimple.SimpleSelect_Left);
             ItemPos = new Vector2(-SeparationWidth, 250f);
             AddItem(item);
 
             // Right arrow
-            item = new MenuItem(new EzText("{pcharmenu_rarrow_1,70,?}", ItemFont));
+            item = new MenuItem(new Text("{pcharmenu_rarrow_1,70,?}", ItemFont));
             item.AlwaysDrawAsSelected = true;
             item.Go = Cast.ToItem(MySimple.SimpleSelect_Right);
             ItemPos = new Vector2(SeparationWidth, 250f);

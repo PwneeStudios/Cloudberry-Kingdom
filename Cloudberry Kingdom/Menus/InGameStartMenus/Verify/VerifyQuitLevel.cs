@@ -21,14 +21,14 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            //EzText HeaderText = new EzText(Localization.Words.ExitLevelQuestion, ItemFont, true);
-            EzText HeaderText = new EzText(Localization.Words.Err_QuitForSure, ItemFont, 1600, true, false, .7f);
+            //Text HeaderText = new Text(Localization.Words.ExitLevelQuestion, ItemFont, true);
+            Text HeaderText = new Text(Localization.Words.Err_QuitForSure, ItemFont, 1600, true, false, .7f);
             SetHeaderProperties(HeaderText);
             HeaderText.Name = "Header";
             MyPile.Add(HeaderText);
 
             // Ok
-            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Yes, ItemFont, true));
             item.Go = _item =>
                 {
                     Tools.CurrentAftermath = new AftermathData();
@@ -41,7 +41,7 @@ namespace CloudberryKingdom
             AddItem(item);
 
             // No
-            item = new MenuItem(new EzText(Localization.Words.No, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.No, ItemFont, true));
             item.Go = Cast.ToItem(ReturnToCaller);
             item.Name = "No";
             AddItem(item);
@@ -62,8 +62,8 @@ namespace CloudberryKingdom
 
 			MyMenu.Pos = new Vector2(-2.777588f, -330.5555f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(0f, 777.4443f); _t.Scale = 0.5221667f; }
+			Text _t;
+			_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(0f, 777.4443f); _t.Scale = 0.5221667f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 316.6668f); _q.Size = new Vector2(1281.083f, 729.4391f); }

@@ -495,7 +495,7 @@ namespace CloudberryKingdom
             Quad.MyTexture = Tools.TextureWad.FindByName("White");
         }
 
-        public QuadClass(EzTexture texture)
+        public QuadClass(CoreTexture texture)
         {
             Initialize(null, false, false);
             Set(texture, 1);
@@ -513,13 +513,13 @@ namespace CloudberryKingdom
             Set(TextureName, 100);
             this.Name = Name;
         }
-        public QuadClass(EzTexture Texture, float Width, string Name)
+        public QuadClass(CoreTexture Texture, float Width, string Name)
         {
             Initialize(null, false, false);
             Set(Texture, Width);
             this.Name = Name;
         }
-        public QuadClass(EzTexture Texture, float Width, bool Fancy)
+        public QuadClass(CoreTexture Texture, float Width, bool Fancy)
         {
             Initialize(null, Fancy, Fancy);
             Set(Texture, Width);
@@ -536,7 +536,7 @@ namespace CloudberryKingdom
 
             ScaleYToMatchRatio(Width);
         }
-        public void Set(EzTexture Texture, float Width)
+        public void Set(CoreTexture Texture, float Width)
         {
             Quad.MyEffect = Tools.BasicEffect;
             Quad.MyTexture = Texture;

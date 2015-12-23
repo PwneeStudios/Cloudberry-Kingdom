@@ -16,28 +16,28 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            EzText HeaderText = new EzText(Localization.WordString(Localization.Words.RemovePlayerQuestion) + "?", ItemFont, true);
+            Text HeaderText = new Text(Localization.WordString(Localization.Words.RemovePlayerQuestion) + "?", ItemFont, true);
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
             HeaderText.Name = "Header";
             HeaderText.Pos = HeaderPos;
 
             string PlayerName = PlayerManager.Get(Control).GetName();
-            var PlayerText = new EzText("( " + PlayerName + " )", ItemFont, true);
+            var PlayerText = new Text("( " + PlayerName + " )", ItemFont, true);
             SetHeaderProperties(PlayerText);
             PlayerText.Name = "PlayerText";
             PlayerManager.Get(Control).SetNameText(PlayerText);
             MyPile.Add(PlayerText);
 
             // Yes
-            item = new MenuItem(new EzText(Localization.Words.Yes, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Yes, ItemFont, true));
             item.Go = _Yes;
             item.Name = "Yes";
             AddItem(item);
             item.SelectSound = null;
 
             // No
-            item = new MenuItem(new EzText(Localization.Words.No, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.No, ItemFont, true));
             item.Go = Cast.ToItem(ReturnToCaller);
             AddItem(item);
             item.Name = "No";
@@ -59,9 +59,9 @@ namespace CloudberryKingdom
 
 			MyMenu.Pos = new Vector2(-794.4458f, -311.111f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(1150f, 791.3335f); _t.Scale = 0.96f; }
-			_t = MyPile.FindEzText("PlayerText"); if (_t != null) { _t.Pos = new Vector2(1183.333f, 538.889f); _t.Scale = 0.6090832f; }
+			Text _t;
+			_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(1150f, 791.3335f); _t.Scale = 0.96f; }
+			_t = MyPile.FindText("PlayerText"); if (_t != null) { _t.Pos = new Vector2(1183.333f, 538.889f); _t.Scale = 0.6090832f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1181.251f, 241.6668f); _q.Size = new Vector2(1287.75f, 890.8389f); }

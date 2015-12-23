@@ -30,7 +30,7 @@ namespace CloudberryKingdom
 
                 MyGame.Cam.Zoom = .001f * v;
                 MyGame.Cam.SetVertexCamera();
-                EzText.ZoomWithCamera_Override = true;
+                Text.ZoomWithCamera_Override = true;
             }
             else
             {
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
 			{
 				MyGame.Cam.Zoom = new Vector2(.001f);
 				MyGame.Cam.SetVertexCamera();
-				EzText.ZoomWithCamera_Override = false;
+				Text.ZoomWithCamera_Override = false;
 			}
         }
 
@@ -80,12 +80,12 @@ namespace CloudberryKingdom
             MyPile.Add(DarkBack, "Dark");
         }
 
-        protected EzSound SelectSound, BackSound;
+        protected CoreSound SelectSound, BackSound;
 
         public Vector2 ItemPos = new Vector2(-808, 110);
         protected Vector2 PosAdd = new Vector2(0, -151) * 1.181f;
 
-        protected EzFont ItemFont = Resources.Font_Grobold42;
+        protected CoreFont ItemFont = Resources.Font_Grobold42;
         protected float FontScale = .75f;
 
         protected virtual void SetItemProperties(MenuItem item)
@@ -96,7 +96,7 @@ namespace CloudberryKingdom
             SetSelectedTextProperties(item.MySelectedText);
         }
         
-        protected virtual void SetHeaderProperties(EzText text)
+        protected virtual void SetHeaderProperties(Text text)
         {
             text.MyFloatColor = new Vector4(.6f, .6f, .6f, 1f);
             text.OutlineColor = new Vector4(0f, 0f, 0f, 1f);
@@ -113,7 +113,7 @@ namespace CloudberryKingdom
         /// </summary>
         protected bool ItemShadows = true;
 
-        protected virtual void SetTextProperties(EzText text)
+        protected virtual void SetTextProperties(Text text)
         {
             text.MyFloatColor = new Color(184, 231, 231).ToVector4();
 
@@ -124,7 +124,7 @@ namespace CloudberryKingdom
             text.ShadowOffset = new Vector2(12, 12);
         }
 
-        protected virtual void SetSelectedTextProperties(EzText text)
+        protected virtual void SetSelectedTextProperties(Text text)
         {
 			//text.MyFloatColor = new Color(246, 214, 33).ToVector4();
 			text.MyFloatColor = new Color(246, 214, 33).ToVector4() * .9735f;
@@ -446,11 +446,11 @@ namespace CloudberryKingdom
 
 			if (ButtonCheck.ControllerInUse && AddButtonTexture)
 			{
-				item = new MenuItem(new EzText(ButtonString.Back(86) + " " + Localization.WordString(Word)));
+				item = new MenuItem(new Text(ButtonString.Back(86) + " " + Localization.WordString(Word)));
 			}
 			else
 			{
-				item = new MenuItem(new EzText(Localization.WordString(Word), ItemFont));
+				item = new MenuItem(new Text(Localization.WordString(Word), ItemFont));
 			}
 
             item.Go = _MakeBackGo;

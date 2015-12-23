@@ -9,7 +9,7 @@ namespace CloudberryKingdom
         public int RequiredHeroLevel;
 
         public HeroItem(Tuple<BobPhsx, Tuple<BobPhsx, int>> pair)
-            : base(new EzText(pair.Item1.Name, Resources.Font_Grobold42_2))
+            : base(new Text(pair.Item1.Name, Resources.Font_Grobold42_2))
         {
             this.Hero = pair.Item1;
             this.RequiredHero = pair.Item2.Item1;

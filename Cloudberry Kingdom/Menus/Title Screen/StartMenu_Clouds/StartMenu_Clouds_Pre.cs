@@ -221,25 +221,25 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Play
-            item = new MenuItem(new EzText(Localization.Words.PlayGame, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.PlayGame, ItemFont, true));
             item.Name = "Play";
             item.Go = MenuGo_Play;
             AddItem(item);
 
             // Leaderboard
-            item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Leaderboards, ItemFont, true));
             item.Name = "Leaderboard";
             item.Go = MenuGo_Leaderboards;
             AddItem(item);
 
             // Achievements
-            item = new MenuItem(new EzText(Localization.Words.Achievements, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Achievements, ItemFont, true));
             item.Name = "Achievements";
             item.Go = MenuGo_Achievements;
             AddItem(item);
 
             //// Options
-            //item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, true));
+            //item = new MenuItem(new Text(Localization.Words.Options, ItemFont, true));
             //item.Name = "Options";
             //item.Go = MenuGo_Options;
             //AddItem(item);
@@ -247,20 +247,20 @@ namespace CloudberryKingdom
 			if (GameIsDemo)
 			{
 				// Buy Game
-				item = new MenuItem(new EzText(Localization.Words.UnlockFullGame, ItemFont, true));
+				item = new MenuItem(new Text(Localization.Words.UnlockFullGame, ItemFont, true));
 				item.Name = "Buy";
 				item.Go = MenuGo_BuyGame;
 				AddItem(item);
 			}
 
 			// Credits
-			//item = new MenuItem(new EzText(Localization.Words.Credits, ItemFont, true));
+			//item = new MenuItem(new Text(Localization.Words.Credits, ItemFont, true));
 			//item.Name = "Buy";
 			//item.Go = MenuGo_Credits;
 			//AddItem(item);
 
             // Exit
-            item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Exit, ItemFont, true));
             item.Name = "Exit";
             item.Go = MenuGo_Exit;
             AddItem(item);

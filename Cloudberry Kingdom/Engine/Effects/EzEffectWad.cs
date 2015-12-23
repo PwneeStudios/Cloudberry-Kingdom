@@ -7,11 +7,11 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public class EzEffectWad
+    public class CoreEffectWad
     {
         public Vector2 ModZoom = Vector2.One;
 
-        public List<EzEffect> EffectList;
+        public List<CoreEffect> EffectList;
 
         Vector4 _CameraPosition;
         public Vector4 CameraPosition { get { return _CameraPosition; } set { _CameraPosition = value; } }
@@ -25,7 +25,7 @@ namespace CoreEngine
 
             this.CameraPosition = CameraPosition;
 
-            foreach (EzEffect effect in EffectList)
+            foreach (CoreEffect effect in EffectList)
                 effect.IsUpToDate = false;
         }
 
@@ -41,14 +41,14 @@ namespace CoreEngine
             SetCameraPosition(HoldCamPos);
         }
 
-        public EzEffectWad()
+        public CoreEffectWad()
         {
-            EffectList = new List<EzEffect>();
+            EffectList = new List<CoreEffect>();
         }
 
-        public EzEffect FindByName(string name)
+        public CoreEffect FindByName(string name)
         {
-            foreach (EzEffect effect in EffectList)
+            foreach (CoreEffect effect in EffectList)
                 if (effect.Name.CompareTo(name) == 0)
                     return effect;
             return Tools.BasicEffect;
@@ -62,7 +62,7 @@ namespace CoreEngine
             }
             else
             {
-                EzEffect Neweffect = new EzEffect();
+                CoreEffect Neweffect = new CoreEffect();
                 Neweffect.Name = Name;
                 Neweffect.effect = effect;
 

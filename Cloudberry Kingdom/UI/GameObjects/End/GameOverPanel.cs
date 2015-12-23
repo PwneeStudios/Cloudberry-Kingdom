@@ -97,7 +97,7 @@ namespace CloudberryKingdom
             backdrop.Pos = new Vector2(22.2233f, 10.55567f);
 
             // 'Game Over' text
-            EzText Text = new EzText(Localization.Words.GameOver, Resources.Font_Grobold42_2, 1450, false, true, .6f);
+            Text Text = new Text(Localization.Words.GameOver, Resources.Font_Grobold42_2, 1450, false, true, .6f);
             Text.Scale = 1f;
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();
             Text.OutlineColor = new Color(0, 0, 0).ToVector4();
@@ -109,21 +109,21 @@ namespace CloudberryKingdom
 
 
             // 'Levels' text
-            MyPile.Add(new EzText(Localization.Words.Level, ItemFont, "Level"));
-            Text = new EzText(string.Format("{0}", Levels), ItemFont);
+            MyPile.Add(new Text(Localization.Words.Level, ItemFont, "Level"));
+            Text = new Text(string.Format("{0}", Levels), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-893.4177f, 378.9999f);
             MyPile.Add(Text, "LevelVal");
 
             // 'Score' text
-            MyPile.Add(new EzText(Localization.Words.Score, ItemFont, "Score"));
-            Text = new EzText(string.Format("{0}", Score), ItemFont);
+            MyPile.Add(new Text(Localization.Words.Score, ItemFont, "Score"));
+            Text = new Text(string.Format("{0}", Score), ItemFont);
             SetHeaderProperties(Text);
             Text.Pos = new Vector2(-873.9723f, 147.8889f);
             MyPile.Add(Text, "ScoreVal");
 
             // 'Distance' text
-            //Text = new EzText("Distance: " + Distance.ToString() + " feet", ItemFont);
+            //Text = new Text("Distance: " + Distance.ToString() + " feet", ItemFont);
             //SetHeaderProperties(Text);
             //Text.Pos = new Vector2(-940.6393f, 145.6666f);
             //MyPile.Add(Text);
@@ -154,12 +154,12 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(552.7777f, -259.4444f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
-				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-882.3064f, 406.7777f); _t.Scale = 0.891417f; }
-				_t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(189.915f, 401.2222f); _t.Scale = 0.891417f; }
-				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-885.0834f, 161.7779f); _t.Scale = 0.891417f; }
-				_t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(201.0272f, 153.4444f); _t.Scale = 0.891417f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
+				_t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(-882.3064f, 406.7777f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(189.915f, 401.2222f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindText("Score"); if (_t != null) { _t.Pos = new Vector2(-885.0834f, 161.7779f); _t.Scale = 0.891417f; }
+				_t = MyPile.FindText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(201.0272f, 153.4444f); _t.Scale = 0.891417f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(22.2233f, 10.55567f); _q.Size = new Vector2(1440f, 900f); }
@@ -170,12 +170,12 @@ namespace CloudberryKingdom
 			{
 				MyMenu.Pos = new Vector2(400f, -240f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
-				_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-857.3064f, 384.5554f); _t.Scale = 0.999f; }
-				_t = MyPile.FindEzText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(-26.75146f, 376.2222f); _t.Scale = 0.999f; }
-				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(-871.1947f, 159f); _t.Scale = 0.999f; }
-				_t = MyPile.FindEzText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(-12.86145f, 150.6666f); _t.Scale = 0.999f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-675.6388f, 575.4443f); _t.Scale = 1f; }
+				_t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(-857.3064f, 384.5554f); _t.Scale = 0.999f; }
+				_t = MyPile.FindText("LevelVal"); if (_t != null) { _t.Pos = new Vector2(-26.75146f, 376.2222f); _t.Scale = 0.999f; }
+				_t = MyPile.FindText("Score"); if (_t != null) { _t.Pos = new Vector2(-871.1947f, 159f); _t.Scale = 0.999f; }
+				_t = MyPile.FindText("ScoreVal"); if (_t != null) { _t.Pos = new Vector2(-12.86145f, 150.6666f); _t.Scale = 0.999f; }
 
 				MyPile.Pos = new Vector2(0f, 0f);
 			}
@@ -289,7 +289,7 @@ namespace CloudberryKingdom
             }
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -312,17 +312,17 @@ namespace CloudberryKingdom
             MenuItem item;
             FontScale *= .89f * 1.16f;
 
-            item = new MenuItem(new EzText(Localization.Words.PlayAgain, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.PlayAgain, ItemFont));
 			item.Name = "PlayAgain";
             item.Go = Cast.ToItem(Action_PlayAgain);
             AddItem(item);
 
-            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Leaderboard, ItemFont));
 			item.Name = "Leaderboard";
             item.Go = Cast.ToItem(Action_ShowHighScores);
             AddItem(item);
 
-            item = new MenuItem(new EzText(Localization.Words.Done, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Done, ItemFont));
 			item.Name = "Done";
             item.Go = Cast.ToItem(Action_Done);
             AddItem(item);

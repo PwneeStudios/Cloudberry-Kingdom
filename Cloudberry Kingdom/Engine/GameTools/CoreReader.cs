@@ -3,14 +3,14 @@ using System.Text;
 
 namespace CloudberryKingdom
 {
-    public class EzReader
+    public class CoreReader
     {
         public string FileName;
 
         FileStream stream;
         public BinaryReader reader;
 
-        public EzReader(string FileName)
+        public CoreReader(string FileName)
         {
             this.FileName = FileName;
 

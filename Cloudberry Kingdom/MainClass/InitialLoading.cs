@@ -55,7 +55,7 @@
                     }
 
 #if XBOX
-                    EzStorage.StartAsyncUpdate();
+                    CoreStorage.StartAsyncUpdate();
 #endif
 
 #if DEBUG

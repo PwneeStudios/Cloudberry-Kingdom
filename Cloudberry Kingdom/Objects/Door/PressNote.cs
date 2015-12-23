@@ -52,10 +52,10 @@ namespace CloudberryKingdom
 
 
 
-			EzText _t;
+			Text _t;
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.6342857f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.6342857f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-60f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
@@ -64,7 +64,7 @@ namespace CloudberryKingdom
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-13.88867f, 2.777771f); _t.Scale = 0.6342857f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-13.88867f, 2.777771f); _t.Scale = 0.6342857f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
@@ -73,7 +73,7 @@ namespace CloudberryKingdom
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-5.554688f, 0f); _t.Scale = 0.575303f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-5.554688f, 0f); _t.Scale = 0.575303f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
@@ -82,7 +82,7 @@ namespace CloudberryKingdom
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(-16.66699f, -2.777771f); _t.Scale = 0.4835555f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(-16.66699f, -2.777771f); _t.Scale = 0.4835555f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
@@ -91,7 +91,7 @@ namespace CloudberryKingdom
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(36.11133f, -2.777832f); _t.Scale = 0.5663899f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(36.11133f, -2.777832f); _t.Scale = 0.5663899f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }
@@ -100,7 +100,7 @@ namespace CloudberryKingdom
 			}
 			else
 			{
-				_t = MyPile.FindEzText(""); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.6342857f; }
+				_t = MyPile.FindText(""); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.6342857f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad(""); if (_q != null) { _q.Pos = new Vector2(-25f, -47.22223f); _q.Size = new Vector2(388.2494f, 146.3333f); }

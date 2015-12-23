@@ -4,7 +4,7 @@ namespace CloudberryKingdom
     {
         public string Movie = "";
 
-        public CinematicsLevelItem(EzText Text, string Movie)
+        public CinematicsLevelItem(Text Text, string Movie)
             : base(Text)
         {
             this.Movie = Movie;

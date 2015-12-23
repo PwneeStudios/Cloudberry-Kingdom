@@ -43,8 +43,8 @@ namespace CoreEngine
         Matrix _MyMatrix = Matrix.Identity;
         public float MyMatrixSignature;
 
-        public EzTexture MyTexture;
-        public EzEffect MyEffect;
+        public CoreTexture MyTexture;
+        public CoreEffect MyEffect;
 
         public AnimationData_Texture TextureAnim;
         public bool UpdateSpriteAnim = true;
@@ -136,7 +136,7 @@ namespace CoreEngine
             }
         }
 
-        virtual public void Read(BinaryReader reader, EzEffectWad EffectWad, EzTextureWad TextureWad, int VersionNumber)
+        virtual public void Read(BinaryReader reader, CoreEffectWad EffectWad, CoreTextureWad TextureWad, int VersionNumber)
         {
             // Version 51, 3/31/2010
             // Read in draw order
@@ -193,12 +193,12 @@ namespace CoreEngine
             return TR;
         }
 
-        public void SetTexture(string Name, EzTextureWad Wad)
+        public void SetTexture(string Name, CoreTextureWad Wad)
         {
             MyTexture = Wad.FindByName(Name);
         }
 
-        public void SetEffect(string Name, EzEffectWad Wad)
+        public void SetEffect(string Name, CoreEffectWad Wad)
         {
             MyEffect = Wad.FindByName(Name);
         }
@@ -208,11 +208,11 @@ namespace CoreEngine
             ParentQuad.RemoveQuadChild(this);
         }
 
-        virtual public void FinishLoading(GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad)
+        virtual public void FinishLoading(GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad)
         {
             FinishLoading(device, TexWad, EffectWad, true);
         }
-        virtual public void FinishLoading(GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad, bool UseNames) { }
+        virtual public void FinishLoading(GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad, bool UseNames) { }
 
         virtual public void Draw() { }
         virtual public void Draw(QuadDrawer QDrawer) { }

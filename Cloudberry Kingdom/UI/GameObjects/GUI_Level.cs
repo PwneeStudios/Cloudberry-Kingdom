@@ -13,8 +13,8 @@ namespace CloudberryKingdom
             UpdateLevelText();
 
 			// SetPos()
-			EzText _t;
-			_t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
+			Text _t;
+			_t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
 			MyPile.Pos = new Vector2(1590.556f, 803.2224f);
 
 			// Extra squeeze
@@ -85,7 +85,7 @@ namespace CloudberryKingdom
             }
         }
 
-        public EzText LevelText;
+        public Text LevelText;
         protected void UpdateLevelText()
         {
             LevelText.SubstituteText(ToString());
@@ -120,7 +120,7 @@ namespace CloudberryKingdom
             MyPile.FancyPos.UpdateWithGame = true;
 
 
-            EzFont font;
+            CoreFont font;
             float scale;
             Color c, o;
 
@@ -139,7 +139,7 @@ namespace CloudberryKingdom
                 o = Color.White;
             }
 
-            LevelText = new EzText(ToString(), font, 950, false, true);
+            LevelText = new Text(ToString(), font, 950, false, true);
             LevelText.Scale = scale;
             LevelText.MyFloatColor = c.ToVector4();
             LevelText.OutlineColor = o.ToVector4();

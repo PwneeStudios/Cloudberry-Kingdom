@@ -6,7 +6,7 @@ namespace CloudberryKingdom
 {
     public class BungeeSwitch : CkBaseMenu
     {
-        EzText Text_On, Text_Off, Text_Unavailable;
+        Text Text_On, Text_Off, Text_Unavailable;
 
         public BungeeSwitch(int Control)
             : base(false)
@@ -59,7 +59,7 @@ namespace CloudberryKingdom
 
             OnString  = string.Format("{0}: {1} {2}", Localization.WordString(Localization.Words.Bungee), Localization.WordString(Localization.Words.On),  ButtonString.RightBumper(ButtonSize));
             OffString = string.Format("{0}: {1} {2}", Localization.WordString(Localization.Words.Bungee), Localization.WordString(Localization.Words.Off), ButtonString.RightBumper(ButtonSize));
-            UnavailableString = string.Format("{0}: {1} {2}\n{3}", Localization.WordString(Localization.Words.Bungee), Localization.WordString(Localization.Words.Off), EzText.ColorToMarkup(new Color(.8f, .4f, .4f, 1f)), "(Multiplayer required)");
+            UnavailableString = string.Format("{0}: {1} {2}\n{3}", Localization.WordString(Localization.Words.Bungee), Localization.WordString(Localization.Words.Off), Text.ColorToMarkup(new Color(.8f, .4f, .4f, 1f)), "(Multiplayer required)");
 
             Text_On  = MakeText(OnString);
             Text_Off = MakeText(OffString);
@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             Text_Unavailable.MyFloatColor = ColorHelper.Gray(.7f);
 		}
 
-        EzText Text = null;
+        Text Text = null;
         void SetText()
         {
             Text_On.Show = Text_Off.Show = Text_Unavailable.Show = false;
@@ -92,9 +92,9 @@ namespace CloudberryKingdom
             Text.Show = true;
         }
 
-        private EzText MakeText(string OnText)
+        private Text MakeText(string OnText)
         {
-            var Text = new EzText(OnText, Resources.Font_Grobold42, 1000, false, true, .666f);
+            var Text = new Text(OnText, Resources.Font_Grobold42, 1000, false, true, .666f);
             Text.Scale = .35f;
 
             Text.ShadowOffset = new Vector2(7.5f, 7.5f);

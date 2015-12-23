@@ -15,13 +15,13 @@ namespace CloudberryKingdom
 		public bool AllowSpecialKeys = false;
 
         public ControlItem(Localization.Words description, Keys key)
-            : base(new EzText(description, Resources.Font_Grobold42, 2000, false, false, .65f))
+            : base(new Text(description, Resources.Font_Grobold42, 2000, false, false, .65f))
         {
 			Init(description, key);
 		}
 
 		public ControlItem(Localization.Words description, Keys key, bool AllowSpecialKeys)
-			: base(new EzText(description, Resources.Font_Grobold42, 2000, false, false, .65f))
+			: base(new Text(description, Resources.Font_Grobold42, 2000, false, false, .65f))
 		{
 			this.AllowSpecialKeys = AllowSpecialKeys;
 
@@ -89,7 +89,7 @@ namespace CloudberryKingdom
             PlayerManager.SaveRezAndKeys();
         }
 
-        protected override void SetTextProperties(EzText text)
+        protected override void SetTextProperties(Text text)
         {
             base.SetTextProperties(text);
 
@@ -153,7 +153,7 @@ namespace CloudberryKingdom
             //backdrop.Pos = new Vector2(1157.441f, 51.19061f);
             //backdrop.Quad.SetColor(new Color(215, 215, 215, 255));
 
-            //var text = new EzText("Press any key to switch control of selected item.", Resources.Font_Grobold42, 700, true, true, .675f);
+            //var text = new Text("Press any key to switch control of selected item.", Resources.Font_Grobold42, 700, true, true, .675f);
             //text.Scale *= .68f;
             //text.Pos = new Vector2(1158.73f, 79.36493f);
             //MyPile.Add(text, "instructions");
@@ -176,7 +176,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Customize
-            item = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Reset, ItemFont));
             item.Name = "Reset";
             item.Go = Reset;
             item.MySelectedText.MyFloatColor = new Color(50, 220, 50).ToVector4();

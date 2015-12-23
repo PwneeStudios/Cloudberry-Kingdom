@@ -40,12 +40,12 @@ namespace CloudberryKingdom
             Val = MyFloat.DefaultValue;
         }
 
-        public MenuSlider(EzText Text)
+        public MenuSlider(Text Text)
         {
             Init(Text, Text.Clone());
             InitializeSlider();
         }
-        public MenuSlider(EzText Text, EzText SelectedText)
+        public MenuSlider(Text Text, Text SelectedText)
         {
             Init(Text, SelectedText);
             InitializeSlider();

@@ -12,26 +12,26 @@ namespace CloudberryKingdom.Obstacles
     public partial class Fireball : _CircleDeath
     {
         static Particle ExplodeTemplate, EmitterTemplate;
-        static public EzSound ExplodeSound;
+        static public CoreSound ExplodeSound;
         static float t;
 
         static Quad ShadeQuad;
-        static public EzTexture FireballTexture, FlameTexture, EmitterTexture, BaseFireballTexture;
+        static public CoreTexture FireballTexture, FlameTexture, EmitterTexture, BaseFireballTexture;
         static RenderTarget2D FireballRenderTarget, FlameRenderTarget, EmitterRenderTarget;
         static int DrawWidth, DrawHeight;
         public static ParticleEmitter Fireball_Emitter, Flame_Emitter, Emitter_Emitter;
 
         public static void PreInit()
         {
-            FireballTexture = new EzTexture(); FireballTexture.FromCode = true;
-            FlameTexture = new EzTexture(); FlameTexture.FromCode = true;
-            EmitterTexture = new EzTexture(); EmitterTexture.FromCode = true;
+            FireballTexture = new CoreTexture(); FireballTexture.FromCode = true;
+            FlameTexture = new CoreTexture(); FlameTexture.FromCode = true;
+            EmitterTexture = new CoreTexture(); EmitterTexture.FromCode = true;
 
             FireballTexture.Name = "FireballTexture";
             EmitterTexture.Name = "EmitterTexture";
 
-            Tools.TextureWad.AddEzTexture(FireballTexture);
-            Tools.TextureWad.AddEzTexture(EmitterTexture);
+            Tools.TextureWad.AddCoreTexture(FireballTexture);
+            Tools.TextureWad.AddCoreTexture(EmitterTexture);
         }
 
         public static void InitRenderTargets(GraphicsDevice device, PresentationParameters pp, int Width, int Height)
@@ -147,7 +147,7 @@ namespace CloudberryKingdom.Obstacles
             Emitter_Emitter.Phsx();
         }
 
-        public static void DrawFireballTexture(GraphicsDevice device, EzEffectWad EffectWad)
+        public static void DrawFireballTexture(GraphicsDevice device, CoreEffectWad EffectWad)
         {
             t += 1f / 60;
 
@@ -189,7 +189,7 @@ namespace CloudberryKingdom.Obstacles
             //FireballTexture.Tex.Save(string.Format("Fireball_{0}.png", Tools.DrawCount), ImageFileFormat.Png);
         }
 
-        public static void DrawEmitterTexture(GraphicsDevice device, EzEffectWad EffectWad)
+        public static void DrawEmitterTexture(GraphicsDevice device, CoreEffectWad EffectWad)
         {
             t += 1f / 60;
 
@@ -200,7 +200,7 @@ namespace CloudberryKingdom.Obstacles
             float scalex = 190;
             float scaley = 190;
 
-            EzEffect fx = Tools.BasicEffect;;
+            CoreEffect fx = Tools.BasicEffect;;
 
             fx.effect.CurrentTechnique = fx.Simplest;
             Tools.EffectWad.SetCameraPosition(new Vector4(0, 0, 1f / scalex, 1f / scaley));

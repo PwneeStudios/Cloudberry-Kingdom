@@ -128,11 +128,11 @@ namespace CloudberryKingdom
 
             MyMenu.Pos = new Vector2(332f, -40f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(243.3826f, -786.1113f); _t.Scale = 0.4618335f; }
-            _t = MyPile.FindEzText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(843.3829f, -758.3335f); _t.Scale = 0.5695835f; }
-            _t = MyPile.FindEzText("Requirement"); if (_t != null) { _t.Pos = new Vector2(111.1109f, 144.4438f); _t.Scale = 1f; }
-            _t = MyPile.FindEzText("Requirement2"); if (_t != null) { _t.Pos = new Vector2(-247.2222f, -163.8891f); _t.Scale = 1f; }
+            Text _t;
+            _t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(243.3826f, -786.1113f); _t.Scale = 0.4618335f; }
+            _t = MyPile.FindText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(843.3829f, -758.3335f); _t.Scale = 0.5695835f; }
+            _t = MyPile.FindText("Requirement"); if (_t != null) { _t.Pos = new Vector2(111.1109f, 144.4438f); _t.Scale = 1f; }
+            _t = MyPile.FindText("Requirement2"); if (_t != null) { _t.Pos = new Vector2(-247.2222f, -163.8891f); _t.Scale = 1f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(300.0001f, -1577.779f); _q.Size = new Vector2(100f, 163.6364f); }

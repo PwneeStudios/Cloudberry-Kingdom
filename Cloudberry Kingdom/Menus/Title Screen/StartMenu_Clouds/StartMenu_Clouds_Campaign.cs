@@ -18,7 +18,7 @@ namespace CloudberryKingdom
 
         void Update()
         {
-			EzText _t;
+			Text _t;
 
             // Update level text
             int Level = PlayerManager.MinPlayerTotalCampaignLevel() + 1;
@@ -49,17 +49,17 @@ namespace CloudberryKingdom
 
 			if (ShowLevel)
             {
-                MyPile.FindEzText("Level").Show = true;
+                MyPile.FindText("Level").Show = true;
                 MyPile.FindQuad("BoxLeft").Show = true;
 
-                _t = MyPile.FindEzText("LevelNum");
+                _t = MyPile.FindText("LevelNum");
                 _t.Show = true;
                 _t.SubstituteText(Level.ToString());
             }
             else
             {
-                MyPile.FindEzText("Level").Show = false;
-                MyPile.FindEzText("LevelNum").Show = false;
+                MyPile.FindText("Level").Show = false;
+                MyPile.FindText("LevelNum").Show = false;
                 MyPile.FindQuad("BoxLeft").Show = false;
             }
 
@@ -105,7 +105,7 @@ namespace CloudberryKingdom
             base.SlideOut(Preset, 0);
         }
 
-        protected void SetText(EzText text)
+        protected void SetText(Text text)
         {
             text.MyFloatColor = new Color(34, 214, 47).ToVector4();
             text.OutlineColor = new Color(0, 0, 0, 0).ToVector4();
@@ -157,7 +157,7 @@ namespace CloudberryKingdom
 
 			// Continue
 			int level = PlayerManager.MinPlayerTotalCampaignIndex();
-			item = new CampaignChapterItem(new EzText("xxx", ItemFont), -1);
+			item = new CampaignChapterItem(new Text("xxx", ItemFont), -1);
 			item.Name = "Continue";
 			item.Go = Go;
 			AddItem(item);
@@ -165,7 +165,7 @@ namespace CloudberryKingdom
             // Chapters
 			for (int i = 1; i <= 7; i++)
 			{
-				item = new CampaignChapterItem(new EzText(CampaignSequence.ChapterName[i - 1], ItemFont), i);
+				item = new CampaignChapterItem(new Text(CampaignSequence.ChapterName[i - 1], ItemFont), i);
 				item.Name = "Chapter" + i.ToString();
 				item.Go = Go;
 				AddItem(item);
@@ -177,13 +177,13 @@ namespace CloudberryKingdom
             TextBack.Degrees = 90;
             MyPile.Add(TextBack, "BoxLeft");
 
-            var LevelText = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
+            var LevelText = new Text(Localization.Words.Level, Resources.Font_Grobold42);
             LevelText.Scale *= .72f;
             StartMenu.SetText_Green(LevelText, true);
             MyPile.Add(LevelText, "Level");
             LevelText.Show = false;
 
-            var LevelNum = new EzText("Garbage", Resources.Font_Grobold42);
+            var LevelNum = new Text("Garbage", Resources.Font_Grobold42);
             LevelNum.Scale *= 1.1f;
             StartMenu.SetText_Green(LevelNum, true);
             MyPile.Add(LevelNum, "LevelNum");
@@ -201,7 +201,7 @@ namespace CloudberryKingdom
 
         protected void MakeHeader()
         {
-            var Header = new EzText(Localization.Words.StoryMode, ItemFont);
+            var Header = new Text(Localization.Words.StoryMode, ItemFont);
             Header.Name = "Header";
             Header.Scale *= 1.3f;
             SetText(Header);
@@ -309,10 +309,10 @@ namespace CloudberryKingdom
 
             MyMenu.Pos = new Vector2(-1361.111f, -861.111f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-672.2248f, 936.111f); _t.Scale = 0.9941665f; }
-            _t = MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(-1333.333f, -1047.222f); _t.Scale = 0.7490832f; }
-            _t = MyPile.FindEzText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(-798.8153f, -1007.543f); _t.Scale = 0.9310196f; }
+            Text _t;
+            _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-672.2248f, 936.111f); _t.Scale = 0.9941665f; }
+            _t = MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(-1333.333f, -1047.222f); _t.Scale = 0.7490832f; }
+            _t = MyPile.FindText("LevelNum"); if (_t != null) { _t.Pos = new Vector2(-798.8153f, -1007.543f); _t.Scale = 0.9310196f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-744.4449f, -1369.444f); _q.Size = new Vector2(172.6158f, 503.8864f); }

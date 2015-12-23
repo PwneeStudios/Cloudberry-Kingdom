@@ -30,7 +30,7 @@ namespace CloudberryKingdom
         public static bool IsShowing = false;
 
         static FancyVector2 CamPos;
-        public static EzText ChooseYourHero_Text;
+        public static Text ChooseYourHero_Text;
         static bool Show_ChooseYourHero = false;
 
         static int ChooseYourHero_LerpLength = 100;

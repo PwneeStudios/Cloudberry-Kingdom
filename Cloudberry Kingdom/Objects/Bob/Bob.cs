@@ -466,8 +466,8 @@ namespace CloudberryKingdom.Bobs
 
         public bool ScreenWrap, ScreenWrapToCenter, CollideWithCamera = true;
 
-        public EzSound JumpSound, DieSound;
-        public static EzSound JumpSound_Default, DieSound_Default;
+        public CoreSound JumpSound, DieSound;
+        public static CoreSound JumpSound_Default, DieSound_Default;
 
         public PlayerIndex MyPlayerIndex;
         public PlayerData MyPlayerData
@@ -574,21 +574,21 @@ namespace CloudberryKingdom.Bobs
         }
 
         public bool IsSpriteBased = true;
-        public Bob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad)
+        public Bob(string file, CoreEffectWad EffectWad, CoreTextureWad TextureWad)
         {
             LoadFromFile(file, EffectWad, TextureWad, BobPhsxNormal.Instance);
         }
-        public Bob(string file, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx MyHeroType, bool AllowHats)
+        public Bob(string file, CoreEffectWad EffectWad, CoreTextureWad TextureWad, BobPhsx MyHeroType, bool AllowHats)
         {
             CanHaveHat = AllowHats;
             LoadFromFile(file, EffectWad, TextureWad, MyHeroType);
         }
-        public Bob(ObjectClass obj, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx MyHeroType, bool AllowHats)
+        public Bob(ObjectClass obj, CoreEffectWad EffectWad, CoreTextureWad TextureWad, BobPhsx MyHeroType, bool AllowHats)
         {
             CanHaveHat = AllowHats;
             _Load(obj, EffectWad, TextureWad, MyHeroType);
         }
-        void LoadFromFile(string file, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx HeroType)
+        void LoadFromFile(string file, CoreEffectWad EffectWad, CoreTextureWad TextureWad, BobPhsx HeroType)
         {
             Tools.UseInvariantCulture();
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None);
@@ -608,7 +608,7 @@ namespace CloudberryKingdom.Bobs
 
             _Load(obj, EffectWad, TextureWad, MyHeroType);
         }
-        void _Load(ObjectClass obj, EzEffectWad EffectWad, EzTextureWad TextureWad, BobPhsx HeroType)
+        void _Load(ObjectClass obj, CoreEffectWad EffectWad, CoreTextureWad TextureWad, BobPhsx HeroType)
         {
             this.PlayerObject = obj;
 

@@ -13,7 +13,7 @@ namespace CloudberryKingdom
             Text = null;
         }
 
-        public List<EzText> Text;
+        public List<Text> Text;
         public int Index;
         public float ContinuousIndex;
 
@@ -28,7 +28,7 @@ namespace CloudberryKingdom
 
         public TextList()
         {
-            Text = new List<EzText>();
+            Text = new List<Text>();
             SetIndex(0);
 
             Alpha = 1;
@@ -41,7 +41,7 @@ namespace CloudberryKingdom
 
         //public void AddLine(String s)
         //{
-        //    Text.Add(new EzText(s, Resources.Font_Grobold42, true));
+        //    Text.Add(new Text(s, Resources.Font_Grobold42, true));
         //}
 
         public override void PhsxStep()

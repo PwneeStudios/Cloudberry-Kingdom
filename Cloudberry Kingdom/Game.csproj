@@ -199,11 +199,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\FireballDraw.cs" />
     <Compile Include="Engine\Chunk.cs" />
     <Compile Include="Engine\Effects\EzEffectWad.cs" />
-    <Compile Include="Engine\Input\BaseInput.cs" />
-    <Compile Include="Engine\Input\Implementations\XnaInput.cs" />
-    <Compile Include="Engine\Input\Implementations\NuclexInput.cs" />
     <Compile Include="Engine\Input\CoreInput.cs" />
     <Compile Include="Engine\Particle Effects\Specific Effects\CoinDie.cs" />
     <Compile Include="Engine\Tools\Set.cs" />
@@ -349,7 +347,6 @@
     <Compile Include="Objects\Obstacles\Cloud.cs" />
     <Compile Include="Objects\Obstacles\Cloud__Auto.cs" />
     <Compile Include="Objects\Obstacles\Fireball.cs" />
-    <Compile Include="Objects\Obstacles\FireballDraw.cs" />
     <Compile Include="Objects\Obstacles\Fireball__Auto.cs" />
     <Compile Include="Objects\Obstacles\Firesnake.cs" />
     <Compile Include="Objects\Obstacles\Firesnake__Auto.cs" />
@@ -657,10 +654,10 @@
     <Compile Include="Engine\Collision Detection\FloatRectangle.cs" />
     <Compile Include="Engine\Tools\Random.cs" />
     <Compile Include="Engine\GameTools\TextInput.cs" />
-    <Compile Include="Engine\GameTools\EzStorage.cs" />
+    <Compile Include="Engine\GameTools\CoreStorage.cs" />
     <Compile Include="Engine\GameTools\Oscillate.cs" />
     <Compile Include="Engine\GameTools\IntVector2.cs" />
-    <Compile Include="Engine\GameTools\EzReader.cs" />
+    <Compile Include="Engine\GameTools\CoreReader.cs" />
     <Compile Include="Engine\GameTools\Globals.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Menus\Loading Screen\ILoadingScreen.cs" />

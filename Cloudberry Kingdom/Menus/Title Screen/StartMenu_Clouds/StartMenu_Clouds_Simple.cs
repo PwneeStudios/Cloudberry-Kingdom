@@ -46,19 +46,19 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Arcade
-            item = new MenuItem(new EzText(Localization.Words.TheArcade, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.TheArcade, ItemFont, true));
             item.Name = "Arcade";
             item.Go = MenuGo_Arcade;
             AddItem(item);
 
             // Campaign
-            item = new MenuItem(new EzText(Localization.Words.StoryMode, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.StoryMode, ItemFont, true));
             item.Name = "Campaign";
             AddItem(item);
             item.Go = MenuGo_Campaign;
 
             // Options
-            item = new MenuItem(new EzText(Localization.Words.Options, ItemFont, true));
+            item = new MenuItem(new Text(Localization.Words.Options, ItemFont, true));
             item.Name = "Options";
             item.Go = MenuGo_Options;
             AddItem(item);
@@ -66,7 +66,7 @@ namespace CloudberryKingdom
             if (CloudberryKingdomGame.MainMenuType == MainMenuTypes.PS3)
             {
 			    // Leaderboard
-                item = new MenuItem(new EzText(Localization.Words.Leaderboards, ItemFont, true));
+                item = new MenuItem(new Text(Localization.Words.Leaderboards, ItemFont, true));
                 item.Name = "Leaderboards";
 			    item.Go = MenuGo_Leaderboards;
                 AddItem(item);
@@ -75,7 +75,7 @@ namespace CloudberryKingdom
             if (CloudberryKingdomGame.MainMenuType == MainMenuTypes.PC)
             {
                 // Exit
-                item = new MenuItem(new EzText(Localization.Words.Exit, ItemFont, true));
+                item = new MenuItem(new Text(Localization.Words.Exit, ItemFont, true));
                 item.Name = "Exit";
                 item.Go = MenuGo_Exit;
                 AddItem(item);

@@ -313,7 +313,7 @@ namespace CloudberryKingdom
 
         public static bool GreenScreen = false;
         static QuadClass TestQuad = new QuadClass();
-        public static EzTexture TestTexture = null;
+        public static CoreTexture TestTexture = null;
 
         public static void DrawTest()
         {

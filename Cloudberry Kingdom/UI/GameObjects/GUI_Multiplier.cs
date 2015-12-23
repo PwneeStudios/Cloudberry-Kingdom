@@ -53,7 +53,7 @@ namespace CloudberryKingdom
             }
         }
 
-        EzText MultiplierText;
+        Text MultiplierText;
         void UpdateMultiplierText()
         {
             MultiplierText.SubstituteText(ToString());
@@ -79,7 +79,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            EzFont font;
+            CoreFont font;
             float scale;
             Color c, o;
 
@@ -100,14 +100,14 @@ namespace CloudberryKingdom
 
             if (Style == 0)
             {
-                MultiplierText = new EzText(ToString(), Resources.Font_Grobold42, 950, false, true);
+                MultiplierText = new Text(ToString(), Resources.Font_Grobold42, 950, false, true);
                 MultiplierText.Scale = .95f;
                 MultiplierText.Pos = new Vector2(187, 130);
                 MultiplierText.MyFloatColor = new Color(255, 255, 255).ToVector4();
             }
             else if (Style == 1)
             {
-                MultiplierText = new EzText(ToString(), font, 950, false, true);
+                MultiplierText = new Text(ToString(), font, 950, false, true);
                 MultiplierText.Scale = scale;
                 MultiplierText.Pos = new Vector2(381.4434f, 85.55492f);
                 MultiplierText.MyFloatColor = c.ToVector4();

@@ -17,7 +17,7 @@ namespace CloudberryKingdom
 			MyPile.Alpha = 0;
         }
 
-        public EzText text;
+        public Text text;
         public ChapterTitle(Localization.Words word) { Init(Localization.WordString(word), Vector2.Zero, 1f); }
 
         void Init(string str, Vector2 shift, float scale)
@@ -31,7 +31,7 @@ namespace CloudberryKingdom
             MyPile.Pos += shift;
 
             Tools.Warning(); // May be text, rather than Localization.Words
-            text = new EzText(str, Resources.Font_Grobold42, true, true);
+            text = new Text(str, Resources.Font_Grobold42, true, true);
             text.Scale *= scale;
 
             text.MyFloatColor = new Color(26, 188, 241).ToVector4();

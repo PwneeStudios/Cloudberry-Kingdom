@@ -17,7 +17,7 @@ namespace CloudberryKingdom
     {
         public GUI_EnterName() : base(PlayerManager.DefaultName, Vector2.Zero)
         {
-            EzText Text = new EzText(Localization.Words.NewHighScore, Resources.Font_Grobold42);
+            Text Text = new Text(Localization.Words.NewHighScore, Resources.Font_Grobold42);
 
             Text.Pos = new Vector2(-579.365f, 253.9681f);
             Text.Scale *= .7f;
@@ -461,7 +461,7 @@ namespace CloudberryKingdom
         }
 
         QuadClass Backdrop, SelectQuad;
-        EzText Caret;
+        Text Caret;
 
         public GUI_TextBox(string InitialText, Vector2 pos)
             : base(Tools.SantitizeOneLineString(InitialText, Resources.Font_Grobold42), pos, false)
@@ -499,7 +499,7 @@ namespace CloudberryKingdom
             //var font = Resources.Font_Grobold42;
             //var font = Resources.LilFont;
             var font = Resources.Font_Grobold42;
-            Caret = new EzText("_", font, 1000, false, true, .575f);
+            Caret = new Text("_", font, 1000, false, true, .575f);
             Caret.MyFloatColor = Color.Black.ToVector4();
             Caret.Pos = MyText.Pos;
             Caret.Scale *= fontscale;
@@ -560,9 +560,9 @@ namespace CloudberryKingdom
             SelectQuad.Pos = new Vector2(347, -MyText.GetWorldHeight() / 4);
         }
 
-        protected override EzText MakeText(string text, bool centered, EzFont font)
+        protected override Text MakeText(string text, bool centered, CoreFont font)
         {
-            EzText eztext = new EzText(text, font, 100000, centered, true, .575f);
+            Text eztext = new Text(text, font, 100000, centered, true, .575f);
             eztext.MyFloatColor = Color.Black.ToVector4();
             eztext.OutlineColor = Color.Transparent.ToVector4();
             

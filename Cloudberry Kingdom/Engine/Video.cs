@@ -40,7 +40,7 @@ namespace CloudberryKingdom
         static Video CurrentVideo;
         public static VideoPlayer VPlayer;
         
-        static EzTexture VEZTexture = new EzTexture();
+        static CoreTexture VEZTexture = new CoreTexture();
 
         static double Duration, Elapsed;
 
@@ -49,7 +49,7 @@ namespace CloudberryKingdom
 
         static List<Localization.SubtitleAction> Subtitles;
         static int SubtitleIndex;
-        static EzText SubtitleText;
+        static Text SubtitleText;
 
         public static void StartVideo_CanSkipIfWatched(string MovieName)
         {
@@ -160,7 +160,7 @@ namespace CloudberryKingdom
                 switch (NextSubtitle.MyAction)
                 {
                     case Localization.SubtitleAction.ActionType.Show:
-                        SubtitleText = new EzText(NextSubtitle.Text, Resources.Font_Grobold42, 1433.333f, true, true, .666f);
+                        SubtitleText = new Text(NextSubtitle.Text, Resources.Font_Grobold42, 1433.333f, true, true, .666f);
                         SubtitleText.Show = true;
                         SubtitleText.Scale = .4000f;
                         SubtitleText.Pos = new Vector2(0, -830 + SubtitleText.Height / 2);

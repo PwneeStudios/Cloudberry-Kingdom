@@ -213,7 +213,7 @@ namespace CloudberryKingdom
 
         public QuadClass IconQuad;
 
-        public EzTexture IconTexture;
+        public CoreTexture IconTexture;
         public float NormalWidth;
 
         public PictureIcon(SpriteInfo info)
@@ -247,12 +247,12 @@ namespace CloudberryKingdom
         {
             Init(Tools.TextureWad.FindByName(IconTextureString), BarColor, Width);
         }
-        public PictureIcon(EzTexture IconTexture, Color BarColor, float Width)
+        public PictureIcon(CoreTexture IconTexture, Color BarColor, float Width)
         {
             Init(IconTexture, BarColor, Width);
         }
 
-        void Init(EzTexture IconTexture, Color BarColor, float Width)
+        void Init(CoreTexture IconTexture, Color BarColor, float Width)
         {
             this.IconTexture = IconTexture;
             this.BarColor = BarColor;

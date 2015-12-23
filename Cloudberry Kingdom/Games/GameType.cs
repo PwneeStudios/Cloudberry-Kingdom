@@ -1332,10 +1332,10 @@ namespace CloudberryKingdom
                     if (!PauseLevel)
                     {
                         // Do the level's phsx, suppressing sound if necessary
-                        bool HoldSuppress = EzSoundWad.SuppressSounds;
-                        EzSoundWad.SuppressSounds |= MyLevel.SuppressSounds;
+                        bool HoldSuppress = CoreSoundWad.SuppressSounds;
+                        CoreSoundWad.SuppressSounds |= MyLevel.SuppressSounds;
                         MyLevel.PhsxStep(false);
-                        EzSoundWad.SuppressSounds = HoldSuppress;
+                        CoreSoundWad.SuppressSounds = HoldSuppress;
 
 #if NOT_PC && (XBOX || XBOX_SIGNIN)
                         UpdateSignedInPlayers();

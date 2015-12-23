@@ -7,7 +7,7 @@ namespace CoreEngine
 {
     public struct OneAnim_Texture
     {
-        public EzTexture[] Data;
+        public CoreTexture[] Data;
         public float Speed;
     }
 
@@ -84,7 +84,7 @@ namespace CoreEngine
             Height = FirstFrameTexture.Height;
         }
 
-        public AnimationData_Texture(EzTexture texture)
+        public AnimationData_Texture(CoreTexture texture)
         {
             if (texture == null)
             {
@@ -142,7 +142,7 @@ namespace CoreEngine
             if (data.Anims[Anim].Data != null)
             {
                 Anims[Anim].Speed = data.Anims[Anim].Speed;
-                Anims[Anim].Data = new EzTexture[data.Anims[Anim].Data.Length];
+                Anims[Anim].Data = new CoreTexture[data.Anims[Anim].Data.Length];
                 data.Anims[Anim].Data.CopyTo(Anims[Anim].Data, 0);
             }
             else
@@ -161,7 +161,7 @@ namespace CoreEngine
             if (frame >= Anims[anim].Data.Length) return;
 
             OneAnim_Texture NewAnim = new OneAnim_Texture();
-            NewAnim.Data = new EzTexture[Anims[anim].Data.Length + 1];
+            NewAnim.Data = new CoreTexture[Anims[anim].Data.Length + 1];
             for (int i = 0; i < frame; i++) NewAnim.Data[i] = Anims[anim].Data[i];
             NewAnim.Data[frame] = Anims[anim].Data[frame];
             for (int i = frame + 1; i < Anims[anim].Data.Length + 1; i++) NewAnim.Data[i] = Anims[anim].Data[i-1];
@@ -177,7 +177,7 @@ namespace CoreEngine
             if (Anims[anim].Data == null) return;
 
             OneAnim_Texture NewAnim = new OneAnim_Texture();
-            NewAnim.Data = new EzTexture[0];
+            NewAnim.Data = new CoreTexture[0];
             Anims[anim] = NewAnim;
         }
 
@@ -190,14 +190,14 @@ namespace CoreEngine
             if (Anims[anim].Data.Length > 1)
             {
                 OneAnim_Texture NewAnim = new OneAnim_Texture();
-                NewAnim.Data = new EzTexture[Anims[anim].Data.Length - 1];
+                NewAnim.Data = new CoreTexture[Anims[anim].Data.Length - 1];
                 for (int i = 0; i < frame; i++) NewAnim.Data[i] = Anims[anim].Data[i];
                 for (int i = frame + 1; i < Anims[anim].Data.Length; i++) NewAnim.Data[i - 1] = Anims[anim].Data[i];
                 Anims[anim] = NewAnim;
             }
         }
 
-        public void AddFrame(EzTexture val, int anim)
+        public void AddFrame(CoreTexture val, int anim)
         {
             int frame = 0;
             if (anim >= Anims.Length) frame = 0;
@@ -206,9 +206,9 @@ namespace CoreEngine
 
             Set(val, anim, frame);
         }
-        public void Set(EzTexture val, int anim, int frame)
+        public void Set(CoreTexture val, int anim, int frame)
         {
-            EzTexture Default = null;
+            CoreTexture Default = null;
             if (Anims[0].Data != null)
             {
                 Default = Anims[0].Data[0];
@@ -223,7 +223,7 @@ namespace CoreEngine
 
             if (Anims[anim].Data == null)
             {
-                Anims[anim].Data = new EzTexture[] { null };
+                Anims[anim].Data = new CoreTexture[] { null };
             }
             else
                 if (frame > 0)
@@ -231,7 +231,7 @@ namespace CoreEngine
 
             if (frame >= Anims[anim].Data.Length && !(val == Default && Anims[anim].Data.Length <= 1))
             {
-                EzTexture[] NewData = new EzTexture[frame + 1];
+                CoreTexture[] NewData = new CoreTexture[frame + 1];
                 for (int i = 0; i < frame + 1; i++)
                     NewData[i]= Default;
 
@@ -245,12 +245,12 @@ namespace CoreEngine
             }
         }
 
-        public EzTexture Get(int anim, int frame)
+        public CoreTexture Get(int anim, int frame)
         {
             if (Anims[0].Data == null)
                 return null;
 
-            EzTexture Default = Anims[0].Data[0];
+            CoreTexture Default = Anims[0].Data[0];
 
             if (anim >= Anims.Length)
                 return Default;
@@ -272,7 +272,7 @@ namespace CoreEngine
         }
 
         public int LastSetFrame = 0, LastSetAnim = 0;
-        public EzTexture NextKeyFrame()
+        public CoreTexture NextKeyFrame()
         {
             LastSetFrame++;
             if (LastSetFrame >= Anims[LastSetAnim].Data.Length)
@@ -281,7 +281,7 @@ namespace CoreEngine
             return Anims[LastSetAnim].Data[LastSetFrame];
         }
 
-        public EzTexture Calc(int anim, float t, int Length, bool Loop)
+        public CoreTexture Calc(int anim, float t, int Length, bool Loop)
         {
             int i = (int)Math.Floor(t);
             LastSetFrame = i;
@@ -289,7 +289,7 @@ namespace CoreEngine
             return Get(anim, i);
         }
 
-        public EzTexture Calc(int anim, float t)
+        public CoreTexture Calc(int anim, float t)
         {
             return Calc(anim, t, Anims[anim].Data.Length, true);
         }

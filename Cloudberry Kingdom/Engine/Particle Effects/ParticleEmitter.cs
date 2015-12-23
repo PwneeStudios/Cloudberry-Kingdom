@@ -13,7 +13,7 @@ namespace CloudberryKingdom.Particles
             emitter => { },
             20);
 
-        public EzTexture MyTexture;
+        public CoreTexture MyTexture;
 
         public Vector2 Position;
         public int Delay;

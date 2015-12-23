@@ -72,7 +72,7 @@ namespace CloudberryKingdom
                 quad.Show = false;
             }
 
-			foreach (EzText text in MyPile.MyTextList)
+			foreach (Text text in MyPile.MyTextList)
 			{
 				text.Show = false;
 			}

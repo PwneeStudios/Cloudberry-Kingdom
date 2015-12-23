@@ -185,12 +185,12 @@ namespace CloudberryKingdom
             Center.SetColor(color);
         }
 
-        public void SetEffect(EzEffect effect)
+        public void SetEffect(CoreEffect effect)
         {
             Center.MyEffect = effect;
         }
 
-        public void Init(EzTexture tex, EzEffect fx)
+        public void Init(CoreTexture tex, CoreEffect fx)
         {
             Data.Center_BL_Shift = Vector2.Zero;
             Data.Center_TR_Shift = Vector2.Zero;

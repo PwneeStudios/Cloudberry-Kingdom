@@ -3,7 +3,7 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public class EzSound
+    public class CoreSound
     {
         public SoundEffect sound;
         public string Name;
@@ -14,7 +14,7 @@ namespace CoreEngine
 
         //public List<SoundEffectInstance> Instances;
 
-        public EzSound()
+        public CoreSound()
         {
             DelayTillNextSoundCanPlay = 1;
 
@@ -33,7 +33,7 @@ namespace CoreEngine
           */
         public void Play()
         {
-            if (EzSoundWad.SuppressSounds) return;
+            if (CoreSoundWad.SuppressSounds) return;
 
             if (Tools.DrawCount - LastPlayedStamp <= DelayTillNextSoundCanPlay)
                 return;
@@ -53,14 +53,14 @@ namespace CoreEngine
         /// <param name="PitchModulationRange"></param>
         public void PlayModulated(float PitchModulationRange)
         {
-            if (EzSoundWad.SuppressSounds) return;
+            if (CoreSoundWad.SuppressSounds) return;
 
             Play(1, Tools.GlobalRnd.RndFloat(-PitchModulationRange, PitchModulationRange), 0);
         }
 
         public void Play(float volume)
         {
-            if (EzSoundWad.SuppressSounds) return;
+            if (CoreSoundWad.SuppressSounds) return;
             //CutOffExtra();
 
             sound.Play(volume * Tools.SoundVolume.Val * DefaultVolume, 0, 0);
@@ -70,7 +70,7 @@ namespace CoreEngine
 
         public void Play(float volume, float pitch, float pan)
         {
-            if (EzSoundWad.SuppressSounds) return;
+            if (CoreSoundWad.SuppressSounds) return;
             //CutOffExtra();
 
             sound.Play(volume * Tools.SoundVolume.Val * DefaultVolume, CoreMath.Restrict(-1, 1, pitch), CoreMath.Restrict(-1, 1, pan));

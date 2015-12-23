@@ -4,7 +4,7 @@ using CloudberryKingdom;
 
 namespace CoreEngine
 {
-    public class EzTexture
+    public class CoreTexture
     {
         public int Width, Height;
 
@@ -30,7 +30,7 @@ namespace CoreEngine
         /// </summary>
         public bool FromPacked = false;
 
-        public EzTexture Packed;
+        public CoreTexture Packed;
 
         /// <summary>
         /// If true this texture was loaded dynamically after the game loaded, not from a packed XNA file.
@@ -75,7 +75,7 @@ namespace CoreEngine
             return Name;
         }
 
-        public static implicit operator EzTexture(string name)
+        public static implicit operator CoreTexture(string name)
         {
             return Tools.Texture(name);
         }

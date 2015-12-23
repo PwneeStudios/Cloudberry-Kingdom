@@ -44,19 +44,19 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Header
-            EzText HeaderText = new EzText(Message, ItemFont, 1600, true, false, .7f);
+            Text HeaderText = new Text(Message, ItemFont, 1600, true, false, .7f);
             SetHeaderProperties(HeaderText);
             HeaderText.Name = "Header";
             MyPile.Add(HeaderText);
 
             // Ok
-            item = new MenuItem(new EzText(Yes, ItemFont, true));
+            item = new MenuItem(new Text(Yes, ItemFont, true));
             item.Go = _item => OnYes(this);
             item.Name = "Yes";
             AddItem(item);
 
             // No
-            item = new MenuItem(new EzText(No, ItemFont, true));
+            item = new MenuItem(new Text(No, ItemFont, true));
             item.Go = _item => OnNo(this);
             item.Name = "No";
             AddItem(item);
@@ -77,8 +77,8 @@ namespace CloudberryKingdom
 
             MyMenu.Pos = new Vector2(-2.777588f, -330.5555f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(0f, 777.4443f); _t.Scale = 0.5221667f; }
+            Text _t;
+            _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(0f, 777.4443f); _t.Scale = 0.5221667f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 316.6668f); _q.Size = new Vector2(1281.083f, 729.4391f); }
@@ -122,7 +122,7 @@ namespace CloudberryKingdom
 
         public VerifyBaseMenu(bool CallBaseConstructor) : base(CallBaseConstructor) { }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 

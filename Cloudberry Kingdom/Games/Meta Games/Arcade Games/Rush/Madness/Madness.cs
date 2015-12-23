@@ -104,8 +104,8 @@ namespace CloudberryKingdom
 
                 // Campaign style Level GUI
                 var CLevel = new GUI_Level(levelindex + 1);
-                EzText _t;
-                _t = CLevel.MyPile.FindEzText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
+                Text _t;
+                _t = CLevel.MyPile.FindText("Level"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.55f; }
                 CLevel.MyPile.Pos = new Vector2(1590.556f, 856.0002f);
                 CLevel.PreventRelease = false;
                 Tools.CurGameData.AddGameObject(CLevel);

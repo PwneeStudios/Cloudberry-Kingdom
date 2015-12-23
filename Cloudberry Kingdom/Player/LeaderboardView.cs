@@ -157,10 +157,10 @@ namespace CloudberryKingdom
             Right.Alpha = 1f;
             MyPile.Add(Right, "BoxRight");
 
-            var Header = new EzText("__Dummy__", ItemFont);
+            var Header = new Text("__Dummy__", ItemFont);
             MyPile.Add(Header, "Header");
 
-            var GameTitle = new EzText("__Dummy__", ItemFont);
+            var GameTitle = new Text("__Dummy__", ItemFont);
             MyPile.Add(GameTitle, "GameTitle");
 
             Highlight = new HsvQuad();
@@ -180,10 +180,10 @@ namespace CloudberryKingdom
 
             // Messages
             CurrentMessage = Message.None;
-            NotRankedFriends = new EzText(Localization.Words.NotRankedFriends, ItemFont, 1400.0f/*2000*/, true, true, .785f);
+            NotRankedFriends = new Text(Localization.Words.NotRankedFriends, ItemFont, 1400.0f/*2000*/, true, true, .785f);
             MyPile.Add(NotRankedFriends, "NotRankedFriends");
 
-            NotRanked = new EzText(Localization.Words.NotRanked, ItemFont, 1400.0f/*2000*/, true, true, .785f);
+            NotRanked = new Text(Localization.Words.NotRanked, ItemFont, 1400.0f/*2000*/, true, true, .785f);
             MyPile.Add(NotRanked, "NotRanked");
 
             LoadingStr0 = Localization.WordString(Localization.Words.Loading);
@@ -192,7 +192,7 @@ namespace CloudberryKingdom
             LoadingStr3 = Localization.WordString(Localization.Words.Loading) + "...";
             LoadingCount = 0;
 
-            LoadingText = new EzText(LoadingStr1, ItemFont, 1000, true, true);
+            LoadingText = new Text(LoadingStr1, ItemFont, 1000, true, true);
             MyPile.Add(LoadingText, "Loading");
 
 			// Pwnee sign
@@ -227,9 +227,9 @@ namespace CloudberryKingdom
 
             // View Gamer
 #if PS3
-            item = new MenuItem(new EzText(Localization.Words.Profile, ItemFont));
+            item = new MenuItem(new Text(Localization.Words.Profile, ItemFont));
 #else
-			item = new MenuItem(new EzText(Localization.Words.ViewGamerCard, ItemFont));
+			item = new MenuItem(new Text(Localization.Words.ViewGamerCard, ItemFont));
 #endif
             item.Name = "ViewGamer";
             item.JiggleOnGo = false;
@@ -240,7 +240,7 @@ namespace CloudberryKingdom
             MyMenu.OnA = Cast.ToMenu(ViewGamer);
 
             // Switch View
-            item = new MenuItem(new EzText("__Dummy__", ItemFont));
+            item = new MenuItem(new Text("__Dummy__", ItemFont));
             item.Name = "SwitchView";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -253,7 +253,7 @@ namespace CloudberryKingdom
 
             // Switch Sort
 			bool ShowSortOption = false;
-            item = new MenuItem(new EzText("__Dummy__", ItemFont));
+            item = new MenuItem(new Text("__Dummy__", ItemFont));
             item.Name = "SwitchSort";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -283,7 +283,7 @@ namespace CloudberryKingdom
 			{
 				prevback = Localization.WordString(Localization.Words.Previous) + " / " + Localization.WordString(Localization.Words.Next);
 			}
-			EzText text = new EzText(prevback, ItemFont, 1000.0f, false, false, .75f);
+			Text text = new Text(prevback, ItemFont, 1000.0f, false, false, .75f);
 			StartMenu.SetTextUnselected_Red(text);
 			MyPile.Add(text, "LeftRight");
 
@@ -322,7 +322,7 @@ namespace CloudberryKingdom
 			SetSortListProperties(SortList);
 			for (int i = 0; i < (int)LeaderboardType.Length; i++)
 			{
-				item = new MenuItem(new EzText(LeaderboardType_ToString((LeaderboardType)i), ItemFont, false, true));
+				item = new MenuItem(new Text(LeaderboardType_ToString((LeaderboardType)i), ItemFont, false, true));
 				SetItemProperties(item);
 				SortList.AddItem(item, (LeaderboardType)i);
 			}
@@ -371,7 +371,7 @@ namespace CloudberryKingdom
                 int Id = IdAndName.Item1;
                 string Name = IdAndName.Item2;
 
-                item = new MenuItem(new EzText(Name, ItemFont, false, true));
+                item = new MenuItem(new Text(Name, ItemFont, false, true));
                 item.ExpandString = GetBoardIdAndName(i, false).Item2;
                 SetItemProperties(item);
                 BoardList.AddItem(item, i);
@@ -470,7 +470,7 @@ namespace CloudberryKingdom
 			}
 		}
 
-        EzText LoadingText, NotRanked, NotRankedFriends;
+        Text LoadingText, NotRanked, NotRankedFriends;
         int LoadingCount;
         string LoadingStr0, LoadingStr1, LoadingStr2, LoadingStr3;
         void UpdateLoadingText()
@@ -583,7 +583,7 @@ namespace CloudberryKingdom
 				ViewItem.MySelectedText.SubstituteText(ViewText);
 			}
 
-			MyPile.FindEzText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
+			MyPile.FindText("Header").SubstituteText(LeaderboardType_ToString(CurrentType));
         }
 
 		static Tuple<int, string> GetBoardIdAndName(int index, bool FullName)
@@ -648,7 +648,7 @@ namespace CloudberryKingdom
 			int Id = IdAndName.Item1;
 			string Name = IdAndName.Item2;
 
-            MyPile.FindEzText("GameTitle").SubstituteText(Name);
+            MyPile.FindText("GameTitle").SubstituteText(Name);
 
             if (CurrentView == null)
                 CurrentView = new LeaderboardView(Id, CurrentType);
@@ -686,12 +686,12 @@ namespace CloudberryKingdom
             //base.SetItemProperties(item);
         }
 
-        protected override void SetTextProperties(EzText text)
+        protected override void SetTextProperties(Text text)
         {
             base.SetTextProperties(text);
         }
 
-        protected override void SetSelectedTextProperties(EzText text)
+        protected override void SetSelectedTextProperties(Text text)
         {
             base.SetSelectedTextProperties(text);
         }
@@ -878,7 +878,7 @@ namespace CloudberryKingdom
                 // Revert camera
                 MyGame.Cam.Zoom = new Vector2(.001f);
                 MyGame.Cam.SetVertexCamera();
-                EzText.ZoomWithCamera_Override = false;
+                Text.ZoomWithCamera_Override = false;
             }
         }
 
@@ -893,12 +893,12 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1705.555f, 816.6665f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1422.222f, 1461.111f); _t.Scale = 0.5035005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1372.223f, 1380.556f); _t.Scale = 0.439f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3716106f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1422.222f, 1461.111f); _t.Scale = 0.5035005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1372.223f, 1380.556f); _t.Scale = 0.439f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3716106f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.889f, 5000f); }
@@ -927,12 +927,12 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1705.555f, 816.6665f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1422.222f, 1461.111f); _t.Scale = 0.5035005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1372.223f, 1380.556f); _t.Scale = 0.439f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3609182f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1422.222f, 1461.111f); _t.Scale = 0.5035005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1372.223f, 1380.556f); _t.Scale = 0.439f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3609182f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Dark"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(8888.889f, 5000f); }
@@ -969,13 +969,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.42f/*0.4570001f*/; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(777.7778f, 549.9998f); _t.Scale = 0.3982503f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.42f/*0.4570001f*/; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(777.7778f, 549.9998f); _t.Scale = 0.3982503f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1002,13 +1002,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1297.222f, 855.5557f); _t.Scale = 0.3989167f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3739281f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 538.8887f); _t.Scale = 0.3720834f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1297.222f, 855.5557f); _t.Scale = 0.3989167f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3739281f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 538.8887f); _t.Scale = 0.3720834f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1035,13 +1035,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3795856f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(780.5557f, 555.5554f); _t.Scale = 0.4296669f * .97f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3795856f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(780.5557f, 555.5554f); _t.Scale = 0.4296669f * .97f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1068,13 +1068,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1313.888f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 538.8887f); _t.Scale = 0.3897502f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1313.888f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3519495f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(797.2221f, 538.8887f); _t.Scale = 0.3897502f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1101,13 +1101,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f - 60, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1291.667f, 861.1112f); _t.Scale = 0.3976667f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.351667f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(786.888f, 547.222f); _t.Scale = 0.3899582f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1291.667f, 861.1112f); _t.Scale = 0.3976667f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.351667f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(786.888f, 547.222f); _t.Scale = 0.3899582f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1134,13 +1134,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3595637f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(769.4445f, 552.7775f); _t.Scale = 0.3768338f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3595637f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(769.4445f, 552.7775f); _t.Scale = 0.3768338f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1167,13 +1167,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1350f, 988.8883f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1344.445f, 858.3334f); _t.Scale = 0.4432501f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-402.7775f, -16.66664f); _t.Scale = 0.4863335f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4925002f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3746839f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(794.4443f, 563.8887f); _t.Scale = 0.4802502f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1350f, 988.8883f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1344.445f, 858.3334f); _t.Scale = 0.4432501f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-402.7775f, -16.66664f); _t.Scale = 0.4863335f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4925002f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3746839f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(794.4443f, 563.8887f); _t.Scale = 0.4802502f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }
@@ -1200,13 +1200,13 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(1672.222f, 686.1112f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
-				_t = MyPile.FindEzText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
-				_t = MyPile.FindEzText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
-				_t = MyPile.FindEzText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3850924f; }
-				_t = MyPile.FindEzText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(802.7778f, 558.3332f); _t.Scale = 0.4802502f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1308.333f, 991.6661f); _t.Scale = 0.5240005f; }
+				_t = MyPile.FindText("GameTitle"); if (_t != null) { _t.Pos = new Vector2(-1302.778f, 861.1112f); _t.Scale = 0.4570001f; }
+				_t = MyPile.FindText("NotRankedFriends"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("NotRanked"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.4956669f; }
+				_t = MyPile.FindText("Loading"); if (_t != null) { _t.Pos = new Vector2(-391.6667f, -16.66664f); _t.Scale = 0.3850924f; }
+				_t = MyPile.FindText("LeftRight"); if (_t != null) { _t.Pos = new Vector2(802.7778f, 558.3332f); _t.Scale = 0.4802502f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("BoxLeft"); if (_q != null) { _q.Pos = new Vector2(-408.3335f, 2.777821f); _q.Size = new Vector2(1094.068f, 1006.303f); }

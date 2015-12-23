@@ -37,7 +37,7 @@ namespace CloudberryKingdom
             MyPile.MyTextList.Clear();
 
             // Add the new text
-            EzText Text = new EzText(Word, ItemFont, 800, false, false, .575f);
+            Text Text = new Text(Word, ItemFont, 800, false, false, .575f);
             Text.Pos = new Vector2(-139.4445f, 536.1113f);
             Text.Scale *= .74f;
             MyPile.Add(Text);

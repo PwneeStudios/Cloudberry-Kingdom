@@ -25,7 +25,7 @@ namespace CloudberryKingdom
         /// </summary>
         public Action<Bob> ModObject;
 
-        public EzTexture PicTexture;
+        public CoreTexture PicTexture;
         public Vector2 PicScale;
 
         public bool UsePaintTexture;
@@ -44,7 +44,7 @@ namespace CloudberryKingdom
         /// </summary>
         public Color DetailColor;
 
-        public Color Clr; public EzTexture Texture; public EzEffect Effect;
+        public Color Clr; public CoreTexture Texture; public CoreEffect Effect;
 
         /// <summary>
         /// This matrix is used to hue rotate Bob's outfit.
@@ -98,7 +98,7 @@ namespace CloudberryKingdom
             Effect = Tools.BasicEffect;;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, EzTexture texture)
+        public ClrTextFx(int Guid, int Price, Color color, CoreTexture texture)
         {
             this.M = Matrix.Identity;
 
@@ -140,7 +140,7 @@ namespace CloudberryKingdom
             Effect = Tools.BasicEffect;;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, string texture, bool UsePaintTexture, EzTexture PicTexture)
+        public ClrTextFx(int Guid, int Price, Color color, string texture, bool UsePaintTexture, CoreTexture PicTexture)
         {
             this.M = Matrix.Identity;
 
@@ -185,7 +185,7 @@ namespace CloudberryKingdom
             Effect = Tools.BasicEffect;;
         }
 
-        public ClrTextFx(int Guid, int Price, Color color, EzTexture texture, Color DetailColor, EzEffect effect)
+        public ClrTextFx(int Guid, int Price, Color color, CoreTexture texture, Color DetailColor, CoreEffect effect)
         {
             this.M = Matrix.Identity;
 

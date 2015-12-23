@@ -207,7 +207,7 @@ namespace CloudberryKingdom
             MyGame.MyLevel.AddBlock(block);
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -217,7 +217,7 @@ namespace CloudberryKingdom
             //text.Angle = CoreMath.Radians(23);
         }
 
-        void SetSuperHeader(EzText text)
+        void SetSuperHeader(Text text)
         {
             base.SetHeaderProperties(text);
             text.MyFloatColor = new Vector4(1, 1, 1, 1);
@@ -259,9 +259,9 @@ namespace CloudberryKingdom
         BobPhsx Base, Jump, Size;
 
         MenuItem Start, Back;
-        EzText HeroText;
+        Text HeroText;
         MenuList BaseList, JumpList, SizeList;
-        EzText BaseHeader, JumpHeader, SizeHeader;
+        Text BaseHeader, JumpHeader, SizeHeader;
 
         void SetListItemProperties(MenuItem item)
         {
@@ -298,7 +298,7 @@ namespace CloudberryKingdom
             SelectedItemShift = new Vector2(0, 0);
 
             // Header
-            EzText HeaderText = new EzText(Localization.Words.HeroFactory, Resources.Font_Grobold42);
+            Text HeaderText = new Text(Localization.Words.HeroFactory, Resources.Font_Grobold42);
             HeaderText.Name = "Header";
             SetSuperHeader(HeaderText);
             HeaderText.Pos = new Vector2(-1169.842f, 985.7144f);
@@ -313,7 +313,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             // Hero lists
-            BaseHeader = HeroText = new EzText(Localization.Words.Base, ItemFont);
+            BaseHeader = HeroText = new Text(Localization.Words.Base, ItemFont);
             HeroText.Name = "base";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -327,14 +327,14 @@ namespace CloudberryKingdom
 
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
+                item = new MenuItem(new Text(hero.Name, ItemFont, false, true));
                 SetListItemProperties(item);
                 BaseList.AddItem(item, hero);
             }
             AddItem(BaseList);
 
             // Hero jump
-            JumpHeader = HeroText = new EzText(Localization.Words.Jump, ItemFont);
+            JumpHeader = HeroText = new Text(Localization.Words.Jump, ItemFont);
             HeroText.Name = "jump";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -346,14 +346,14 @@ namespace CloudberryKingdom
             {
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
+                item = new MenuItem(new Text(hero.Name, ItemFont, false, true));
                 SetListItemProperties(item);
                 JumpList.AddItem(item, hero);
             }
             AddItem(JumpList);
 
             // Hero shape
-            SizeHeader = HeroText = new EzText(Localization.Words.Shape, ItemFont);
+            SizeHeader = HeroText = new Text(Localization.Words.Shape, ItemFont);
             HeroText.Name = "size";
             SetHeaderProperties(HeroText);
             MyPile.Add(HeroText);
@@ -365,7 +365,7 @@ namespace CloudberryKingdom
             {
                 BobPhsx hero = BobPhsx.GetPhsx(_hero);
 
-                item = new MenuItem(new EzText(hero.Name, ItemFont, false, true));
+                item = new MenuItem(new Text(hero.Name, ItemFont, false, true));
                 SetListItemProperties(item);
                 SizeList.AddItem(item, hero);
             }
@@ -562,11 +562,11 @@ namespace CloudberryKingdom
 
 			MyMenu.Pos = new Vector2(1166.862f, -69.45605f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-664.2021f, 960.7101f); _t.Scale = 0.8010691f; }
-			_t = MyPile.FindEzText("base"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 764.0166f); _t.Scale = 0.5947744f; }
-			_t = MyPile.FindEzText("jump"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 462.8152f); _t.Scale = 0.5887732f; }
-			_t = MyPile.FindEzText("size"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 145.6873f); _t.Scale = 0.5638525f; }
+			Text _t;
+			_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-664.2021f, 960.7101f); _t.Scale = 0.8010691f; }
+			_t = MyPile.FindText("base"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 764.0166f); _t.Scale = 0.5947744f; }
+			_t = MyPile.FindText("jump"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 462.8152f); _t.Scale = 0.5887732f; }
+			_t = MyPile.FindText("size"); if (_t != null) { _t.Pos = new Vector2(-1223.304f, 145.6873f); _t.Scale = 0.5638525f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(0f, 0f); _q.Size = new Vector2(1500f, 1083.871f); }
@@ -597,7 +597,7 @@ else
 }
 
             // Start
-            A = Start = item = new MenuItem(new EzText(Localization.Words.Play, ItemFont));
+            A = Start = item = new MenuItem(new Text(Localization.Words.Play, ItemFont));
             item.Name = "test";
             item.JiggleOnGo = false;
             AddItem(item);
@@ -616,7 +616,7 @@ if (ButtonCheck.ControllerInUse)
 
 
             // Back
-            B = Back = item = new MenuItem(new EzText(Localization.Words.Back, ItemFont));
+            B = Back = item = new MenuItem(new Text(Localization.Words.Back, ItemFont));
             item.Name = "back";
             AddItem(item);
             item.SelectSound = null;
@@ -631,7 +631,7 @@ if (ButtonCheck.ControllerInUse)
 }
 
             // Continue
-            X = item = new MenuItem(new EzText(Localization.Words.Test, ItemFont));
+            X = item = new MenuItem(new Text(Localization.Words.Test, ItemFont));
             item.Name = "continue";
             AddItem(item);
             item.SelectSound = null;
@@ -647,7 +647,7 @@ if (ButtonCheck.ControllerInUse)
 }
 
             // Reset
-            item = ResetButton = new MenuItem(new EzText(Localization.Words.Reset, ItemFont));
+            item = ResetButton = new MenuItem(new Text(Localization.Words.Reset, ItemFont));
             item.Name = "reset";
             AddItem(item);
 			item.Go = Cast.ToItem(ResetSliders);

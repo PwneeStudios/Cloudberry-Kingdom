@@ -5,7 +5,7 @@ namespace CloudberryKingdom
 {
     public class StartLevelMenu_Clouds : CkBaseMenu
     {
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -118,7 +118,7 @@ namespace CloudberryKingdom
                 int MenuIndex = i;
                 bool Locked = i >= IndexCutoff;
 
-                var item = new LevelItem(new EzText(Names[i], Resources.Font_Grobold42), StartLevel, Names.Length - 1 - MenuIndex, Locked);
+                var item = new LevelItem(new Text(Names[i], Resources.Font_Grobold42), StartLevel, Names.Length - 1 - MenuIndex, Locked);
                 if (!Locked) item.Go = Launch;
 
                 AddItem(item);
@@ -143,7 +143,7 @@ namespace CloudberryKingdom
             MyPile.Add(Backdrop, "Box");
 
             // Header
-            var Header = new EzText(Localization.Words.Level, Resources.Font_Grobold42);
+            var Header = new Text(Localization.Words.Level, Resources.Font_Grobold42);
             MyPile.Add(Header, "Header");
             SetHeaderProperties(Header);
 
@@ -174,8 +174,8 @@ namespace CloudberryKingdom
         {
             MyMenu.Pos = new Vector2(1086.111f, -1224.999f);
 
-            EzText _t;
-            _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(-1511.111f, 27.77769f); _t.Scale = 1.30125f; }
+            Text _t;
+            _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(-1511.111f, 27.77769f); _t.Scale = 1.30125f; }
 
             QuadClass _q;
             _q = MyPile.FindQuad("Box"); if (_q != null) { _q.Pos = new Vector2(-555.5569f, -77.77783f); _q.Size = new Vector2(2236.158f, 1222.99f); }

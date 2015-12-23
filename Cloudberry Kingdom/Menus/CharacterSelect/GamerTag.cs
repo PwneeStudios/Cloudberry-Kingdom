@@ -25,7 +25,7 @@ namespace CloudberryKingdom
             MyCharacterSelect = null;
         }
 
-        EzText Text;
+        Text Text;
         public override void Init()
         {
             base.Init();
@@ -43,7 +43,7 @@ namespace CloudberryKingdom
             CharacterSelect.Shift(this);
         }
 
-        public static void ScaleGamerTag(EzText GamerTag)
+        public static void ScaleGamerTag(Text GamerTag)
         {
             GamerTag.Scale *= 850f / GamerTag.GetWorldWidth();
 
@@ -62,12 +62,12 @@ namespace CloudberryKingdom
             if (MyCharacterSelect.Player.Exists)
             {
                 string name = MyCharacterSelect.Player.GetName();
-                Text = new EzText(name, Resources.Font_Grobold42, true, true);
+                Text = new Text(name, Resources.Font_Grobold42, true, true);
                 ScaleGamerTag(Text);
             }
             else
             {
-                Text = new EzText("ERROR", Resources.LilFont, true, true);
+                Text = new Text("ERROR", Resources.LilFont, true, true);
             }
 
             Text.Shadow = false;

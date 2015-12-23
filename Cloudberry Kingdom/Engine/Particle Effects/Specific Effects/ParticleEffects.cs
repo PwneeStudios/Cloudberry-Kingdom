@@ -12,7 +12,7 @@ namespace CloudberryKingdom
 {
     public partial class ParticleEffects
     {
-        public static Particle SingleAnimatedParticle(Vector2 Pos, Vector2 Size, PhsxData Data, EzTexture Texture)
+        public static Particle SingleAnimatedParticle(Vector2 Pos, Vector2 Size, PhsxData Data, CoreTexture Texture)
         {
             var p = new Particle();
             p.MyQuad.Init();
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
         }
 
         static Particle DustCloudTemplate;
-        static EzSound DustCloudSound;
+        static CoreSound DustCloudSound;
 
         static Particle FlameTemplate;
         static Particle ThrustTemplate;
@@ -375,7 +375,7 @@ namespace CloudberryKingdom
         {
             PieceOrb(level, style, pos, frame, intensity, null, Vector2.One, Vector4.One);
         }
-        public static void PieceOrb(Level level, PieceOrbStyle style, Vector2 pos, int frame, float intensity, EzTexture texture, Vector2 size, Vector4 color)
+        public static void PieceOrb(Level level, PieceOrbStyle style, Vector2 pos, int frame, float intensity, CoreTexture texture, Vector2 size, Vector4 color)
         {
             // Number of particles to emit
             int num = 1;
@@ -478,7 +478,7 @@ namespace CloudberryKingdom
         {
             AddPop(level, pos, size, PopTemplate.MyQuad.MyTexture);
         }
-        public static void AddPop(Level level, Vector2 pos, float size, EzTexture tex)
+        public static void AddPop(Level level, Vector2 pos, float size, CoreTexture tex)
         {
             if (level.NoParticles) return;
 

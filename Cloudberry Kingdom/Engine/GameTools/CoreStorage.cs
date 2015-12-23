@@ -36,7 +36,7 @@ namespace CloudberryKingdom
 					try
 					{
 						// Couldn't find Steam ID, see if there are any Steam ID save files
-						var files = Directory.EnumerateFiles(EzStorage.SaveDir(), "Player Data *", SearchOption.TopDirectoryOnly);
+						var files = Directory.EnumerateFiles(CoreStorage.SaveDir(), "Player Data *", SearchOption.TopDirectoryOnly);
 						foreach (var file in files)
 						{
 							PlayerManager.Player.FileName = file;
@@ -257,7 +257,7 @@ namespace CloudberryKingdom
 
 			foreach (SignedInGamer gamer in Gamer.SignedInGamers)
 			{
-				if (EzStorage.Device[(int)gamer.PlayerIndex] == null)
+				if (CoreStorage.Device[(int)gamer.PlayerIndex] == null)
 				{
                     if (SkipPlayerDataInit && PlayerManager.Players[(int)gamer.PlayerIndex] != null)
                     {
@@ -284,9 +284,9 @@ namespace CloudberryKingdom
 
         public static void LoadGamer(PlayerData player)
         {
-            if (EzStorage.Device[(int)player.MyPlayerIndex] == null)
+            if (CoreStorage.Device[(int)player.MyPlayerIndex] == null)
             {
-                var d = EzStorage.Device[(int)player.MyPlayerIndex] = new PlayerSaveDevice(player.MyPlayerIndex);
+                var d = CoreStorage.Device[(int)player.MyPlayerIndex] = new PlayerSaveDevice(player.MyPlayerIndex);
                 Tools.GameClass.Components.Add(d);
 
                 // hook two event handlers to force the user to choose a new device if they cancel the
@@ -374,7 +374,7 @@ namespace CloudberryKingdom
         {
             if (Changed || AlwaysSave)
             {
-				EzStorage.SaveWithMetaData(index, ActualContainerName, FileName, writer =>
+				CoreStorage.SaveWithMetaData(index, ActualContainerName, FileName, writer =>
 				{
 					Serialize(writer);
 
@@ -397,7 +397,7 @@ namespace CloudberryKingdom
         {
             if (SkipLoad) { Changed = false; SkipLoad = false; return; }
 
-            EzStorage.Load(index, ActualContainerName, FileName, AlternateFileName,
+            CoreStorage.Load(index, ActualContainerName, FileName, AlternateFileName,
                 reader =>
                 {
                     Deserialize(reader);
@@ -415,7 +415,7 @@ namespace CloudberryKingdom
         protected virtual void FailLoad() { }
     }
     
-    public static class EzStorage
+    public static class CoreStorage
     {
 #if XBOX
         static WrappedBool AsyncUpdateLock = new WrappedBool(false);

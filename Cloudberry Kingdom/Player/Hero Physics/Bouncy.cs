@@ -40,7 +40,7 @@ namespace CloudberryKingdom
             MyBob.JumpSound = Tools.SoundWad.FindByName("BouncyJump");
             DullSound = Tools.SoundWad.FindByName("BouncyJump_Small");
         }
-        protected EzSound DullSound = null;
+        protected CoreSound DullSound = null;
 
         public override void DefaultValues()
         {

@@ -19,7 +19,7 @@ namespace CloudberryKingdom
 
         bool SkipPhsxStep;
 
-        EzText Play, Toggle, End, Speed, LB, RB;
+        Text Play, Toggle, End, Speed, LB, RB;
 
         QuadClass BigPaused, BigEnd;
 
@@ -29,7 +29,7 @@ namespace CloudberryKingdom
         {
         }
 
-        protected void SetGrayHeaderProperties(EzText text)
+        protected void SetGrayHeaderProperties(Text text)
         {
             base.SetHeaderProperties(text);
 
@@ -39,7 +39,7 @@ namespace CloudberryKingdom
             MyPile.Add(text);
         }
 
-        protected override void SetHeaderProperties(EzText text)
+        protected override void SetHeaderProperties(Text text)
         {
             text.Scale = FontScale;
             MyPile.Add(text);
@@ -78,12 +78,12 @@ namespace CloudberryKingdom
 #if PC
             AdditionalAdd = new Vector2(-2, 0);
             MyPile.Add(new QuadClass(ButtonTexture.Go, 140, "Button_Go"));
-            Play = new EzText(Localization.Words.Play, ItemFont, true);
+            Play = new Text(Localization.Words.Play, ItemFont, true);
             Play.Name = "Play";
             SetGrayHeaderProperties(Play);
 #else
 			MyPile.Add(new QuadClass(ButtonTexture.Go, 90, "Button_Go"));
-			Play = new EzText(Localization.Words.Play, ItemFont, true);
+			Play = new Text(Localization.Words.Play, ItemFont, true);
 			Play.MyFloatColor = new Color(67, 198, 48, 255).ToVector4();
 			Play.Name = "Play";
 			SetHeaderProperties(Play);
@@ -92,15 +92,15 @@ namespace CloudberryKingdom
 #if PC
             AdditionalAdd = new Vector2(-2, 0);
             MyPile.Add(new QuadClass(ButtonTexture.Back, 140, "Button_Back"));
-            End = new EzText(Localization.Words.Done, ItemFont, true);
+            End = new Text(Localization.Words.Done, ItemFont, true);
             End.Name = "Back";
             SetGrayHeaderProperties(End);
 #else
 			MyPile.Add(new QuadClass(ButtonTexture.Back, 85, "Button_Back"));
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
-				End = new EzText(Localization.Words.Back, ItemFont, true);
+				End = new Text(Localization.Words.Back, ItemFont, true);
 			else
-				End = new EzText(Localization.Words.Done, ItemFont, true);
+				End = new Text(Localization.Words.Done, ItemFont, true);
 			End.MyFloatColor = new Color(239, 41, 41, 255).ToVector4();
 			End.Name = "Back";
 			SetHeaderProperties(End);
@@ -109,7 +109,7 @@ namespace CloudberryKingdom
 			if (Type == ReplayGUIType.Replay)
 			{
 				MyPile.Add(new QuadClass(ButtonTexture.X, 90, "Button_X"));
-				Toggle = new EzText(Localization.Words.Single, ItemFont, true);
+				Toggle = new Text(Localization.Words.Single, ItemFont, true);
 				Toggle.Name = "Toggle";
 #if PC
                 SetGrayHeaderProperties(Toggle);
@@ -122,26 +122,26 @@ namespace CloudberryKingdom
 			}
 
 			MyPile.Add(new QuadClass(ButtonTexture.LeftRight, 85, "Button_LR"));
-			Speed = new EzText(Localization.Words.Speed, ItemFont);
+			Speed = new Text(Localization.Words.Speed, ItemFont);
 			Speed.Name = "Speed";
 			SetGrayHeaderProperties(Speed);
 
 			if (Type == ReplayGUIType.Computer)
 			{
 				MyPile.Add(new QuadClass(ButtonTexture.LeftBumper, 85, "Button_LB"));
-				LB = new EzText(Localization.Words.Reset, ItemFont, true);
+				LB = new Text(Localization.Words.Reset, ItemFont, true);
 				LB.Name = "Reset";
 				SetGrayHeaderProperties(LB);
 			}
 			else
 			{
 				MyPile.Add(new QuadClass(ButtonTexture.LeftBumper, 85, "Button_LB"));
-				LB = new EzText(Localization.Words.Previous, ItemFont, true);
+				LB = new Text(Localization.Words.Previous, ItemFont, true);
 				LB.Name = "Prev";
 				SetGrayHeaderProperties(LB);
 
 				MyPile.Add(new QuadClass(ButtonTexture.RightBumper, 85, "Button_RB"));
-				RB = new EzText(Localization.Words.Next, ItemFont, true);
+				RB = new Text(Localization.Words.Next, ItemFont, true);
 				RB.Name = "Next";
 				SetGrayHeaderProperties(RB);
 			}
@@ -183,11 +183,11 @@ namespace CloudberryKingdom
 						////////////////////////////////////////////////////////////////////////////////
 						if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-315.6231f, -832.2222f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(224.444f, -832.2222f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(611.2224f, -832.2222f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(909.8889f, -1373.889f); _t.Scale = 0.3969166f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-315.6231f, -832.2222f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(224.444f, -832.2222f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(611.2224f, -832.2222f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(909.8889f, -1373.889f); _t.Scale = 0.3969166f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(69.44431f, -2049.777f); _q.Size = new Vector2(825.0781f, 1240.663f); }
@@ -203,11 +203,11 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-329.512f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(249.4438f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(644.5557f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(982.1111f, -1160f); _t.Scale = 0.3969166f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-329.512f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(249.4438f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(644.5557f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(982.1111f, -1160f); _t.Scale = 0.3969166f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(77.77765f, -2047f); _q.Size = new Vector2(852.9119f, 1248.496f); }
@@ -223,11 +223,11 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-368.4008f, -810.0001f); _t.Scale = 0.5329166f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(232.7773f, -810.0001f); _t.Scale = 0.5329166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(589f, -815.5556f); _t.Scale = 0.4961667f; }
-							_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(971.0002f, -1093.334f); _t.Scale = 0.5030003f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-368.4008f, -810.0001f); _t.Scale = 0.5329166f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(232.7773f, -810.0001f); _t.Scale = 0.5329166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(589f, -815.5556f); _t.Scale = 0.4961667f; }
+							_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(971.0002f, -1093.334f); _t.Scale = 0.5030003f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2055.333f); _q.Size = new Vector2(948.9962f, 1244.163f); }
@@ -243,11 +243,11 @@ namespace CloudberryKingdom
 						}
 						else
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-365.6229f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(235.5551f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(619.5557f, -826.6667f); _t.Scale = 0.44f; }
-							_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(940.4446f, -1221.111f); _t.Scale = 0.4176667f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-365.6229f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(235.5551f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(619.5557f, -826.6667f); _t.Scale = 0.44f; }
+							_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(940.4446f, -1221.111f); _t.Scale = 0.4176667f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2055.333f); _q.Size = new Vector2(900.329f, 1244.413f); }
@@ -272,13 +272,13 @@ namespace CloudberryKingdom
 						////////////////////////////////////////////////////////////////////////////////
 						if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-480.556f, -827.778f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(24.99994f, -827.778f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(511.1105f, -827.778f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(863.8886f, -827.778f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(905.5554f, -1263.889f); _t.Scale = 0.3769997f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1474.998f, -1263.889f); _t.Scale = 0.3787504f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-480.556f, -827.778f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(24.99994f, -827.778f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(511.1105f, -827.778f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(863.8886f, -827.778f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(905.5554f, -1263.889f); _t.Scale = 0.3769997f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1474.998f, -1263.889f); _t.Scale = 0.3787504f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(136.1106f, -2324.78f); _q.Size = new Vector2(1046.165f, 1524.581f); }
@@ -296,13 +296,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-419.444f, -833.3336f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(52.77795f, -833.3336f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(461.111f, -833.3336f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(800.0002f, -833.3336f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(705.5554f, -1708.333f); _t.Scale = 0.3271667f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1338.886f, -1702.778f); _t.Scale = 0.3494168f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-419.444f, -833.3336f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(52.77795f, -833.3336f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(461.111f, -833.3336f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(800.0002f, -833.3336f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(705.5554f, -1708.333f); _t.Scale = 0.3271667f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1338.886f, -1702.778f); _t.Scale = 0.3494168f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(111.1106f, -2324.78f); _q.Size = new Vector2(918.5801f, 1525.996f); }
@@ -320,13 +320,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-466.6666f, -833.3336f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-22.2226f, -833.3336f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(463.8883f, -833.3336f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(827.7778f, -833.3336f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(805.5554f, -1200f); _t.Scale = 0.3271667f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1405.553f, -1194.445f); _t.Scale = 0.3494168f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-466.6666f, -833.3336f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-22.2226f, -833.3336f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(463.8883f, -833.3336f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(827.7778f, -833.3336f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(805.5554f, -1200f); _t.Scale = 0.3271667f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1405.553f, -1194.445f); _t.Scale = 0.3494168f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(105.555f, -2319.225f); _q.Size = new Vector2(978.4958f, 1519.663f); }
@@ -344,13 +344,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-569.4445f, -830.5557f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-88.888f, -830.5557f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(475.0004f, -830.5557f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(850.0005f, -830.5557f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(791.667f, -1733.333f); _t.Scale = 0.304f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1494.442f, -1727.778f); _t.Scale = 0.3178333f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-569.4445f, -830.5557f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-88.888f, -830.5557f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(475.0004f, -830.5557f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(850.0005f, -830.5557f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(791.667f, -1733.333f); _t.Scale = 0.304f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1494.442f, -1727.778f); _t.Scale = 0.3178333f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(63.88884f, -2322.002f); _q.Size = new Vector2(1039.073f, 1525.914f); }
@@ -368,13 +368,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-524.9999f, -830.5557f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-2.77771f, -830.5557f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(480.5553f, -830.5557f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(822.2222f, -830.5557f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(486.1113f, -1700f); _t.Scale = 0.3271667f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1047.22f, -1694.444f); _t.Scale = 0.3494168f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-524.9999f, -830.5557f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-2.77771f, -830.5557f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(480.5553f, -830.5557f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(822.2222f, -830.5557f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(486.1113f, -1700f); _t.Scale = 0.3271667f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1047.22f, -1694.444f); _t.Scale = 0.3494168f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2324.78f); _q.Size = new Vector2(1044.163f, 1530.164f); }
@@ -392,13 +392,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-408.3335f, -819.4447f); _t.Scale = 0.4576671f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(55.55499f, -816.6666f); _t.Scale = 0.4578336f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(508.3321f, -819.4445f); _t.Scale = 0.4533335f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(811.1106f, -830.5552f); _t.Scale = 0.3993336f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(680.5558f, -1561.111f); _t.Scale = 0.4095834f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1222.22f, -1558.333f); _t.Scale = 0.4487502f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-408.3335f, -819.4447f); _t.Scale = 0.4576671f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(55.55499f, -816.6666f); _t.Scale = 0.4578336f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(508.3321f, -819.4445f); _t.Scale = 0.4533335f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(811.1106f, -830.5552f); _t.Scale = 0.3993336f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(680.5558f, -1561.111f); _t.Scale = 0.4095834f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1222.22f, -1558.333f); _t.Scale = 0.4487502f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(161.1106f, -2316.447f); _q.Size = new Vector2(942.1636f, 1519.498f); }
@@ -416,13 +416,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-400.0003f, -813.8892f); _t.Scale = 0.4778334f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(72.22229f, -816.667f); _t.Scale = 0.4779999f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(536.1105f, -816.667f); _t.Scale = 0.4771666f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(869.4443f, -830.5558f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(922.2226f, -2033.333f); _t.Scale = 0.4539167f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1397.221f, -2036.111f); _t.Scale = 0.4569168f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-400.0003f, -813.8892f); _t.Scale = 0.4778334f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(72.22229f, -816.667f); _t.Scale = 0.4779999f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(536.1105f, -816.667f); _t.Scale = 0.4771666f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(869.4443f, -830.5558f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(922.2226f, -2033.333f); _t.Scale = 0.4539167f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1397.221f, -2036.111f); _t.Scale = 0.4569168f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(152.7773f, -2316.447f); _q.Size = new Vector2(970.1627f, 1518.83f); }
@@ -440,13 +440,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-505.5563f, -830.5558f); _t.Scale = 0.4328336f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-44.44495f, -827.7776f); _t.Scale = 0.4330001f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(433.3322f, -830.5555f); _t.Scale = 0.4285f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(819.4438f, -841.6663f); _t.Scale = 0.3993336f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(930.5559f, -1116.667f); _t.Scale = 0.4390835f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1413.887f, -1113.889f); _t.Scale = 0.4487502f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-505.5563f, -830.5558f); _t.Scale = 0.4328336f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-44.44495f, -827.7776f); _t.Scale = 0.4330001f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(433.3322f, -830.5555f); _t.Scale = 0.4285f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(819.4438f, -841.6663f); _t.Scale = 0.3993336f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(930.5559f, -1116.667f); _t.Scale = 0.4390835f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1413.887f, -1113.889f); _t.Scale = 0.4487502f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(83.3328f, -2322.002f); _q.Size = new Vector2(989.4137f, 1529.081f); }
@@ -464,13 +464,13 @@ namespace CloudberryKingdom
 						}
 						else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-397.2228f, -825.0002f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(97.22205f, -827.7777f); _t.Scale = 0.4136664f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(594.4437f, -830.5555f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(947.2214f, -833.333f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(922.2219f, -1444.444f); _t.Scale = 0.3584168f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1461.11f, -1447.222f); _t.Scale = 0.354f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-397.2228f, -825.0002f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(97.22205f, -827.7777f); _t.Scale = 0.4136664f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(594.4437f, -830.5555f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(947.2214f, -833.333f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(922.2219f, -1444.444f); _t.Scale = 0.3584168f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1461.11f, -1447.222f); _t.Scale = 0.354f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(199.9988f, -2324.78f); _q.Size = new Vector2(1023.164f, 1529.664f); }
@@ -488,13 +488,13 @@ namespace CloudberryKingdom
 						}
 						else
 						{
-							EzText _t;
-							_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-647.2225f, -825.0002f); _t.Scale = 0.4145834f; }
-							_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-122.2223f, -825.0002f); _t.Scale = 0.4147499f; }
-							_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(369.4437f, -825.0002f); _t.Scale = 0.4139166f; }
-							_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(722.2219f, -825.0002f); _t.Scale = 0.3873335f; }
-							_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(1316.667f, -1025f); _t.Scale = 0.4208333f; }
-							_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1797.22f, -1025f); _t.Scale = 0.4238334f; }
+							Text _t;
+							_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-647.2225f, -825.0002f); _t.Scale = 0.4145834f; }
+							_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-122.2223f, -825.0002f); _t.Scale = 0.4147499f; }
+							_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(369.4437f, -825.0002f); _t.Scale = 0.4139166f; }
+							_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(722.2219f, -825.0002f); _t.Scale = 0.3873335f; }
+							_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(1316.667f, -1025f); _t.Scale = 0.4208333f; }
+							_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1797.22f, -1025f); _t.Scale = 0.4238334f; }
 
 							QuadClass _q;
 							_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(-11.11169f, -2283.113f); _q.Size = new Vector2(1037.991f, 1503.489f); }
@@ -526,11 +526,11 @@ namespace CloudberryKingdom
 					////////////////////////////////////////////////////////////////////////////////
 					if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-779.512f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-239.4449f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(147.3335f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(946f, -840.5555f); _t.Scale = 0.3969166f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-779.512f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-239.4449f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(147.3335f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(946f, -840.5555f); _t.Scale = 0.3969166f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
@@ -546,11 +546,11 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-837.8453f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-258.8895f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(136.2224f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(932.1111f, -840.5555f); _t.Scale = 0.3969166f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-837.8453f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-258.8895f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(136.2224f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(932.1111f, -840.5555f); _t.Scale = 0.3969166f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
@@ -566,11 +566,11 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-693.4005f, -810.0001f); _t.Scale = 0.5253334f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-92.22247f, -810.0001f); _t.Scale = 0.5253334f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(264.0002f, -815.5556f); _t.Scale = 0.4885834f; }
-						_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(971.0002f, -815.5556f); _t.Scale = 0.5030003f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-693.4005f, -810.0001f); _t.Scale = 0.5253334f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-92.22247f, -810.0001f); _t.Scale = 0.5253334f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(264.0002f, -815.5556f); _t.Scale = 0.4885834f; }
+						_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(971.0002f, -815.5556f); _t.Scale = 0.5030003f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
@@ -586,11 +586,11 @@ namespace CloudberryKingdom
 					}
 					else
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(264.0002f, -832.2222f); _t.Scale = 0.44f; }
-						_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(948.7776f, -837.7778f); _t.Scale = 0.4176667f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-721.1783f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-120.0003f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(264.0002f, -832.2222f); _t.Scale = 0.44f; }
+						_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(948.7776f, -837.7778f); _t.Scale = 0.4176667f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
@@ -611,11 +611,11 @@ namespace CloudberryKingdom
 					/////// PC version, compuer replay /////////////////////////////////////////////
 					////////////////////////////////////////////////////////////////////////////////
 
-					EzText _t;
-					_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-662.845f, -832.2222f); _t.Scale = 0.44f; }
-					_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-103.3335f, -835.0001f); _t.Scale = 0.44f; }
-					_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(344.5559f, -832.2222f); _t.Scale = 0.44f; }
-					_t = MyPile.FindEzText("Reset"); if (_t != null) { _t.Pos = new Vector2(1051.556f, -840.5555f); _t.Scale = 0.44f; }
+					Text _t;
+					_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-662.845f, -832.2222f); _t.Scale = 0.44f; }
+					_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-103.3335f, -835.0001f); _t.Scale = 0.44f; }
+					_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(344.5559f, -832.2222f); _t.Scale = 0.44f; }
+					_t = MyPile.FindText("Reset"); if (_t != null) { _t.Pos = new Vector2(1051.556f, -840.5555f); _t.Scale = 0.44f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(55.55542f, -2058.333f); _q.Size = new Vector2(1230.664f, 1230.664f); }
@@ -637,13 +637,13 @@ namespace CloudberryKingdom
 					////////////////////////////////////////////////////////////////////////////////
 					if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1069.445f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-563.889f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-77.77845f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(274.9997f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(830.5556f, -836.1113f); _t.Scale = 0.3769997f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1399.998f, -836.1113f); _t.Scale = 0.3787504f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1069.445f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-563.889f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-77.77845f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(274.9997f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(830.5556f, -836.1113f); _t.Scale = 0.3769997f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1399.998f, -836.1113f); _t.Scale = 0.3787504f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -661,13 +661,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1097.222f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-625.0001f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-216.6671f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(122.2222f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(772.2219f, -847.2224f); _t.Scale = 0.3271667f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1405.553f, -841.6669f); _t.Scale = 0.3494168f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1097.222f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-625.0001f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-216.6671f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(122.2222f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(772.2219f, -847.2224f); _t.Scale = 0.3271667f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1405.553f, -841.6669f); _t.Scale = 0.3494168f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -685,13 +685,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1097.222f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-652.778f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-166.6671f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(197.2224f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(811.111f, -847.2224f); _t.Scale = 0.3271667f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1411.109f, -841.6669f); _t.Scale = 0.3494168f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1097.222f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-652.778f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-166.6671f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(197.2224f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(811.111f, -847.2224f); _t.Scale = 0.3271667f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1411.109f, -841.6669f); _t.Scale = 0.3494168f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -709,13 +709,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1305.556f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-824.9996f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-261.1112f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(113.8889f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(766.667f, -847.2224f); _t.Scale = 0.304f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1469.442f, -841.6669f); _t.Scale = 0.3178333f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1305.556f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-824.9996f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-261.1112f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(113.8889f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(766.667f, -847.2224f); _t.Scale = 0.304f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1469.442f, -841.6669f); _t.Scale = 0.3178333f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(27.77763f, -2327.78f); _q.Size = new Vector2(1691.408f, 1517.832f); }
@@ -733,13 +733,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1086.111f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-563.8888f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-80.55579f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(261.1111f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(869.4445f, -847.2224f); _t.Scale = 0.3271667f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1430.553f, -841.6669f); _t.Scale = 0.3494168f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1086.111f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-563.8888f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-80.55579f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(261.1111f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(869.4445f, -847.2224f); _t.Scale = 0.3271667f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1430.553f, -841.6669f); _t.Scale = 0.3494168f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -757,13 +757,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1050f, -819.4447f); _t.Scale = 0.4576671f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-586.1115f, -816.6666f); _t.Scale = 0.4578336f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-133.3344f, -819.4445f); _t.Scale = 0.4533335f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(169.4441f, -830.5552f); _t.Scale = 0.3993336f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(850.0007f, -827.7777f); _t.Scale = 0.4095834f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1391.665f, -824.9999f); _t.Scale = 0.4487502f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1050f, -819.4447f); _t.Scale = 0.4576671f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-586.1115f, -816.6666f); _t.Scale = 0.4578336f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-133.3344f, -819.4445f); _t.Scale = 0.4533335f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(169.4441f, -830.5552f); _t.Scale = 0.3993336f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(850.0007f, -827.7777f); _t.Scale = 0.4095834f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1391.665f, -824.9999f); _t.Scale = 0.4487502f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -781,13 +781,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-986.1114f, -811.1114f); _t.Scale = 0.4778334f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-513.8888f, -813.8892f); _t.Scale = 0.4779999f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-41.66737f, -813.8892f); _t.Scale = 0.4771666f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(291.6665f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(897.2226f, -816.6669f); _t.Scale = 0.4539167f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1372.221f, -819.4447f); _t.Scale = 0.4569168f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-986.1114f, -811.1114f); _t.Scale = 0.4778334f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-513.8888f, -813.8892f); _t.Scale = 0.4779999f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-41.66737f, -813.8892f); _t.Scale = 0.4771666f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(291.6665f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(897.2226f, -816.6669f); _t.Scale = 0.4539167f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1372.221f, -819.4447f); _t.Scale = 0.4569168f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -805,13 +805,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4328336f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-530.5558f, -824.9999f); _t.Scale = 0.4330001f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-52.77869f, -827.7778f); _t.Scale = 0.4285f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(333.333f, -838.8885f); _t.Scale = 0.3993336f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(886.1116f, -827.7777f); _t.Scale = 0.4390835f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1369.443f, -824.9999f); _t.Scale = 0.4487502f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4328336f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-530.5558f, -824.9999f); _t.Scale = 0.4330001f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-52.77869f, -827.7778f); _t.Scale = 0.4285f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(333.333f, -838.8885f); _t.Scale = 0.3993336f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(886.1116f, -827.7777f); _t.Scale = 0.4390835f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1369.443f, -824.9999f); _t.Scale = 0.4487502f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -829,13 +829,13 @@ namespace CloudberryKingdom
 					}
 					else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-497.2223f, -830.5555f); _t.Scale = 0.4136664f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-0.000617981f, -833.3333f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(352.7771f, -836.1108f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(883.333f, -836.111f); _t.Scale = 0.3584168f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1422.221f, -838.8887f); _t.Scale = 0.354f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-497.2223f, -830.5555f); _t.Scale = 0.4136664f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(-0.000617981f, -833.3333f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(352.7771f, -836.1108f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(883.333f, -836.111f); _t.Scale = 0.3584168f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1422.221f, -838.8887f); _t.Scale = 0.354f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(144.4434f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -853,13 +853,13 @@ namespace CloudberryKingdom
 					}
 					else
 					{
-						EzText _t;
-						_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-1013.889f, -827.778f); _t.Scale = 0.4145834f; }
-						_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-488.8888f, -827.778f); _t.Scale = 0.4147499f; }
-						_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(2.777214f, -827.778f); _t.Scale = 0.4139166f; }
-						_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(355.5554f, -827.778f); _t.Scale = 0.3873335f; }
-						_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(900.0002f, -827.778f); _t.Scale = 0.4208333f; }
-						_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1380.554f, -827.778f); _t.Scale = 0.4238334f; }
+						Text _t;
+						_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-1013.889f, -827.778f); _t.Scale = 0.4145834f; }
+						_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-488.8888f, -827.778f); _t.Scale = 0.4147499f; }
+						_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(2.777214f, -827.778f); _t.Scale = 0.4139166f; }
+						_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(355.5554f, -827.778f); _t.Scale = 0.3873335f; }
+						_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(900.0002f, -827.778f); _t.Scale = 0.4208333f; }
+						_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1380.554f, -827.778f); _t.Scale = 0.4238334f; }
 
 						QuadClass _q;
 						_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }
@@ -881,13 +881,13 @@ namespace CloudberryKingdom
 					////////////////////////////////////////////////////////////////////////////////
 					/////// PC version, player replay //////////////////////////////////////////////
 					////////////////////////////////////////////////////////////////////////////////
-					EzText _t;
-					_t = MyPile.FindEzText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4145834f; }
-					_t = MyPile.FindEzText("Back"); if (_t != null) { _t.Pos = new Vector2(-472.2223f, -838.8888f); _t.Scale = 0.4147499f; }
-					_t = MyPile.FindEzText("Toggle"); if (_t != null) { _t.Pos = new Vector2(11.11071f, -836.1111f); _t.Scale = 0.4139166f; }
-					_t = MyPile.FindEzText("Speed"); if (_t != null) { _t.Pos = new Vector2(436.1108f, -836.1108f); _t.Scale = 0.3873335f; }
-					_t = MyPile.FindEzText("Prev"); if (_t != null) { _t.Pos = new Vector2(941.667f, -830.5555f); _t.Scale = 0.4208333f; }
-					_t = MyPile.FindEzText("Next"); if (_t != null) { _t.Pos = new Vector2(1361.11f, -833.3332f); _t.Scale = 0.4238334f; }
+					Text _t;
+					_t = MyPile.FindText("Play"); if (_t != null) { _t.Pos = new Vector2(-991.6671f, -827.778f); _t.Scale = 0.4145834f; }
+					_t = MyPile.FindText("Back"); if (_t != null) { _t.Pos = new Vector2(-472.2223f, -838.8888f); _t.Scale = 0.4147499f; }
+					_t = MyPile.FindText("Toggle"); if (_t != null) { _t.Pos = new Vector2(11.11071f, -836.1111f); _t.Scale = 0.4139166f; }
+					_t = MyPile.FindText("Speed"); if (_t != null) { _t.Pos = new Vector2(436.1108f, -836.1108f); _t.Scale = 0.3873335f; }
+					_t = MyPile.FindText("Prev"); if (_t != null) { _t.Pos = new Vector2(941.667f, -830.5555f); _t.Scale = 0.4208333f; }
+					_t = MyPile.FindText("Next"); if (_t != null) { _t.Pos = new Vector2(1361.11f, -833.3332f); _t.Scale = 0.4238334f; }
 
 					QuadClass _q;
 					_q = MyPile.FindQuad("Backdrop2"); if (_q != null) { _q.Pos = new Vector2(108.3328f, -2327.78f); _q.Size = new Vector2(1517.832f, 1517.832f); }

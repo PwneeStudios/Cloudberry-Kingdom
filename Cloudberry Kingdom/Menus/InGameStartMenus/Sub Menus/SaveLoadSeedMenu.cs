@@ -37,7 +37,7 @@ namespace CloudberryKingdom
 
         PlayerData player;
 
-        EzText HeaderText;
+        Text HeaderText;
         public override void Init()
         {
             base.Init();
@@ -48,7 +48,7 @@ namespace CloudberryKingdom
             player = MenuItem.GetActivatingPlayerData();
 
             // Header
-            HeaderText = new EzText(Localization.Words.RandomSeed, ItemFont);
+            HeaderText = new Text(Localization.Words.RandomSeed, ItemFont);
             HeaderText.Name = "Header";
             SetHeaderProperties(HeaderText);
             MyPile.Add(HeaderText);
@@ -59,7 +59,7 @@ namespace CloudberryKingdom
             if (CanSave)
             {
                 // Save seed
-                item = new MenuItem(new EzText(Localization.Words.SaveSeed, ItemFont));
+                item = new MenuItem(new Text(Localization.Words.SaveSeed, ItemFont));
                 item.Name = "Save";
                 item.Go = MakeSave(this, player);
                 AddItem(item);
@@ -68,7 +68,7 @@ namespace CloudberryKingdom
             if (CanLoad)
             {
                 // Load seed
-                item = new MenuItem(new EzText(Localization.Words.LoadSeed, ItemFont));
+                item = new MenuItem(new Text(Localization.Words.LoadSeed, ItemFont));
                 item.Name = "Load";
                 item.Go = Load;
                 AddItem(item);
@@ -78,7 +78,7 @@ namespace CloudberryKingdom
             if (CanSave)
             {
                 // Copy seed
-                item = new MenuItem(new EzText(Localization.Words.CopyToClipboard, ItemFont));
+                item = new MenuItem(new Text(Localization.Words.CopyToClipboard, ItemFont));
                 item.Name = "Copy";
                 item.Go = Copy;
                 AddItem(item);
@@ -87,7 +87,7 @@ namespace CloudberryKingdom
             if (CanLoad)
             {
                 // Load seed from string
-                item = new MenuItem(new EzText(Localization.Words.LoadFromClipboard, ItemFont));
+                item = new MenuItem(new Text(Localization.Words.LoadFromClipboard, ItemFont));
                 item.Name = "LoadString";
                 item.Go = LoadString;
                 AddItem(item);
@@ -142,8 +142,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-1177.779f, -222.2221f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(402.7776f, 871.8887f); _t.Scale = 0.864f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(402.7776f, 871.8887f); _t.Scale = 0.864f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1181.251f, 241.6668f); _q.Size = new Vector2(1500f, 803.2258f); }
@@ -159,8 +159,8 @@ namespace CloudberryKingdom
 
 				MyMenu.Pos = new Vector2(-1216.668f, -288.8889f);
 
-				EzText _t;
-				_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(402.7776f, 871.8887f); _t.Scale = 0.864f; }
+				Text _t;
+				_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(402.7776f, 871.8887f); _t.Scale = 0.864f; }
 
 				QuadClass _q;
 				_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1167.362f, 330.5555f); _q.Size = new Vector2(1236.444f, 743.7259f); }
@@ -176,8 +176,8 @@ namespace CloudberryKingdom
 
                 MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
-                EzText _t;
-                _t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(425f, 807.9997f); }
+                Text _t;
+                _t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(425f, 807.9997f); }
 
                 QuadClass _q;
                 _q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1181.251f, 241.6668f); _q.Size = new Vector2(1224.558f, 736.7258f); }
@@ -219,8 +219,8 @@ namespace CloudberryKingdom
 
 			MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
-			EzText _t;
-			_t = MyPile.FindEzText("Header"); if (_t != null) { _t.Pos = new Vector2(658.333f, 905.222f); _t.Scale = 0.864f; }
+			Text _t;
+			_t = MyPile.FindText("Header"); if (_t != null) { _t.Pos = new Vector2(658.333f, 905.222f); _t.Scale = 0.864f; }
 
 			QuadClass _q;
 			_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1181.251f, 313.889f); _q.Size = new Vector2(1089.917f, 752.6426f); }
@@ -236,7 +236,7 @@ namespace CloudberryKingdom
 
 			//MyMenu.Pos = new Vector2(-1125.001f, -319.4444f);
 
-			//MyPile.FindEzText("Header").Pos = new Vector2(402.7776f, 871.8887f);
+			//MyPile.FindText("Header").Pos = new Vector2(402.7776f, 871.8887f);
 
 			//QuadClass _q;
 			//_q = MyPile.FindQuad("Backdrop"); if (_q != null) { _q.Pos = new Vector2(1181.251f, 241.6668f); _q.Size = new Vector2(1500f, 803.2258f); }

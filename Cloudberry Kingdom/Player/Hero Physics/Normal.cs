@@ -30,9 +30,9 @@ namespace CloudberryKingdom
         bool InitializedAnim = false;
 
 
-        protected EzSound LandSound = null;
-        EzSound DoubleJump = BobPhsx.DefaultInfo.DoubleJump_Sound;
-        EzSound ThrustSound = BobPhsx.DefaultInfo.BobJetpack_Sound;
+        protected CoreSound LandSound = null;
+        CoreSound DoubleJump = BobPhsx.DefaultInfo.DoubleJump_Sound;
+        CoreSound ThrustSound = BobPhsx.DefaultInfo.BobJetpack_Sound;
         int ThrustSoundDelay = BobPhsx.DefaultInfo.BobJetpack_SoundDelay;
         int ThrustSoundCount;
 

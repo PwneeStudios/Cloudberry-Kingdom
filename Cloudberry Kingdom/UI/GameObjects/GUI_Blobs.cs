@@ -134,7 +134,7 @@ namespace CloudberryKingdom
         }
 
         QuadClass Blob;
-        EzText Text;
+        Text Text;
         protected void UpdateCoinText()
         {
             Text.SubstituteText(BuildString());
@@ -165,7 +165,7 @@ namespace CloudberryKingdom
             cloud.Size = new Vector2(465.5865f, 259.2372f);
             MyPile.Add(cloud);
 
-            Text = new EzText(BuildString().ToString(), Resources.Font_Grobold42_2, 450, false, false);
+            Text = new Text(BuildString().ToString(), Resources.Font_Grobold42_2, 450, false, false);
             Text.Scale = .55f;
             Text.Pos = new Vector2(0.3707275f, 73.3901f);
             Text.MyFloatColor = new Color(255, 255, 255).ToVector4();

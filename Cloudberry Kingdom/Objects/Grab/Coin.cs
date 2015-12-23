@@ -16,7 +16,7 @@ namespace CloudberryKingdom.InGameObjects
             public Color Color = new Color(255, 255, 255, 255);
             public bool ShowEffect = true, ShowText = true, ShowCoin = true;
 
-            public EzSound MySound = Tools.NewSound("Coin", .75f);
+            public CoreSound MySound = Tools.NewSound("Coin", .75f);
         }
 
         public bool Touched;

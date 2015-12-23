@@ -88,30 +88,30 @@ namespace CloudberryKingdom
 				item.MySelectedText.OutlineColor = Color.Black.ToVector4();
 			}
 
-            public static EzSound Menu_UpDown_Sound = Tools.NewSound("Menu_Hover", .7f);
-            public static EzSound Menu_Select_Sound = Tools.NewSound("Menu_Select", .6f);
-            public static EzSound Menu_Slide_Sound = Tools.NewSound("Menu_Tick", .3f);
-            public static EzSound Menu_ListScroll_Sound = Tools.NewSound("Menu_Hover", .5f);
-            public static EzSound Menu_Back_Sound = Tools.NewSound("Menu_Back", .8f);
+            public static CoreSound Menu_UpDown_Sound = Tools.NewSound("Menu_Hover", .7f);
+            public static CoreSound Menu_Select_Sound = Tools.NewSound("Menu_Select", .6f);
+            public static CoreSound Menu_Slide_Sound = Tools.NewSound("Menu_Tick", .3f);
+            public static CoreSound Menu_ListScroll_Sound = Tools.NewSound("Menu_Hover", .5f);
+            public static CoreSound Menu_Back_Sound = Tools.NewSound("Menu_Back", .8f);
             public static int Menu_Slide_SoundDelay = 8;
 
-            public static EzTexture MenuRightArrow_Texture = Tools.Texture("ListRightArrow");
-            public static EzTexture MenuLeftArrow_Texture = Tools.Texture("ListLeftArrow");
+            public static CoreTexture MenuRightArrow_Texture = Tools.Texture("ListRightArrow");
+            public static CoreTexture MenuLeftArrow_Texture = Tools.Texture("ListLeftArrow");
             public static Vector2 MenuRightArrow_Offset = new Vector2(20, -14);
             public static Vector2 MenuLeftArrow_Offset = new Vector2(-20, -14);
             public static Vector2 MenuArrow_Size = new Vector2(45, 45);
             public static Vector4 MenuArrow_Color = new Color(255, 255, 255, 255).ToVector4();
 
-            public static EzTexture MenuRightArrow_Selected_Texture = Tools.Texture("ListRightArrow");
-            public static EzTexture MenuLeftArrow_Selected_Texture = Tools.Texture("ListLeftArrow");
+            public static CoreTexture MenuRightArrow_Selected_Texture = Tools.Texture("ListRightArrow");
+            public static CoreTexture MenuLeftArrow_Selected_Texture = Tools.Texture("ListLeftArrow");
             public static Vector2 MenuRightArrow_Selected_Offset = new Vector2(20, -14);
             public static Vector2 MenuLeftArrow_Selected_Offset = new Vector2(-20, -14);
             public static Vector2 MenuArrow_Selected_Size = new Vector2(45, 45);
             public static Vector4 MenuArrow_Selected_Color = new Color(255, 255, 255, 0).ToVector4();
 
-            public static EzTexture SliderBack_Texture = Tools.Texture("menuslider_bar");
+            public static CoreTexture SliderBack_Texture = Tools.Texture("menuslider_bar");
             public static Vector2 SliderBack_Size = new Vector2(250, 35);
-            public static EzTexture Slider_Texture = Tools.Texture("menuslider_slider");
+            public static CoreTexture Slider_Texture = Tools.Texture("menuslider_slider");
             public static Vector2 Slider_StartPos = new Vector2(-210, 0);
             public static Vector2 Slider_EndPos = new Vector2(210, 0);
             public static Vector2 Slider_Size = new Vector2(28, 55);
@@ -205,7 +205,7 @@ namespace CloudberryKingdom
 
         public bool FixedToCamera = true;
 
-        public EzSound UpDownSound, SelectSound, BackSound, SlideSound, ListScrollSound;
+        public CoreSound UpDownSound, SelectSound, BackSound, SlideSound, ListScrollSound;
         public bool ReadyToPlaySound;
 
         public bool SkipPhsx;

@@ -138,7 +138,7 @@ namespace CloudberryKingdom
             MenuItem item;
 
             MyPile.Add(new QuadClass(ButtonTexture.X, 80, "Button_X"));
-            item = new MenuItem(new EzText(Localization.Words.Leaderboard, ItemFont, false, true));
+            item = new MenuItem(new Text(Localization.Words.Leaderboard, ItemFont, false, true));
 
             item.Name = "Leaderboard";
             item.Go = Cast.ToItem(BringLeaderboard);
@@ -157,10 +157,10 @@ namespace CloudberryKingdom
             EnsureFancy();
 
             string Space = "{s34,0}";
-            EzText StartText = new EzText(ButtonString.Go(80) + Space + "{c122,209,39,255} " + Localization.WordString(Localization.Words.Start), ItemFont, true, true);
+            Text StartText = new Text(ButtonString.Go(80) + Space + "{c122,209,39,255} " + Localization.WordString(Localization.Words.Start), ItemFont, true, true);
             MyPile.Add(StartText, "Go");
 
-            EzText LeaderText = new EzText(ButtonString.X(80) + Space + "{c150,189,244,255} " + Localization.WordString(Localization.Words.Leaderboard), ItemFont, true, true);
+            Text LeaderText = new Text(ButtonString.X(80) + Space + "{c150,189,244,255} " + Localization.WordString(Localization.Words.Leaderboard), ItemFont, true, true);
             MyPile.Add(LeaderText, "Leaderboard");
 #if PS3
 			StartText.MyFloatColor = ColorHelper.Gray(.9f);
@@ -176,78 +176,78 @@ namespace CloudberryKingdom
 #endif
         }
 
-        EzText Score, Level;
+        Text Score, Level;
 
         void SetPos_Console()
 		{
 			if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Chinese)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(408.3333f, -516.6668f); _t.Scale = 0.7152506f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(491.667f, -702.7776f); _t.Scale = 0.7393336f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(408.3333f, -516.6668f); _t.Scale = 0.7152506f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(491.667f, -702.7776f); _t.Scale = 0.7393336f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Spanish)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(602.7778f, -530.5557f); _t.Scale = 0.7182506f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(672.2222f, -711.111f); _t.Scale = 0.7266668f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(602.7778f, -530.5557f); _t.Scale = 0.7182506f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(672.2222f, -711.111f); _t.Scale = 0.7266668f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.French)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(697.2224f, -525.0001f); _t.Scale = 0.7423338f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(683.3337f, -711.111f); _t.Scale = 0.7547504f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(697.2224f, -525.0001f); _t.Scale = 0.7423338f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(683.3337f, -711.111f); _t.Scale = 0.7547504f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Italian)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(474.9998f, -472.2224f); _t.Scale = 0.7164173f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(708.3333f, -652.7776f); _t.Scale = 0.743167f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(474.9998f, -472.2224f); _t.Scale = 0.7164173f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(708.3333f, -652.7776f); _t.Scale = 0.743167f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Portuguese)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(399.9998f, -522.2224f); _t.Scale = 0.6441671f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(744.4443f, -686.1109f); _t.Scale = 0.6407505f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(399.9998f, -522.2224f); _t.Scale = 0.6441671f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(744.4443f, -686.1109f); _t.Scale = 0.6407505f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.German)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(413.8887f, -525f); _t.Scale = 0.7423338f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(658.3333f, -708.3331f); _t.Scale = 0.7660002f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(413.8887f, -525f); _t.Scale = 0.7423338f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(658.3333f, -708.3331f); _t.Scale = 0.7660002f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Korean)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(427.7773f, -522.2224f); _t.Scale = 0.7423338f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(513.8887f, -711.111f); _t.Scale = 0.7660002f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(427.7773f, -522.2224f); _t.Scale = 0.7423338f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(513.8887f, -711.111f); _t.Scale = 0.7660002f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Japanese)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(477.7776f, -538.889f); _t.Scale = 0.6902504f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(536.1111f, -705.5554f); _t.Scale = 0.6942502f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(477.7776f, -538.889f); _t.Scale = 0.6902504f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(536.1111f, -705.5554f); _t.Scale = 0.6942502f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else if (Localization.CurrentLanguage.MyLanguage == Localization.Language.Russian)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(395.6355f, -525.0002f); _t.Scale = 0.6706704f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(748.0187f, -687.6974f); _t.Scale = 0.6805836f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(395.6355f, -525.0002f); _t.Scale = 0.6706704f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(748.0187f, -687.6974f); _t.Scale = 0.6805836f; }
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}
 			else
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Go"); if (_t != null) { _t.Pos = new Vector2(513.8887f, -472.2224f); _t.Scale = 0.7423338f; }
-				_t = MyPile.FindEzText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(825f, -655.5554f); _t.Scale = 0.7660002f; }
+				Text _t;
+				_t = MyPile.FindText("Go"); if (_t != null) { _t.Pos = new Vector2(513.8887f, -472.2224f); _t.Scale = 0.7423338f; }
+				_t = MyPile.FindText("Leaderboard"); if (_t != null) { _t.Pos = new Vector2(825f, -655.5554f); _t.Scale = 0.7660002f; }
 
 				MyPile.Pos = new Vector2(83.33417f, 130.9524f);
 			}

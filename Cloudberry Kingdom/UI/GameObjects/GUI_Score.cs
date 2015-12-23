@@ -71,7 +71,7 @@ namespace CloudberryKingdom
             }
         }
 
-        EzText ScoreText;
+        Text ScoreText;
         void UpdateScoreText()
         {
             ScoreText.SubstituteText(ToString());
@@ -96,7 +96,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            EzFont font;
+            CoreFont font;
             float scale;
             Color c, o;
 
@@ -105,7 +105,7 @@ namespace CloudberryKingdom
                 c = new Color(228, 0, 69);
                 o = Color.White;
 
-                ScoreText = new EzText(ToString(), font, 950, false, true);
+                ScoreText = new Text(ToString(), font, 950, false, true);
 				ScoreText.Name = "Score";
                 ScoreText.Scale = scale;
                 ScoreText.Pos = new Vector2(381.4434f, 85.55492f);
@@ -119,14 +119,14 @@ namespace CloudberryKingdom
 
 			if (TimeCrisis)
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(396.5f, 85.55492f); _t.Scale = 0.5f; }
+				Text _t;
+				_t = MyPile.FindText("Score"); if (_t != null) { _t.Pos = new Vector2(396.5f, 85.55492f); _t.Scale = 0.5f; }
 				MyPile.Pos = new Vector2(1240.555f, 756.1112f);
 			}
 			else
 			{
-				EzText _t;
-				_t = MyPile.FindEzText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
+				Text _t;
+				_t = MyPile.FindText("Score"); if (_t != null) { _t.Pos = new Vector2(381.4434f, 85.55492f); _t.Scale = 0.5f; }
 				MyPile.Pos = new Vector2(865.5554f, 781.1111f);
 			}
 

@@ -39,7 +39,7 @@ namespace CloudberryKingdom.Bobs
         public int Price;
 
         public string QuadName;
-        public EzTexture HatPicTexture;
+        public CoreTexture HatPicTexture;
         public bool DrawHead, DrawSelf;
         public Vector2 HatPicScale, HatPicShift;
 
@@ -49,7 +49,7 @@ namespace CloudberryKingdom.Bobs
 
         public Awardment AssociatedAward;
 
-        public EzTexture GetTexture()
+        public CoreTexture GetTexture()
         {
             if (HatPicTexture != null)
                 return HatPicTexture;

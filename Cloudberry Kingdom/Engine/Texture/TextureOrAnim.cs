@@ -3,13 +3,13 @@
 namespace CoreEngine
 {
     /// <summary>
-    /// Wraps either an EzTexture or an AnimationData_Texture.
+    /// Wraps either an CoreTexture or an AnimationData_Texture.
     /// The purpose of this class is to let a quad's texture be easily replaced by an animation, without additional fuss.
-    /// Would be better to implement this functionality with inheritance, with EzTexture and AnimationData_Texture inheriting from a base class.
+    /// Would be better to implement this functionality with inheritance, with CoreTexture and AnimationData_Texture inheriting from a base class.
     /// </summary>
     public class TextureOrAnim
     {
-        public EzTexture MyTexture;
+        public CoreTexture MyTexture;
         public AnimationData_Texture MyAnim;
         public bool IsAnim = false;
 
@@ -36,7 +36,7 @@ namespace CoreEngine
             }
         }
 
-        public static implicit operator TextureOrAnim(EzTexture texture)
+        public static implicit operator TextureOrAnim(CoreTexture texture)
         {
             var t_or_a = new TextureOrAnim();
             t_or_a.MyTexture = texture;

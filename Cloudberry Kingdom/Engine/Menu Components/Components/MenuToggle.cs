@@ -6,9 +6,9 @@ namespace CloudberryKingdom
 {
     public class MenuToggle : MenuItem
     {
-        public MenuToggle(EzFont Font)
+        public MenuToggle(CoreFont Font)
         {
-            EzText text = new EzText("xxxxx", Font);
+            Text text = new Text("xxxxx", Font);
             base.Init(text, text.Clone());
         }
 

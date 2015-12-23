@@ -1,11 +1,7 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
-
-#if PC
-#if !MONO && !SDL2
-#endif
-#endif
+using Microsoft.Xna.Framework.Input;
 
 namespace CoreEngine
 {
@@ -19,96 +15,123 @@ namespace CoreEngine
 
 	public static class CoreGamepad
 	{
-		private static GamepadBase I;
+        static GamePadState[] GamepadState, PrevGamepadState;
 
-		public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
+        public static void Initialize(GameServiceContainer Container, GameComponentCollection ComponentCollection, IntPtr WindowHandle)
 		{
-			#if MONO || SDL2
-			I = new XnaInput();
-			I.Initialize(Container, ComponentCollection, WindowHandle);
-			#else
-			//try
-			//{
-			//    I = new NuclexGamepadInput();
-			//    I.Initialize(Container, ComponentCollection, WindowHandle);
-			//}
-			//catch (Exception e)
-			//{
-			//    CloudberryKingdom.Tools.Log("NuclexGamepadInput initialization failed. Exception is:");
-			//    CloudberryKingdom.Tools.Log(e.ToString());
-			//    CloudberryKingdom.Tools.Log("Trying standard XnaInput instead.");
-
-			//    // We don't wrap the following in a try-catch. If this fails the game is not playable,
-			//    // so let the top level exception-catcher-logger handle any failure.
-			//    I = new XnaInput();
-			//    I.Initialize(Container, ComponentCollection, WindowHandle);
-			//}
-
-			// Normally we try out Nuclex input first, then fall back to Xna if needed.
-			// Some people are experiencing unresponsive input though, suggesting Nuclex is broken without crashing.
-			// Why did we need Nuclex to begin with? ARRRGH, where is the documentation.
-			try
-			{
-				I = new XnaInput();
-				I.Initialize(Container, ComponentCollection, WindowHandle);
-			}
-			catch (Exception e)
-			{
-				CloudberryKingdom.Tools.Log("XnaInput initialization failed. Exception is:");
-				CloudberryKingdom.Tools.Log(e.ToString());
-				CloudberryKingdom.Tools.Log("Trying standard NuclexGamepadInput instead.");
-
-				// We don't wrap the following in a try-catch. If this fails the game is not playable,
-				// so let the top level exception-catcher-logger handle any failure.
-				I = new NuclexGamepadInput();
-				I.Initialize(Container, ComponentCollection, WindowHandle);
-			}
-			#endif
 		}
 		
-		public static void OnLoad() { I.OnLoad(); }
-		
-		public static void Update_EndOfStep()	{ I.Update_EndOfStep(); }
-		public static void Update()			
-		{
-			try
-			{
-				I.Update();
-			}
-			catch (Exception e)
-			{
-				CloudberryKingdom.Tools.Log("XnaInput initialization failed. Exception is:");
-				CloudberryKingdom.Tools.Log(e.ToString());
-				CloudberryKingdom.Tools.Log("Trying standard NuclexGamepadInput instead.");
-			}
-		}
-		
-		public static void Clear()				{ I.Clear(); }
+		public static void OnLoad()
+        {
+            GamepadState = new GamePadState[4];
+            PrevGamepadState = new GamePadState[4];
+        }
 
-		public static bool IsConnected(PlayerIndex Index) { return I.IsConnected((int)Index); }
-		public static bool IsConnected(int PlayerNumber)  { return I.IsConnected(PlayerNumber); }
+        public static void Update_EndOfStep()
+        {
+            // Store the previous states of the Xbox controllers.
+            for (int i = 0; i < 4; i++)
+                if (PrevGamepadState[i] != null)
+                    PrevGamepadState[i] = GamepadState[i];
+        }
 
-		public static bool IsPressed(PlayerIndex Index, ControllerButtons Button)						{ return I.IsPressed((int)Index, Button, false); }
-		public static bool IsPreviousPressed(PlayerIndex Index, ControllerButtons Button)				{ return I.IsPressed((int)Index, Button, true); }
-		public static bool IsPressed(PlayerIndex Index, ControllerButtons Button, bool Previous)		{ return I.IsPressed((int)Index, Button, Previous); }
-		
-		public static bool IsPressed		(int PlayerNumber, ControllerButtons Button)				{ return I.IsPressed(PlayerNumber, Button, false); }
-		public static bool IsPreviousPressed(int PlayerNumber, ControllerButtons Button)				{ return I.IsPressed(PlayerNumber, Button, true); }
-		public static bool IsPressed		(int PlayerNumber, ControllerButtons Button, bool Previous) { return I.IsPressed(PlayerNumber, Button, Previous); }
+        public static void Update()
+        {
+            GamepadState[0] = GamePad.GetState(PlayerIndex.One);
+            GamepadState[1] = GamePad.GetState(PlayerIndex.Two);
+            GamepadState[2] = GamePad.GetState(PlayerIndex.Three);
+            GamepadState[3] = GamePad.GetState(PlayerIndex.Four);
+        }
 
-		public static Vector2 LeftJoystick(PlayerIndex Index)	{ return I.LeftJoystick((int)Index); }
-		public static Vector2 RightJoystick(PlayerIndex Index)	{ return I.RightJoystick((int)Index); }
+        public static void Clear()
+        {
+            GamepadState[0] = new GamePadState();
+            GamepadState[1] = new GamePadState();
+            GamepadState[2] = new GamePadState();
+            GamepadState[3] = new GamePadState();
+        }
 
-		public static Vector2 LeftJoystick(int PlayerNumber)	{ return I.LeftJoystick(PlayerNumber); }
-		public static Vector2 RightJoystick(int PlayerNumber)	{ return I.RightJoystick(PlayerNumber); }
+        public static bool IsConnected(PlayerIndex Index) { return IsConnected((int)Index); }
+        public static bool IsConnected(int PlayerNumber)
+        {
+            return GamepadState[PlayerNumber].IsConnected;
+        }
 
-		public static Vector2 DPad(PlayerIndex Index)	{ return I.DPad((int)Index); }
-		public static Vector2 DPad(int PlayerNumber)	{ return I.DPad(PlayerNumber); }
+        public static bool IsPressed(PlayerIndex Index, ControllerButtons Button) { return IsPressed((int)Index, Button, false); }
+        public static bool IsPreviousPressed(PlayerIndex Index, ControllerButtons Button) { return IsPressed((int)Index, Button, true); }
+        public static bool IsPressed(PlayerIndex Index, ControllerButtons Button, bool Previous) { return IsPressed((int)Index, Button, Previous); }
+        public static bool IsPressed(int PlayerNumber, ControllerButtons Button) { return IsPressed(PlayerNumber, Button, false); }
+        public static bool IsPreviousPressed(int PlayerNumber, ControllerButtons Button) { return IsPressed(PlayerNumber, Button, true); }
+        public static bool IsPressed(int PlayerNumber, ControllerButtons Button, bool Previous)
+        {
+            GamePadState Pad;
 
-		public static float LeftTrigger(PlayerIndex Index) { return I.LeftTrigger((int)Index); }
-		public static float RightTrigger(PlayerIndex Index) { return I.RightTrigger((int)Index); }
+            if (Previous)
+                Pad = PrevGamepadState[PlayerNumber];
+            else
+                Pad = GamepadState[PlayerNumber];
 
-		public static float LeftTrigger (int PlayerNumber)	{ return I.LeftTrigger (PlayerNumber); }
-		public static float RightTrigger(int PlayerNumber)	{ return I.RightTrigger(PlayerNumber); }
-	}
+            switch (Button)
+            {
+                case ControllerButtons.Start: return (Pad.Buttons.Start == ButtonState.Pressed); break;
+                case ControllerButtons.Back: return (Pad.Buttons.Back == ButtonState.Pressed); break;
+
+                case ControllerButtons.A: return (Pad.Buttons.A == ButtonState.Pressed); break;
+                case ControllerButtons.B: return (Pad.Buttons.B == ButtonState.Pressed); break;
+                case ControllerButtons.X: return (Pad.Buttons.X == ButtonState.Pressed); break;
+                case ControllerButtons.Y: return (Pad.Buttons.Y == ButtonState.Pressed); break;
+
+                case ControllerButtons.LJButton: return (Pad.Buttons.LeftStick == ButtonState.Pressed); break;
+                case ControllerButtons.RJButton: return (Pad.Buttons.RightStick == ButtonState.Pressed); break;
+
+                case ControllerButtons.LS: return (Pad.Buttons.LeftShoulder == ButtonState.Pressed); break;
+                case ControllerButtons.RS: return (Pad.Buttons.RightShoulder == ButtonState.Pressed); break;
+
+                case ControllerButtons.LT: return (Pad.Triggers.Left > .5f);
+                case ControllerButtons.RT: return (Pad.Triggers.Right > .5f);
+
+                case ControllerButtons.LJ: return (Pad.Buttons.LeftStick == ButtonState.Pressed);
+                case ControllerButtons.RJ: return (Pad.Buttons.RightStick == ButtonState.Pressed);
+
+                case ControllerButtons.DPad: return false;
+
+                default: return false;
+            }
+        }
+
+        public static Vector2 LeftJoystick(PlayerIndex Index) { return LeftJoystick((int)Index); }
+        public static Vector2 LeftJoystick(int PlayerNumber)
+        {
+            Vector2 vec = GamepadState[PlayerNumber].ThumbSticks.Left;
+            return new Vector2(vec.X, vec.Y);
+        }
+
+        public static Vector2 RightJoystick(PlayerIndex Index) { return RightJoystick((int)Index); }
+        public static Vector2 RightJoystick(int PlayerNumber)
+        {
+            Vector2 vec = GamepadState[PlayerNumber].ThumbSticks.Right;
+            return new Vector2(vec.X, vec.Y);
+        }
+
+        public static Vector2 DPad(PlayerIndex Index) { return DPad((int)Index); }
+        public static Vector2 DPad(int PlayerNumber)
+        {
+            Vector2 Dir = Vector2.Zero;
+
+            var Pad = GamepadState[PlayerNumber].DPad;
+
+            if (Pad.Right == ButtonState.Pressed) Dir.X = 1;
+            if (Pad.Up == ButtonState.Pressed) Dir.Y = 1;
+            if (Pad.Left == ButtonState.Pressed) Dir.X = -1;
+            if (Pad.Down == ButtonState.Pressed) Dir.Y = -1;
+
+            return Dir;
+        }
+
+        public static float LeftTrigger(PlayerIndex Index) { return LeftTrigger((int)Index); }
+        public static float LeftTrigger(int PlayerNumber) { return GamepadState[PlayerNumber].Triggers.Left; }
+
+        public static float RightTrigger(PlayerIndex Index) { return RightTrigger((int)Index); }
+        public static float RightTrigger(int PlayerNumber) { return GamepadState[PlayerNumber].Triggers.Right; }
+    }
 }

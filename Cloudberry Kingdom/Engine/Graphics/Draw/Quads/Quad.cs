@@ -266,7 +266,7 @@ namespace CoreEngine
             writer.Write(MyEffect.Name);
         }
 
-        public override void Read(BinaryReader reader, EzEffectWad EffectWad, EzTextureWad TextureWad, int VersionNumber)
+        public override void Read(BinaryReader reader, CoreEffectWad EffectWad, CoreTextureWad TextureWad, int VersionNumber)
         {
             base.Read(reader, EffectWad, TextureWad, VersionNumber);
 
@@ -464,11 +464,11 @@ namespace CoreEngine
         }
 #endif
 
-        public override void FinishLoading(GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad)
+        public override void FinishLoading(GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad)
         {
             FinishLoading(device, TexWad, EffectWad, true);
         }
-        public override void FinishLoading(GraphicsDevice device, EzTextureWad TexWad, EzEffectWad EffectWad, bool UseNames)
+        public override void FinishLoading(GraphicsDevice device, CoreTextureWad TexWad, CoreEffectWad EffectWad, bool UseNames)
         {
             Center.ModifiedEventCallback = UpdateCenter;
             xAxis.ModifiedEventCallback = UpdatexAxis;

@@ -34,7 +34,7 @@ namespace CloudberryKingdom
         }
 
         static bool _TexturesInitialized = false;
-        static EzTexture PoppedTexture, UnpoppedTexture, BubbleTexture;
+        static CoreTexture PoppedTexture, UnpoppedTexture, BubbleTexture;
         protected virtual void SetTexture()
         {
             if (!_TexturesInitialized)

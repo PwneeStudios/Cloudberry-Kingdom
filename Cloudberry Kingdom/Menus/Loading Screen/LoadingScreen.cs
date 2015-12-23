@@ -19,9 +19,9 @@ namespace CloudberryKingdom
 
         QuadClass BackgroundQuad, BlackQuad;
         ObjectClass CenterObject;
-        EzText LoadingText, HintText;
+        Text LoadingText, HintText;
 
-        EzText TextObject;
+        Text TextObject;
         
         bool Fade;
         float FadeAlpha;
@@ -32,7 +32,7 @@ namespace CloudberryKingdom
         {
             MinLoading += extra_wait;
 
-            HintText = new EzText(hint, Resources.Font_Grobold42, 10000, true, true);
+            HintText = new Text(hint, Resources.Font_Grobold42, 10000, true, true);
             HintText.Scale *= .6125f;
             CkColorHelper._x_x_HappyBlueColor(HintText);
             //HintText.OutlineColor = Color.Purple.ToVector4();
@@ -51,7 +51,7 @@ namespace CloudberryKingdom
             BlackQuad.SetToDefault();
             BlackQuad.Quad.SetColor(new Color(0, 0, 0, 0));
 
-            LoadingText = new EzText(Localization.WordString(Localization.Words.Loading) + "...", Resources.Font_Grobold42, true, true);
+            LoadingText = new Text(Localization.WordString(Localization.Words.Loading) + "...", Resources.Font_Grobold42, true, true);
             LoadingText.Scale *= .445f;
             LoadingText.FixedToCamera = true;
             LoadingText._Pos = new Vector2(21, -106);
@@ -73,7 +73,7 @@ namespace CloudberryKingdom
 
             //if (type is BobPhsxSpaceship)
             //{
-            //    TextObject = new EzText("?", Resources.Font_Grobold42, true, true);
+            //    TextObject = new Text("?", Resources.Font_Grobold42, true, true);
             //    CkColorHelper._x_x_HappyBlueColor(TextObject);
             //    TextObject.Scale *= 1.25f;
             //    TextObject.FixedToCamera = true;

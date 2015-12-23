@@ -4,7 +4,7 @@ namespace CloudberryKingdom
     {
         public int StartLevel, MenuIndex;
 
-        public LevelItem(EzText Text, int StartLevel, int MenuIndex, bool Locked)
+        public LevelItem(Text Text, int StartLevel, int MenuIndex, bool Locked)
             : base(Text)
         {
             this.StartLevel = StartLevel - 1;

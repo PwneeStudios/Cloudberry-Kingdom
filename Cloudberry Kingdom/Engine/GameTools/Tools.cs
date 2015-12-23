@@ -1031,7 +1031,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             if (s.Contains(occurence)) s = s.Remove(s.IndexOf(occurence));
             return s;
         }
-        public static string SantitizeOneLineString(string s, EzFont font)
+        public static string SantitizeOneLineString(string s, CoreFont font)
         {
             s = RemoveAfter(s, "\n");
             s = RemoveAfter(s, "\t");
@@ -1051,7 +1051,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return s;
         }
 #else
-        public static string SantitizeOneLineString(string s, EzFont font)
+        public static string SantitizeOneLineString(string s, CoreFont font)
         {
             return s;
         }
@@ -1085,22 +1085,21 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 return path.Substring(0, FirstSlash);
         }
 
-        public static EzTexture Texture(string name) { return TextureWad.FindByName(name); }
-        public static EzSound Sound(string name) { return SoundWad.FindByName(name); }
+        public static CoreTexture Texture(string name) { return TextureWad.FindByName(name); }
+        public static CoreSound Sound(string name) { return SoundWad.FindByName(name); }
         public static void Pop() { Pop(2); }
         public static void Pop(int Pitch) { Sound("Pop_" + CoreMath.Restrict(1, 3, Pitch).ToString()).Play(); }
 
         public static GameTime gameTime;
 
         public static Rand GlobalRnd = new Rand(0);
-        public static EzEffectWad EffectWad;
-        public static EzEffect BasicEffect, NoTexture, CircleEffect, LightSourceEffect, HslEffect, HslGreenEffect, WindowEffect;
-        public static EzEffect Text_NoOutline, Text_ThinOutline, Text_ThickOutline;
-        public static Effect PaintEffect_SpriteBatch;
-        public static EzTextureWad TextureWad;
+        public static CoreEffectWad EffectWad;
+        public static CoreEffect BasicEffect, NoTexture, CircleEffect, LightSourceEffect, HslEffect, HslGreenEffect, WindowEffect;
+        public static CoreEffect Text_NoOutline, Text_ThinOutline, Text_ThickOutline;
+        public static CoreTextureWad TextureWad;
         public static ContentManager SoundContentManager;
-        public static EzSoundWad SoundWad, PrivateSoundWad;
-        public static EzSongWad SongWad;
+        public static CoreSoundWad SoundWad, PrivateSoundWad;
+        public static CoreSongWad SongWad;
         public static QuadDrawer QDrawer;
         public static MainRender Render;
         public static GraphicsDevice Device;
@@ -1123,12 +1122,12 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static bool ShowLoadingScreen;
         public static ILoadingScreen CurrentLoadingScreen;
 
-        public static EzTexture Transparent;
+        public static CoreTexture Transparent;
         public static void LoadBasicArt(ContentManager Content)
         {
             Tools.Write("LoadBasicArt");
             
-            TextureWad = new EzTextureWad();
+            TextureWad = new CoreTextureWad();
             Tools.Write("TextureWad made");
 
             TextureWad.AddTexture(Content.LoadTillSuccess<Texture2D>("White"), "White");
@@ -1212,7 +1211,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static void LoadEffects(ContentManager Content, bool CreateNewWad)
         {
             if (CreateNewWad)
-                EffectWad = new EzEffectWad();
+                EffectWad = new CoreEffectWad();
 
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\BasicEffect"), "Basic");
             EffectWad.AddEffect(Content.LoadTillSuccess<Effect>("Shaders\\NoTexture"), "NoTexture");
@@ -1244,8 +1243,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             HslEffect = EffectWad.FindByName("Hsl");
             HslGreenEffect = EffectWad.FindByName("Hsl_Green");
             WindowEffect = EffectWad.FindByName("Window");
-
-            PaintEffect_SpriteBatch = Content.LoadTillSuccess<Effect>("Shaders\\Paint_SpriteBatch");
         }
 
         public static float BoxSize(Vector2 TR, Vector2 BL)
@@ -1501,17 +1498,17 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     // string
                     else if (info.FieldType == typeof(string))
                         line = ((string)info.GetValue(obj)).ToString();
-                    // EzTexture
-                    else if (info.FieldType == typeof(EzTexture))
+                    // CoreTexture
+                    else if (info.FieldType == typeof(CoreTexture))
                     {
-                        EzTexture texture = (EzTexture)info.GetValue(obj);
+                        CoreTexture texture = (CoreTexture)info.GetValue(obj);
                         if (texture == null) continue;
                         else line = texture.Name.ToString();
                     }
-                    // EzEffect
-                    else if (info.FieldType == typeof(EzEffect))
+                    // CoreEffect
+                    else if (info.FieldType == typeof(CoreEffect))
                     {
-                        EzEffect effect = (EzEffect)info.GetValue(obj);
+                        CoreEffect effect = (CoreEffect)info.GetValue(obj);
                         if (effect == null) continue;
                         else line = effect.Name.ToString();
                     }
@@ -1662,19 +1659,19 @@ public static Thread EasyThread(int affinity, string name, Action action)
                     // string
                     else if (info.FieldType == typeof(string))
                         line = string.Format("\"{0}\"", ((string)info.GetValue(obj)));
-                    // EzTexture
-                    else if (info.FieldType == typeof(EzTexture))
+                    // CoreTexture
+                    else if (info.FieldType == typeof(CoreTexture))
                     {
-                        var texture = (EzTexture)info.GetValue(obj);
+                        var texture = (CoreTexture)info.GetValue(obj);
                         if (null == texture)
                             line = "null";
                         else
                             line = string.Format("Tools.Texture(\"{0}\")", texture.Name);
                     }
-                    // EzEffect
-                    else if (info.FieldType == typeof(EzEffect))
+                    // CoreEffect
+                    else if (info.FieldType == typeof(CoreEffect))
                     {
-                        EzEffect effect = (EzEffect)info.GetValue(obj);
+                        CoreEffect effect = (CoreEffect)info.GetValue(obj);
                         if (effect == null) continue;
                         else
                         {
@@ -1831,11 +1828,11 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 // bool
                 else if (fieldinfo.FieldType == typeof(bool))
                     fieldinfo.SetValue(obj, bool.Parse(Bits[1]));
-                // EzTexture
-                else if (fieldinfo.FieldType == typeof(EzTexture))
+                // CoreTexture
+                else if (fieldinfo.FieldType == typeof(CoreTexture))
                     fieldinfo.SetValue(obj, Tools.TextureWad.FindByName(Bits[1]));
-                // EzEffect
-                else if (fieldinfo.FieldType == typeof(EzEffect))
+                // CoreEffect
+                else if (fieldinfo.FieldType == typeof(CoreEffect))
                     fieldinfo.SetValue(obj, Tools.EffectWad.FindByName(Bits[1]));
                 // TextureOrAnim
                 else if (fieldinfo.FieldType == typeof(TextureOrAnim))
@@ -1991,7 +1988,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return clr;
         }
 
-        public static EzSound ParseToEzSound(String str)
+        public static CoreSound ParseToCoreSound(String str)
         {
             int LineIndex = str.IndexOf("|");
 
@@ -2002,9 +1999,9 @@ public static Thread EasyThread(int affinity, string name, Action action)
             return NewSound(ParseToFileName(Component1), float.Parse(Component2));
         }
 
-        public static EzSound NewSound(string name, float volume)
+        public static CoreSound NewSound(string name, float volume)
         {
-            EzSound snd = new EzSound();
+            CoreSound snd = new CoreSound();
             snd.sound = Tools.SoundWad.FindByName(name).sound;
             snd.DefaultVolume = volume;
             snd.MaxInstances = 4;
@@ -2212,7 +2209,7 @@ public static Thread EasyThread(int affinity, string name, Action action)
 
         public static void SetDefaultEffectParams(float AspectRatio)
         {
-            foreach (EzEffect fx in EffectWad.EffectList)
+            foreach (CoreEffect fx in EffectWad.EffectList)
             {
                 fx.xCameraAspect.SetValue(AspectRatio);
                 fx.effect.CurrentTechnique = fx.Simplest;

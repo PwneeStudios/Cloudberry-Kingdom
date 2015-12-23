@@ -356,9 +356,9 @@ namespace CloudberryKingdom
             if (MyLevel.NumCoins == 0) Obtained = true;
         }
 
-        EzText Text;
+        Text Text;
 		List<QuadClass> Dots;
-		EzTexture Full, Empty;
+		CoreTexture Full, Empty;
         public void UpdateScoreText()
         {
             float Hold = Multiplier;
@@ -392,7 +392,7 @@ namespace CloudberryKingdom
 
             MyPile.FancyPos.UpdateWithGame = true;
 
-            EzFont font;
+            CoreFont font;
             float scale;
             Color c, o;
 
@@ -403,7 +403,7 @@ namespace CloudberryKingdom
             c = new Color(228, 0, 69);
             o = Color.White;
 
-            Text = new EzText(ToString(), font, 950, false, true);
+            Text = new Text(ToString(), font, 950, false, true);
             Text.Name = "Text";
             Text.Scale = scale;
             Text.Pos = new Vector2(0, 0);
@@ -434,8 +434,8 @@ namespace CloudberryKingdom
 
         void SetPos()
         {
-			EzText _t;
-			_t = MyPile.FindEzText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
+			Text _t;
+			_t = MyPile.FindText("Text"); if (_t != null) { _t.Pos = new Vector2(0f, 0f); _t.Scale = 0.8000005f; }
 			MyPile.Pos = new Vector2(1569.445f, -772.2226f);
 
 			// Extra squeeze

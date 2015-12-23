@@ -170,11 +170,11 @@ Distributed by Ubisoft Entertainment under license from Pwnee Studios, Corp.
 Cloudberry Kingdom, Pwnee, and Pwnee Studios are trademarks of Pwnee Studios, Corp. and is used under license.
 Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US and/or other countries.";
 			text = text.Replace("\r", "");
-            Legal = new EzText(text, Resources.Font_Grobold42, 10000, false, false, .66f);
+            Legal = new Text(text, Resources.Font_Grobold42, 10000, false, false, .66f);
 
             Legal.MyFloatColor = ColorHelper.Gray(.9f);
 
-			Loading = new EzText (Localization.Words.Loading, Resources.Font_Grobold42);
+			Loading = new Text (Localization.Words.Loading, Resources.Font_Grobold42);
 			Loading.Scale = .7f;
 			Loading.Pos = new Vector2 (300, -600);
 			Loading.MyFloatColor = ColorHelper.Gray(.9f);
@@ -187,7 +187,7 @@ Ubisoft and the Ubisoft logo are trademarks of Ubisoft Entertainment in the US a
 				MyPile.Add (Loading);
 			}
         }
-		EzText Legal, Loading;
+		Text Legal, Loading;
 
         public static int TotalResources = 805;
 
