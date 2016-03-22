@@ -56,12 +56,8 @@ namespace CoreEngine
 
         public bool Is(string Name)
         {
-#if XBOX
-            return string.Compare(this.Name, Name, System.StringComparison.CurrentCultureIgnoreCase) == 0;
-#else
             return
                 string.Compare(this.Name, Name, true) == 0;
-#endif
         }
 
         public bool Show = true;

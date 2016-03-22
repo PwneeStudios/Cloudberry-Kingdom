@@ -7,10 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using CoreEngine;
 
-#if XBOX
-using EasyStorage;
-#endif
-
 namespace CloudberryKingdom
 {
     public static class Localization
@@ -170,10 +166,6 @@ namespace CloudberryKingdom
                     }
                 }
             }
-
-#if XBOX
-            EasyStorageSettings.ResetSaveDeviceStrings();
-#endif
         }
 
         public static Language IsoCodeToLanguage(string code)

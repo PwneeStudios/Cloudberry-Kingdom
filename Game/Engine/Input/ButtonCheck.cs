@@ -186,13 +186,6 @@ namespace CloudberryKingdom
             Tools.Keyboard = Keyboard.GetState();
             if (Tools.PrevKeyboard == null) Tools.PrevKeyboard = Tools.Keyboard;
 
-#if XBOX
-            for (int i = 0; i < 4; i++)
-            {
-                Tools.PlayerKeyboard[i] = Keyboard.GetState((PlayerIndex)i);
-            }
-#endif
-
 #if WINDOWS
             Tools.Mouse = Mouse.GetState();
 #endif
@@ -242,13 +235,6 @@ namespace CloudberryKingdom
             Tools.PrevKeyboard = Tools.Keyboard;
 
             // Player Keyboards
-#if XBOX
-            // Store the previous states of the Xbox chatpads
-            for (int i = 0; i < 4; i++)
-                if (Tools.PrevPlayerKeyboard[i] != null)
-                    Tools.PrevPlayerKeyboard[i] = Tools.PlayerKeyboard[i];
-#endif
-
 			CoreGamepad.Update_EndOfStep();
         }
 
@@ -636,9 +622,6 @@ namespace CloudberryKingdom
             ButtonData Data = new ButtonData();
             Data.PressingPlayer = iPlayerIndex;
             if (Button == ControllerButtons.None) return Data;
-#if XBOX
-            if (Button == ControllerButtons.Enter) return Data;
-#endif
 
             if (SingleOutPlayer && iPlayerIndex >= 0 && iPlayerIndex != ThisPlayerOnly) return Data;
 

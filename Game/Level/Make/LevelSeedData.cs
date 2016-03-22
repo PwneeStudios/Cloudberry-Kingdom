@@ -803,11 +803,7 @@ namespace CloudberryKingdom
         /// </summary>
         public void PostMake_EnableLoad(Level level)
         {
-#if XBOX
-            level.CanLoadLevels = false;
-#else
             level.CanLoadLevels = true;
-#endif
         }
 
         public void PostMake_StandardLoad(Level level)

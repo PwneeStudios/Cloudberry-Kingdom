@@ -63,13 +63,6 @@ namespace CloudberryKingdom
         public void GetFocus()
         {
             HasFocus = true;
-
-#if WINDOWS && !XBOX
-			//KeyboardExtension.FreezeInput();
-
-			//EventInput.CharEntered += CharEntered;
-			//EventInput.KeyDown += KeyDown;
-#endif
         }
 
         public void ReleaseFocus()

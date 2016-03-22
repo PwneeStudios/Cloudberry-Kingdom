@@ -5,11 +5,6 @@ using CoreEngine;
 
 using Microsoft.Xna.Framework;
 
-#if XBOX
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.GamerServices;
-#endif
-
 #if PC
 using SteamManager;
 #endif
@@ -61,31 +56,13 @@ namespace CloudberryKingdom
         public TitleGameData Title;
 		public LeaderboardGUI(TitleGameData Title, int Control)
 		{
-#if XDK
-			_LeaderboardGUI(Title, null, Control);
-#else
 			_LeaderboardGUI(Title, Control);
-#endif
 		}
 
-#if XDK
-        void _LeaderboardGUI(TitleGameData Title, SignedInGamer LeaderboardGamer, int Control)
-#else
 		void _LeaderboardGUI(TitleGameData Title, int Control)
-#endif
         {
             ToMake_Id = -1;
             DelayToMake = 0;
-
-#if XDK
-            Leaderboard.LeaderboardGamer = LeaderboardGamer;
-            if (Leaderboard.LeaderboardGamer != null)
-            {
-                Leaderboard.LeaderboardFriends = new List<Gamer>();
-                Leaderboard.LeaderboardFriends.Add(LeaderboardGamer);
-                Leaderboard.LeaderboardFriends.AddRange(Leaderboard.LeaderboardGamer.GetFriends());
-            }
-#endif
 
             this.Control = Control;
 

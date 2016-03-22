@@ -210,7 +210,6 @@
     <Compile Include="Engine\Texture\EzTextureWad.cs" />
     <Compile Include="Engine\Tools\ColorHelper.cs" />
     <Compile Include="Engine\Tools\CoreMath.cs" />
-    <Compile Include="Engine\Tools\XboxHelper.cs" />
     <Compile Include="Engine\Version.cs" />
     <Compile Include="MainClass\CloudberryKingdom.cs" />
     <Compile Include="MainClass\DebugHelper.cs" />
@@ -274,9 +273,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Menus\CharacterSelect\ColorSelect.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Menus\CharacterSelect\SignInChoiceMenu.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Menus\CharacterSelect\SimpleMenu.cs">
@@ -372,7 +368,6 @@
     <Compile Include="UI\GameObjects\NewHero.cs" />
     <Compile Include="Player\Leaderboard_Steam.cs" />
     <Compile Include="Player\LeaderboardView.cs" />
-    <Compile Include="Player\Leaderboard.cs" />
     <Compile Include="Player\HeroPhysics\TimeShip.cs" />
     <Compile Include="Config\Tilesets\Backgrounds\_Code\_Dark.cs" />
     <Compile Include="Config\CkColorHelper.cs" />

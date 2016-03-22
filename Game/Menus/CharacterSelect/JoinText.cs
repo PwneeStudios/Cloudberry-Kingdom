@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-#if PC
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
 using CoreEngine;
 
 namespace CloudberryKingdom
@@ -303,40 +299,7 @@ namespace CloudberryKingdom
 				}
 #endif
 
-#if XDK
-                if (MyCharacterSelect.Player.MyGamer == null)
-                {
-                    if (!Guide.IsVisible)
-                    {
-                        try
-                        {
-                            Guide.ShowSignIn(4, false);
-                            return;
-                        }
-                        catch
-                        {
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    if (CoreStorage.Device[MyCharacterSelect.PlayerIndex] != null &&
-                        !CoreStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection)
-                    {
-                        // Once the gamer presses a button they should be prompted to select a storage device.
-                        CoreStorage.Device[MyCharacterSelect.PlayerIndex].NeedsConnection = true;
-                        return;
-                    }
-                    else
-                    {
-                        MyCharacterSelect.InitColorScheme(MyCharacterSelect.PlayerIndex);
-                        Call(new SimpleMenu(Control, MyCharacterSelect));
-                    }
-                }
-#else
                 Call(new SimpleMenu(Control, MyCharacterSelect));
-#endif
 
                 Hide();
             }

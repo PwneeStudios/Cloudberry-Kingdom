@@ -61,10 +61,6 @@ namespace CloudberryKingdom
                 new ThreadStart(
                     delegate
                     {
-#if XBOX && !WINDOWS
-                        //Thread.CurrentThread.Priority = ThreadPriority.Normal;
-                        Thread.CurrentThread.SetProcessorAffinity(new[] { 3 });
-#endif
                         Tools.TheGame.Exiting += KillThread;
                         
                         MyLevel = LevelSeed.MakeLevel(this);

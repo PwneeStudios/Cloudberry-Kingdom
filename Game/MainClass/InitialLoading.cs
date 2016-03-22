@@ -54,10 +54,6 @@
                         return;
                     }
 
-#if XBOX
-                    CoreStorage.StartAsyncUpdate();
-#endif
-
 #if DEBUG
                     // Start at Title Screen
                     ScreenSaver Intro = new ScreenSaver(); Intro.Init(); return;

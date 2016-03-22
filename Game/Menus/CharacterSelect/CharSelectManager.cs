@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
-#if PC
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
+
 using CoreEngine;
 
 using CloudberryKingdom.Bobs;
@@ -42,33 +40,7 @@ namespace CloudberryKingdom
         public CharacterSelectManager()
         {
             CamPos = new FancyVector2();
-
-#if XBOX || XBOX_SIGNIN
-            SignedInGamer.SignedIn += new System.EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
-#endif
         }
-
-#if XBOX || XBOX_SIGNIN
-        void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
-        {
-            if (CharSelect == null) return;
-
-            UpdateAvailableHats();
-
-            // Get the signed in player's saved color scheme and set the character select accordingly
-            if (Tools.CurGameData == null) return;
-
-            Tools.CurGameData.AddToDo(() =>
-            {
-                int index = (int)e.Gamer.PlayerIndex;
-                CharacterSelect select = CharSelect[index];
-                if (select != null)
-                {
-                    select.InitColorScheme(index);
-                }
-            });
-        }
-#endif
 
         public static Set<Hat> AvailableHats;
         public static void UpdateAvailableHats()

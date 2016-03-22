@@ -431,101 +431,6 @@ namespace CloudberryKingdom
             return Tools.ArgMin(list, val);
         }
 
-#if XBOX
-        /// <summary>
-        /// Find an element of a list.
-        /// </summary>
-        public static T Find<T>(this List<T> list, Predicate<T> func)
-        {
-            foreach (T item in list)
-            {
-                if (func(item))
-                    return item;
-            }
-
-            return default(T);
-        }
-
-        /// <summary>
-        /// Find elements of a list.
-        /// </summary>
-        public static List<T> FindAll<T>(this List<T> list, Predicate<T> func)
-        {
-            List<T> matches = new List<T>();
-
-            foreach (T item in list)
-            {
-                if (func(item))
-                    matches.Add(item);
-            }
-
-            return matches;
-        }
-
-        /// <summary>
-        /// Find the index of a matching element.
-        /// </summary>
-        public static int FindIndex<T>(this List<T> list, Predicate<T> func)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (func(list[i]))
-                    return i;
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Whether a matching element exists.
-        /// </summary>
-        public static bool Exists<T>(this List<T> list, Predicate<T> func)
-        {
-            foreach (T item in list)
-            {
-                if (func(item))
-                    return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Remove matching elements of a list.
-        /// </summary>
-        public static void RemoveAll<T>(this List<T> list, Predicate<T> func)
-        {
-            int OpenSlot = 0;
-            int i = 0;
-            int N = list.Count;
-
-            while (i < N)
-            {
-                if (func(list[i]))
-                    i++;
-                else
-                {
-                    list[OpenSlot] = list[i];
-
-                    i++;
-                    OpenSlot++;
-                }
-            }
-
-            list.RemoveRange(OpenSlot, N - OpenSlot);
-        }
-#endif
-        //public static void DeleteAll<T>(this List<T> list, Func<IObject, bool> func)
-        //{
-        //    foreach (T t in list)
-        //    {
-        //        IObject obj = t as IObject;
-
-        //        if (null != obj && func(obj))
-        //            obj.Core.MarkedForDeletion = true;
-        //    }
-        //}
-
         /// <summary>
         /// Loop through a list, knowing both the element and its index.
         /// </summary>
@@ -538,9 +443,9 @@ namespace CloudberryKingdom
             }
         }
 
-
-        public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range) where T : class
-                                                                               where S : class
+        public static void AddRangeAndConvert<T, S>(this List<T> list, List<S> range)
+            where T : class
+            where S : class
         {
             foreach (S s in range)
                 list.Add(s as T);
@@ -606,7 +511,6 @@ namespace CloudberryKingdom
 
         public static void Log(string dump)
         {
-#if !XDK && !XBOX && WINDOWS
             dump = string.Format("Dump report at {0}\n----------------------------------\n\n{1}", DateTime.Now, dump);
 
             var stream = File.Open("dump", FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
@@ -614,7 +518,6 @@ namespace CloudberryKingdom
             writer.Write(dump);
             writer.Close();
             stream.Close();
-#endif
         }
 
 
@@ -708,10 +611,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         new ThreadStart(
             delegate
             {
-#if XBOX && !WINDOWS
-                //Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
-                Thread.CurrentThread.SetProcessorAffinity(new[] { affinity });
-#endif
                 var ThisThread = Thread.CurrentThread;
                 EventHandler<EventArgs> abort = (s, e) =>
                 {
@@ -736,7 +635,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
                 Name = name,
 #if WINDOWS
                 Priority = ThreadPriority.Highest,
-                //Priority = ThreadPriority.Lowest,
 #endif
     };
 
@@ -759,7 +657,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
             a = b;
             b = temp;
         }
-
 
         public static void RemoveAll<TSource>(List<TSource> source, Func<TSource, bool> remove)
         {
@@ -909,10 +806,6 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static int UpgradeTypes = Tools.GetValues<Upgrade>().Count();//Enum.GetValues(typeof(Upgrade)).Length;
 
         public static XnaInput.KeyboardState Keyboard, PrevKeyboard;
-
-#if XBOX
-        public static XnaInput.KeyboardState[] PlayerKeyboard, PrevPlayerKeyboard;
-#endif
 
 #if WINDOWS
         public static XnaInput.MouseState Mouse, PrevMouse;

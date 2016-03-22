@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-#if PC
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom

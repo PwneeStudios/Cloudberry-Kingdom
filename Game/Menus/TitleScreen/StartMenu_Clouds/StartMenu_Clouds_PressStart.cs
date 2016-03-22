@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
 
-#if XBOX
-using Microsoft.Xna.Framework.GamerServices;
-#endif
-
 using CoreEngine;
 
 namespace CloudberryKingdom
@@ -94,55 +90,6 @@ namespace CloudberryKingdom
 
                 CloudberryKingdomGame.PastPressStart = true;
 
-#if XDK || XBOX
-                if (Gamer.SignedInGamers.Count > 0)
-                {
-                    bool LoadNeeded = false;
-
-                    foreach (var gamer in Gamer.SignedInGamers)
-                    {
-                        int index = (int)gamer.PlayerIndex;
-
-                        if (CoreStorage.Device[index] == null ||
-                            !CoreStorage.Device[index].IsReady)
-                        {
-#if XDK || XBOX
-                            if (!CloudberryKingdomGame.IsDemo)
-                            {
-                                if (CoreStorage.Device[index] != null)
-                                {
-                                    Tools.GameClass.Components.Remove(CoreStorage.Device[index]);
-                                    CoreStorage.Device[index] = null;
-                                }
-
-                                LoadNeeded = true;
-                            }
-#endif
-                        }
-                    }
-
-                    if (LoadNeeded)
-                    {
-                        // Player needs a storage device
-                        if (ButtonCheck.AnyKeyPlayer >= 0 && CoreStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
-                        {
-                            CoreStorage.Device[ButtonCheck.AnyKeyPlayer].ChoseNotToSelectDevice = false;
-                        }
-
-                        SaveGroup.LoadGamers();
-
-                        // Player needs a storage device
-                        if (ButtonCheck.AnyKeyPlayer >= 0 && CoreStorage.Device[ButtonCheck.AnyKeyPlayer] != null)
-                        {
-                            CoreStorage.Device[ButtonCheck.AnyKeyPlayer].NeedsConnection = true;
-                        }
-
-                        Hide();
-                        MyGame.WaitThenDo(1, CallMenu);
-                        return;
-                    }
-                }
-#endif
 				Tools.Write("Forced select avoided");
                 CallMenu();
             }

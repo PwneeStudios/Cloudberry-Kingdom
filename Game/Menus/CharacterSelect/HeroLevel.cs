@@ -1,9 +1,4 @@
-﻿#if PC
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
-
-namespace CloudberryKingdom
+﻿namespace CloudberryKingdom
 {
     public class HeroLevel : CkBaseMenu
     {

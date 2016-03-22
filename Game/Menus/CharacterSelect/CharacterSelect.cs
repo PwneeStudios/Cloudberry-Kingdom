@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-#if PC
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
 using CloudberryKingdom.Bobs;
 
 namespace CloudberryKingdom
@@ -103,30 +99,6 @@ namespace CloudberryKingdom
                 game.AddGameObject(new JoinText(PlayerIndex, this));
             }
             
-            /*
-            if (QuickJoin)
-            {
-#if XBOX || XBOX_SIGNIN
-                if (Player.MyGamer == null)
-                    game.AddGameObject(new SignInMenu(this));
-                else
-                    game.AddGameObject(new SimpleMenu(PlayerIndex, this));
-#else
-                game.AddGameObject(new SimpleMenu(PlayerIndex, this));
-#endif
-            }
-            else
-            {
-#if PC
-                if (PlayerIndex == 0)
-                    game.AddGameObject(new SimpleMenu(PlayerIndex, this));
-                else
-                    game.AddGameObject(new JoinText(this));
-#else
-                game.AddGameObject(new JoinText(this));
-#endif
-            }
-            */
             Tools.EndGUIDraw();
         }
 

@@ -6,14 +6,6 @@ using System.Windows.Forms;
 
 using Microsoft.Xna.Framework;
 
-#if XBOX
-using Microsoft.Xna.Framework.GamerServices;
-#endif
-
-#if XBOX
-#elif !MONO && !SDL2
-#endif
-
 namespace CloudberryKingdom
 {
     public partial class XnaGameClass : Game
@@ -26,10 +18,6 @@ namespace CloudberryKingdom
 
             Tools.Write("XnaGameClass Constructor");
 			
-#if XBOX
-            Components.Add(new GamerServicesComponent(this));
-            Tools.Write("GamerService added");
-#endif
             Content.RootDirectory = "Content";
 
             

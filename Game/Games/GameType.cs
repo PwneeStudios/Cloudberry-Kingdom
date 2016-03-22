@@ -4,9 +4,6 @@ using System.Linq;
 using System.Threading;
 
 using Microsoft.Xna.Framework;
-#if XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-#endif
 
 using CoreEngine;
 using CoreEngine.Random;
@@ -1129,36 +1126,6 @@ namespace CloudberryKingdom
                 }
         }
 
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-        void UpdateSignedInPlayers()
-        {
-            if (CharacterSelectManager.IsShowing) return;
-            if (MyLevel == null) return;
-            if (MyLevel.Watching || MyLevel.Replay) return;
-            if (PauseGame) return;
-            if (PauseLevel) return;
-
-            //foreach (PlayerData player in PlayerManager.ExistingPlayers)
-            try
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    var player = PlayerManager.Players[i];
-
-                    if (player != null && player.Exists && player.StoredName.Length > 0 && player.MyGamer == null)
-                    {
-                        PlayerManager.GetNumPlayers();
-                        if (PlayerManager.NumPlayers > 1)
-                            RemovePlayer(player.MyIndex);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Tools.Write(e.Message);
-            }
-        }
-#endif
         /// <summary>
         /// Whether the game is paused or not.
         /// </summary>
@@ -1296,11 +1263,7 @@ namespace CloudberryKingdom
 
 
             // Quick join
-//#if XBOX
-            if (AllowQuickJoin)
-                QuickJoinPhsx();
-//#endif
-
+            if (AllowQuickJoin) QuickJoinPhsx();
 
             DoToDoList();
 
@@ -1336,10 +1299,6 @@ namespace CloudberryKingdom
                         CoreSoundWad.SuppressSounds |= MyLevel.SuppressSounds;
                         MyLevel.PhsxStep(false);
                         CoreSoundWad.SuppressSounds = HoldSuppress;
-
-#if NOT_PC && (XBOX || XBOX_SIGNIN)
-                        UpdateSignedInPlayers();
-#endif
                     }
                 }
                 else
@@ -1544,29 +1503,6 @@ namespace CloudberryKingdom
 
             list.Clear();
         }
-
-#if PC
-#elif XBOX || XBOX_SIGNIN
-        /*
-        public virtual void OnSignIn(SignedInEventArgs e)
-        {
-            if (AllowQuickJoin)
-            {
-                int i = (int)e.Gamer.PlayerIndex;
-                CreateBob(i, true);
-            }
-        }*/
-
-        public virtual void OnSignOut_ManualEvent(int index)
-        {
-            Tools.CurGameData.RemovePlayer(index);
-        }
-
-        public virtual void OnSignOut(SignedOutEventArgs e)
-        {
-            Tools.CurGameData.RemovePlayer((int)e.Gamer.PlayerIndex);
-        }
-#endif
 
         protected bool OnePast(float x)
         {

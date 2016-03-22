@@ -8,8 +8,6 @@ using CoreEngine;
 
 #if PC
 using SteamManager;
-#elif XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
 #endif
 
 using CloudberryKingdom.Bobs;
@@ -739,8 +737,8 @@ namespace CloudberryKingdom
                         list.Add(player);
                     }
                 }
+
                 return list;
-                //return ExistingPlayers.FindAll(player => player.MyGamer != null || player.StoredName.Length > 0);
 #else
                 return ExistingPlayers;
 #endif

@@ -3,12 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-#if PC
-#elif XDKX || XBOX || XBOX_SIGNIN
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Storage;
-#endif
-
 using CoreEngine;
 using CloudberryKingdom.Bobs;
 
@@ -48,12 +42,6 @@ namespace CloudberryKingdom
 
         public PlayerStats LifetimeStats, GameStats, LevelStats, TempStats;
         public PlayerStats CampaignStats;
-
-#if PC
-#elif XBOX || XBOX_SIGNIN
-        public SignedInGamer _MyGamer;
-        public SignedInGamer MyGamer { get { return CheckForMatchingGamer(); } }
-#endif
 
         public PlayerData()
         {
@@ -98,30 +86,6 @@ namespace CloudberryKingdom
             Chunk.WriteSingle(writer, 84001, Tools.MusicVolume.Val);
             Chunk.WriteSingle(writer, 84002, Tools.SoundVolume.Val);
             Chunk.WriteSingle(writer, 84003, (int)Localization.CurrentLanguage.MyLanguage);
-
-#if XBOX
-            // Player ID
-            if (MyGamer != null)
-            {
-#if XDK
-                ulong xuid = MyGamer.GetXuid();
-                string gamertag = MyGamer.Gamertag;
-#else
-				ulong xuid = 0;
-				string gamertag = "";
-#endif
-                Tools.Write("Saving xuid " + xuid);
-                Tools.Write("Saving gamertag " + gamertag);
-
-                Chunk.WriteSingle(writer, 12001, xuid);
-                Chunk.WriteSingle(writer, 12002, gamertag);
-            }
-            else
-            {
-                // This should never happen
-                Tools.Nothing();
-            }
-#endif
 
 #if CAFE
 #else
@@ -187,38 +151,6 @@ namespace CloudberryKingdom
             //Awardments += 101;
             //Awardments += 102;
         }
-
-#if XBOX
-        bool BelongsToAnotherPlayer()
-        {
-            if (MyGamer == null)
-            {
-                // Should never happen
-                Tools.Nothing();
-                return false;
-            }
-            else
-            {
-#if XDK
-                ulong Actual_Xuid = MyGamer.GetXuid();
-                string Actual_Gamertag = MyGamer.Gamertag;
-#else
-                ulong Actual_Xuid = 0;
-                string Actual_Gamertag = "";
-#endif
-
-                // If both Xuid and Gamertag are different, assume this data belongs to another user.
-                if (Actual_Xuid != LoadedId_Xuid && Actual_Gamertag != LoadedId_Gamertag)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-#endif
 
 		private void ProcessChunk(Chunk chunk)
 		{
@@ -408,21 +340,6 @@ namespace CloudberryKingdom
             return LifetimeStats.Coins - LifetimeStats.CoinsSpentAtShop;
         }
 
-#if XBOX || XBOX_SIGNIN
-		public SignedInGamer CheckForMatchingGamer()
-        {
-            _MyGamer = null;
-
-            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
-                if ((int)gamer.PlayerIndex == MyIndex)
-                    _MyGamer = gamer;
-
-            if (_MyGamer != null)
-                StoredName = _MyGamer.Gamertag;
-
-            return _MyGamer;
-        }
-#endif
         /// <summary>
         /// Gets the color that the player's name should be drawn with.
         /// </summary>
@@ -447,18 +364,10 @@ namespace CloudberryKingdom
 
         public String GetName()
         {
-#if XBOX || XBOX_SIGNIN
-            if (MyGamer != null)
-                return MyGamer.Gamertag;
-            else
-#endif
             if (StoredName.Length > 0)
                 return StoredName;
             else
             {
-				//if (RandomNameIndex == -1)
-				//    RandomNameIndex = Tools.GlobalRnd.RndInt(0, PlayerManager.RandomNames.Length - 1);
-				//return PlayerManager.RandomNames[RandomNameIndex];
 				switch ( MyIndex )
 				{
 					case 0: return "Player 1";

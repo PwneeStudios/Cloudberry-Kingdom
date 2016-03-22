@@ -1,9 +1,5 @@
 using System.Collections.Generic;
 
-#if XBOX
-using Microsoft.Xna.Framework.Net;
-#endif
-
 namespace CloudberryKingdom
 {
     public class ScoreList
