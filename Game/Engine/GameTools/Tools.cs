@@ -1006,8 +1006,8 @@ public static Thread EasyThread(int affinity, string name, Action action)
         public static List<BaseSong> SongList_Standard = new List<BaseSong>();
 
         public static bool FreeCam = false;
-        public static bool DrawBoxes = false;
-        public static bool DrawGraphics = true;
+        public static bool DrawBoxes = CloudberryKingdomGame.LoadResources ? false : true;
+        public static bool DrawGraphics = CloudberryKingdomGame.LoadResources ? true : false;
         public static bool StepControl = false;
         static int _PhsxSpeed = 1;
         public static int PhsxSpeed { get { return _PhsxSpeed; } set { _PhsxSpeed = value; } }

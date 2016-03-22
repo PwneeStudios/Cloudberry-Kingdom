@@ -142,7 +142,14 @@ namespace CoreEngine
 
             if (texture.Tex == null)
             {
-                texture.Load();
+                if (CloudberryKingdomGame.LoadResources)
+                {
+                    texture.Load();
+                }
+                else
+                {
+                    texture.Tex = DefaultTexture.Tex;
+                }
             }
 
             return texture;

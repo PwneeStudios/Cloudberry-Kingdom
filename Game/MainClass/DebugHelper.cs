@@ -150,12 +150,15 @@ namespace CloudberryKingdom
                 }
             }
 
-            // Turn on/off graphics.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Q)) Tools.DrawGraphics = !Tools.DrawGraphics;
-            
-            // Turn on/off drawing of collision detection boxes.
-            if (Tools.Keyboard.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.W)) Tools.DrawBoxes = !Tools.DrawBoxes;
-            
+            if (CloudberryKingdomGame.LoadResources)
+            {
+                // Turn on/off graphics.
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.Q) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.Q)) Tools.DrawGraphics = !Tools.DrawGraphics;
+
+                // Turn on/off drawing of collision detection boxes.
+                if (Tools.Keyboard.IsKeyDownCustom(Keys.W) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.W)) Tools.DrawBoxes = !Tools.DrawBoxes;
+            }
+
             // Turn on/off step control. When activated, this allows you to step forward in the game by pressing <Enter>.
             if (Tools.Keyboard.IsKeyDownCustom(Keys.E) && !Tools.PrevKeyboard.IsKeyDownCustom(Keys.E)) Tools.StepControl = !Tools.StepControl;
             

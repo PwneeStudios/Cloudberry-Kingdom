@@ -395,7 +395,14 @@ namespace CloudberryKingdom
                         Thread.Sleep(100);
                     }
 
-                    Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
+                    if (CloudberryKingdomGame.LoadResources)
+                    {
+                        Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>(Tex.Path);
+                    }
+                    else
+                    {
+                        Tex.Tex = Tools.GameClass.Content.LoadTillSuccess<Texture2D>("White");
+                    }
 
                     count++;
                     Tools.Write ("# loaded = {0}", count);
