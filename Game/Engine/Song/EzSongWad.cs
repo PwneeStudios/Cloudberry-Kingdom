@@ -502,6 +502,8 @@ namespace CoreEngine
 
         public void Play(int Index, bool DisplayInfo)
         {
+            if (!CloudberryKingdomGame.LoadResources) return;
+
             PlayList[CurIndex].LoadSong_IfNotLoaded(PlayList[CurIndex].FileName);
 
             Elapsed = 0;
