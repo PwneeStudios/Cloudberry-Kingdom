@@ -28,7 +28,7 @@ namespace CloudberryKingdom
         // Set this to true if you have all the resources for the full CK release.
         // Set this to false otherwise.
         // The game will crash if you attempt to load resources but do not have them.
-        public const bool LoadResources = false;
+        public const bool LoadResources = true;
 
         // Steam Integration
         // Set this to true to turn on Steam Integrtaion code
