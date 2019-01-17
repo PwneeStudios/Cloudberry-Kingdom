@@ -64,6 +64,20 @@ namespace KeyboardHandler
         /// Event raised when a character has been entered.		
         /// </summary>
         public static event CharEnteredHandler CharEntered;
+
+#if SDL2
+        public static void Initialize(GameWindow window)
+        {
+            TextInputEXT.TextInput += OnTextInput;
+            TextInputEXT.StartTextInput();
+        }
+
+        private static void OnTextInput(char c)
+        {
+            if (CharEntered != null)
+                CharEntered(null, new CharacterEventArgs(c, 0));
+        }
+#else
         /// <summary>
         /// Event raised when a key has been pressed down. May fire multiple times due to keyboard repeat.
         /// </summary>		
@@ -72,6 +86,7 @@ namespace KeyboardHandler
         /// Event raised when a key has been released.		
         /// </summary>		
         public static event KeyEventHandler KeyUp;
+
         delegate IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
         static bool initialized;
         static IntPtr prevWndProc;
@@ -139,6 +154,7 @@ namespace KeyboardHandler
             }
             return returnCode;
         }
+#endif
     }
 }
 #endif

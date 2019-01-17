@@ -74,7 +74,9 @@ namespace CloudberryKingdom
 			//KeyboardExtension.UnfreezeInput();
 
 			//EventInput.CharEntered -= CharEntered;
+#if !SDL2
 			//EventInput.KeyDown -= KeyDown;
+#endif
 #endif
         }
 
@@ -152,7 +154,7 @@ namespace CloudberryKingdom
 					Caret.Show = Tools.TheGame.DrawCount % 65 > 23;
                 }
 
-#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
+#if WINDOWS && !MONO
 				ButtonCheck.DisableSecondaryInput = true;
                 KeyboardExtension.Freeze = false;
 
@@ -404,12 +406,16 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
+#if WINDOWS && !MONO
         void Paste()
         {
             Clear();
 
+#if SDL2
+            string clipboard = SDL2.SDL.SDL_GetClipboardText();
+#else
             string clipboard = System.Windows.Forms.Clipboard.GetText();
+#endif
 
             clipboard = Tools.SantitizeOneLineString(clipboard, Resources.LilFont);
 
@@ -419,7 +425,11 @@ namespace CloudberryKingdom
         void Copy()
         {
             if (Text != null && Text.Length > 0)
+#if SDL2
+                SDL2.SDL.SDL_SetClipboardText(Text);
+#else
                 System.Windows.Forms.Clipboard.SetText(Text);
+#endif
         }
 #endif
 
@@ -572,6 +582,19 @@ namespace CloudberryKingdom
 
             DeleteSelected();
 
+#if SDL2
+            if (e.Character == (char) 8)
+            {
+                Backspace();
+                return;
+            }
+            if (e.Character == (char) 13)
+            {
+                Enter();
+                return;
+            }
+#endif
+
             if (IsAcceptableChar(e.Character) && (!LimitLength || MyText.FirstString().Length < MaxLength))
             {
                 MyText.AppendText(e.Character);
@@ -611,7 +634,7 @@ namespace CloudberryKingdom
 			PosCaret();
         }
 
-#if WINDOWS
+#if WINDOWS && !SDL2
         void KeyDown(object o, KeyEventArgs e)
         {
             if (!Active) return;

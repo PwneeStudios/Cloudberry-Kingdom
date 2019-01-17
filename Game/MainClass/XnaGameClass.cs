@@ -113,7 +113,7 @@ namespace CloudberryKingdom
             base.Draw(gameTime);
         }
 
-#if WINDOWS
+#if WINDOWS && !SDL2
 		public static bool WindowModeSet = false;
 
 		public void FakeFull()
@@ -176,6 +176,21 @@ namespace CloudberryKingdom
             var control = Control.FromHandle(hWnd);
             var form = control.FindForm();
             form.FormBorderStyle = Show ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+        }
+#elif SDL2
+        public static bool WindowModeSet = false;
+
+        public void FakeFull()
+        {
+        }
+
+        public void FakeTab()
+        {
+        }
+
+        public void SetBorder(bool Show)
+        {
+            Tools.GameClass.Window.IsBorderlessEXT = !Show;
         }
 #endif
     }

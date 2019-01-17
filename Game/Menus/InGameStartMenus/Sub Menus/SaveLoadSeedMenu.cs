@@ -72,7 +72,7 @@ namespace CloudberryKingdom
                 AddItem(item);
             }
 
-#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
+#if WINDOWS && !MONO
             if (CanSave)
             {
                 // Copy seed
@@ -409,11 +409,15 @@ namespace CloudberryKingdom
             }
         }
 
-#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
+#if WINDOWS && !MONO
         void Copy(MenuItem _item)
         {
             string seed = Tools.CurLevel.MyLevelSeed.ToString();
+#if SDL2
+            SDL2.SDL.SDL_SetClipboardText(seed);
+#else
             System.Windows.Forms.Clipboard.SetText(seed);
+#endif
 
 			// Show a success window
 			var ok = new AlertBaseMenu(Control, Localization.Words.SeedCopiedSuccessfully, Localization.Words.Hooray);

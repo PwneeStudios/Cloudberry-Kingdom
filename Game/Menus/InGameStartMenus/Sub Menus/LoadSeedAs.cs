@@ -19,10 +19,14 @@ namespace CloudberryKingdom
         {
             string clipboard = null;
 
-#if WINDOWS && !MONO && !SDL2 // FIXME: SDL2 can do this... -flibit
+#if WINDOWS && !MONO
             try
             {
+#if SDL2
+                clipboard = SDL2.SDL.SDL_GetClipboardText();
+#else
                 clipboard = System.Windows.Forms.Clipboard.GetText();
+#endif
             }
             catch
             {
